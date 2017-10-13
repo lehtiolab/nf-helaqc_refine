@@ -1,0 +1,255 @@
+{
+  "a_galaxy_workflow": "true",
+  "annotation": "",
+  "format-version": "0.1",
+  "name": "specquant labelfree msstitch 2.4 (imported from API) (imported from API)",
+  "steps": {
+    "0": {
+      "annotation": "",
+      "content_id": null,
+      "errors": null,
+      "id": 0,
+      "input_connections": {},
+      "inputs": [
+        {
+          "description": "",
+          "name": "spectra"
+        }
+      ],
+      "label": "spectra",
+      "name": "Input dataset collection",
+      "outputs": [],
+      "position": {
+        "left": 200,
+        "top": 442.5
+      },
+      "tool_id": null,
+      "tool_state": "{\"collection_type\": \"list\", \"name\": \"spectra\"}",
+      "tool_version": null,
+      "type": "data_collection_input",
+      "uuid": "3f876b60-10ed-4ef9-9f48-9b259fdbea94",
+      "workflow_outputs": []
+    },
+    "1": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msslookup_spectra/1.1",
+      "errors": null,
+      "id": 1,
+      "input_connections": {
+        "spectra": {
+          "id": 0,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Create lookup table with spectra",
+          "name": "spectra"
+        }
+      ],
+      "label": null,
+      "name": "Create lookup table with spectra",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "sqlite"
+        }
+      ],
+      "position": {
+        "left": 521.5,
+        "top": 394.5
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msslookup_spectra/1.1",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"pools\": \"[]\", \"__page__\": 0, \"__rerun_remap_job_id__\": null, \"spectra\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.1",
+      "type": "tool",
+      "uuid": "ba9d764c-d602-472b-8e58-1ee9affbf2c8",
+      "workflow_outputs": []
+    },
+    "2": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/hardklor/hardklor/2.30.1",
+      "errors": null,
+      "id": 2,
+      "input_connections": {
+        "ms1_in": {
+          "id": 0,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Hardklor",
+          "name": "ms1_in"
+        }
+      ],
+      "label": null,
+      "name": "Hardklor",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "hardklor"
+        }
+      ],
+      "position": {
+        "left": 827.5,
+        "top": 329.5
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/hardklor/hardklor/2.30.1",
+      "tool_shed_repository": {
+        "changeset_revision": "c5b3b7eafd46",
+        "name": "hardklor",
+        "owner": "galaxyp",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"maxfeat\": \"\\\"12\\\"\", \"chMin\": \"\\\"1\\\"\", \"algorithm\": \"\\\"Version2\\\"\", \"__page__\": 0, \"cdm\": \"\\\"Quick\\\"\", \"__rerun_remap_job_id__\": null, \"ms1_in\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"instrument\": \"\\\"Orbitrap\\\"\", \"depth\": \"\\\"2\\\"\", \"corr\": \"\\\"0.95\\\"\", \"res\": \"\\\"60000\\\"\", \"sens\": \"\\\"2\\\"\", \"mslvl\": \"\\\"1\\\"\", \"chMax\": \"\\\"6\\\"\", \"centroided\": \"\\\"0\\\"\"}",
+      "tool_version": "2.30.1",
+      "type": "tool",
+      "uuid": "80c75db9-550e-474c-979f-12f9e648c06f",
+      "workflow_outputs": []
+    },
+    "3": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/hardklor/kronik/2.20",
+      "errors": null,
+      "id": 3,
+      "input_connections": {
+        "inputfile": {
+          "id": 2,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Kronik",
+          "name": "inputfile"
+        }
+      ],
+      "label": null,
+      "name": "Kronik",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "kronik"
+        }
+      ],
+      "position": {
+        "left": 1073.5,
+        "top": 280.5
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/hardklor/kronik/2.20",
+      "tool_shed_repository": {
+        "changeset_revision": "c5b3b7eafd46",
+        "name": "hardklor",
+        "owner": "galaxyp",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": 0, \"c\": \"\\\"5\\\"\", \"d\": \"\\\"3\\\"\", \"g\": \"\\\"1\\\"\", \"__rerun_remap_job_id__\": null, \"m\": \"\\\"8000\\\"\", \"n\": \"\\\"600\\\"\", \"p\": \"\\\"10\\\"\", \"inputfile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "2.20",
+      "type": "tool",
+      "uuid": "02d1842a-5119-4f6e-9164-75dcff3e2b7e",
+      "workflow_outputs": []
+    },
+    "4": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msslookup_quant/1.1",
+      "errors": null,
+      "id": 4,
+      "input_connections": {
+        "dbfile": {
+          "id": 1,
+          "output_name": "output"
+        },
+        "precursor|quantdata": {
+          "id": 3,
+          "output_name": "output"
+        },
+        "spectra": {
+          "id": 0,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Create lookup table with quant data",
+          "name": "precursor"
+        },
+        {
+          "description": "runtime parameter for tool Create lookup table with quant data",
+          "name": "dbfile"
+        },
+        {
+          "description": "runtime parameter for tool Create lookup table with quant data",
+          "name": "spectra"
+        }
+      ],
+      "label": null,
+      "name": "Create lookup table with quant data",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "sqlite"
+        }
+      ],
+      "position": {
+        "left": 1328.5,
+        "top": 258.5
+      },
+      "post_job_actions": {
+        "RenameDatasetActionoutput": {
+          "action_arguments": {
+            "newname": "out: quant lookup.sql"
+          },
+          "action_type": "RenameDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msslookup_quant/1.1",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": null, \"dbfile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"precursor\": \"{\\\"quantdata\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"rttol\\\": \\\"5.0\\\", \\\"yesno\\\": \\\"true\\\", \\\"quanttype\\\": \\\"kronik\\\", \\\"__current_case__\\\": 0, \\\"mztoltype\\\": \\\"ppm\\\", \\\"mztol\\\": \\\"20.0\\\"}\", \"__rerun_remap_job_id__\": null, \"spectra\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"consxml\": \"{\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}\"}",
+      "tool_version": "1.1",
+      "type": "tool",
+      "uuid": "607cd274-da6c-4395-803b-3dd1e0058a28",
+      "workflow_outputs": [
+        {
+          "label": null,
+          "output_name": "output",
+          "uuid": "8a7148ee-d3ad-456c-8488-799a70b114de"
+        }
+      ]
+    }
+  },
+  "uuid": "b91dbd56-a71a-4057-ae7f-699a82f9f714"
+}

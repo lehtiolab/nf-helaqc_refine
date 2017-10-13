@@ -1,0 +1,4920 @@
+{
+  "a_galaxy_workflow": "true",
+  "annotation": "",
+  "format-version": "0.1",
+  "name": "6rf search base v4 (imported from API)",
+  "steps": {
+    "0": {
+      "annotation": "",
+      "content_id": null,
+      "errors": null,
+      "id": 0,
+      "input_connections": {},
+      "inputs": [],
+      "label": "pipeptides db",
+      "name": "Input dataset",
+      "outputs": [],
+      "position": {
+        "left": 665.033447265625,
+        "top": 355.1166687011719
+      },
+      "tool_id": null,
+      "tool_state": "{}",
+      "tool_version": null,
+      "type": "data_input",
+      "uuid": "ce865056-cb7e-42d7-94cf-04f5aa06fb6a",
+      "workflow_outputs": [
+        {
+          "label": null,
+          "output_name": "output",
+          "uuid": "8a3a14de-c257-4c11-978e-08de82ca5aa1"
+        }
+      ]
+    },
+    "1": {
+      "annotation": "",
+      "content_id": null,
+      "errors": null,
+      "id": 1,
+      "input_connections": {},
+      "inputs": [],
+      "label": "psm table normalsearch",
+      "name": "Input dataset",
+      "outputs": [],
+      "position": {
+        "left": 688.916748046875,
+        "top": 570.2666625976562
+      },
+      "tool_id": null,
+      "tool_state": "{}",
+      "tool_version": null,
+      "type": "data_input",
+      "uuid": "764ae6f1-18ff-48d6-a0c8-aa31069b0ff4",
+      "workflow_outputs": [
+        {
+          "label": null,
+          "output_name": "output",
+          "uuid": "9baeaac2-3b3e-44fa-a8be-7c9d2d24683f"
+        }
+      ]
+    },
+    "10": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
+      "errors": null,
+      "id": 10,
+      "input_connections": {
+        "infile": {
+          "id": 1,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Text transformation",
+          "name": "infile"
+        }
+      ],
+      "label": "Remove # from SpecFile and PSM q-val",
+      "name": "Text transformation",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 900.783447265625,
+        "top": 390.51666259765625
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
+      "tool_shed_repository": {
+        "changeset_revision": "4c752559b236",
+        "name": "text_processing",
+        "owner": "bgruening",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"adv_opts\": \"{\\\"adv_opts_selector\\\": \\\"basic\\\", \\\"__current_case__\\\": 0}\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"code\": \"\\\"s/\\\\\\\\#SpecFile/SpecFile/;s/PSM q-value/PSM FDR/\\\"\", \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.1.0",
+      "type": "tool",
+      "uuid": "7324d4e8-fe29-408a-98af-f003d019abd2",
+      "workflow_outputs": []
+    },
+    "11": {
+      "annotation": "Normalization protein isobaric ratio table---\nProtein table with unnormalized ratios  (median of PSM ratios per protein). Used for calculating medians for normalizing in later steps.",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspsmtable_split/1.1",
+      "errors": null,
+      "id": 11,
+      "input_connections": {
+        "input": {
+          "id": 1,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Split tabular data",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Split tabular data",
+      "outputs": [
+        {
+          "name": "splitpsms",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 2747.783401489258,
+        "top": 1156.433349609375
+      },
+      "post_job_actions": {
+        "HideDatasetActionsplitpsms": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "splitpsms"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspsmtable_split/1.1",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"splitcol\": \"\\\"2\\\"\", \"__page__\": null}",
+      "tool_version": "1.1",
+      "type": "tool",
+      "uuid": "72b42420-f188-4e2e-9bc3-99074497b9f7",
+      "workflow_outputs": []
+    },
+    "12": {
+      "annotation": "",
+      "content_id": "__SORTLIST__",
+      "errors": null,
+      "id": 12,
+      "input_connections": {
+        "input": {
+          "id": 2,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Sort Collection",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Sort Collection",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 200,
+        "top": 882.1999969482422
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "__SORTLIST__",
+      "tool_state": "{\"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"sort_type\": \"\\\"alpha\\\"\", \"__rerun_remap_job_id__\": null, \"__page__\": null}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "11effe70-7900-47c6-8320-0abecb6ac2f1",
+      "workflow_outputs": []
+    },
+    "13": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
+      "errors": null,
+      "id": 13,
+      "input_connections": {
+        "infile": {
+          "id": 9,
+          "output_name": "outfile"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Text transformation",
+          "name": "infile"
+        }
+      ],
+      "label": "prefix 6FT to peptide IDs",
+      "name": "Text transformation",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 1152.36669921875,
+        "top": 393.0333251953125
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
+      "tool_shed_repository": {
+        "changeset_revision": "4c752559b236",
+        "name": "text_processing",
+        "owner": "bgruening",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"adv_opts\": \"{\\\"adv_opts_selector\\\": \\\"basic\\\", \\\"__current_case__\\\": 0}\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"code\": \"\\\"s/^/6FT_/\\\"\", \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.1.0",
+      "type": "tool",
+      "uuid": "1ee22ebd-089e-4634-b771-2c2e5fd65f36",
+      "workflow_outputs": []
+    },
+    "14": {
+      "annotation": "",
+      "content_id": "Cut1",
+      "errors": null,
+      "id": 14,
+      "input_connections": {
+        "input": {
+          "id": 10,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Cut",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Cut",
+      "outputs": [
+        {
+          "name": "out_file1",
+          "type": "tabular"
+        }
+      ],
+      "position": {
+        "left": 935.283447265625,
+        "top": 544.816650390625
+      },
+      "post_job_actions": {
+        "HideDatasetActionout_file1": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "out_file1"
+        }
+      },
+      "tool_id": "Cut1",
+      "tool_state": "{\"columnList\": \"\\\"c1\\\"\", \"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"delimiter\": \"\\\"T\\\"\", \"__rerun_remap_job_id__\": null, \"__page__\": null}",
+      "tool_version": "1.0.2",
+      "type": "tool",
+      "uuid": "13946589-cc24-40bc-8261-84d5c627a5d0",
+      "workflow_outputs": []
+    },
+    "15": {
+      "annotation": "Normalization protein isobaric ratio table---\nProtein table with unnormalized ratios  (median of PSM ratios per protein). Used for calculating medians for normalizing in later steps.",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/create_protein_table/1.2",
+      "errors": null,
+      "id": 15,
+      "input_connections": {
+        "psmtable": {
+          "id": 11,
+          "output_name": "splitpsms"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Create protein table",
+          "name": "psmtable"
+        }
+      ],
+      "label": null,
+      "name": "Create protein table",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "tabular"
+        }
+      ],
+      "position": {
+        "left": 3092.416732788086,
+        "top": 1165.5
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/create_protein_table/1.2",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": null, \"accessioncol\": \"\\\"13\\\"\", \"__rerun_remap_job_id__\": null, \"psmtable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"ms1quant\": \"\\\"false\\\"\", \"isoquant\": \"{\\\"normalize\\\": {\\\"type\\\": \\\"false\\\", \\\"__current_case__\\\": 0}, \\\"yesno\\\": \\\"true\\\", \\\"setdenoms\\\": [], \\\"minint\\\": \\\"0.1\\\", \\\"__current_case__\\\": 1, \\\"isobpattern\\\": \\\"plex\\\"}\"}",
+      "tool_version": "1.2",
+      "type": "tool",
+      "uuid": "9ef494fa-b0bc-4bc6-9076-4814aeafcd25",
+      "workflow_outputs": []
+    },
+    "16": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_input_output/write_element_ids/0.1",
+      "errors": null,
+      "id": 16,
+      "input_connections": {
+        "input": {
+          "id": 12,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Write element identifiers",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Write element identifiers",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "tabular"
+        }
+      ],
+      "position": {
+        "left": 367,
+        "top": 820.4333343505859
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_input_output/write_element_ids/0.1",
+      "tool_shed_repository": {
+        "changeset_revision": "85a8cf9edb19",
+        "name": "lehtio_input_output",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"__page__\": null}",
+      "tool_version": "0.1",
+      "type": "tool",
+      "uuid": "34dacb67-6ae9-4d8e-ab6f-47b82bed2c13",
+      "workflow_outputs": []
+    },
+    "17": {
+      "annotation": "Plate sed---\n\nFor example (2 plates):\ns/.*(IPG3-10).*\\.mzML/\\1/;s/.*(IPG37-49).*\\.mzML/\\1/;s/SpecFile/Plate/",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
+      "errors": null,
+      "id": 17,
+      "input_connections": {
+        "infile": {
+          "id": 14,
+          "output_name": "out_file1"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Text transformation",
+          "name": "code"
+        },
+        {
+          "description": "runtime parameter for tool Text transformation",
+          "name": "infile"
+        }
+      ],
+      "label": null,
+      "name": "Text transformation",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 1147.666748046875,
+        "top": 286.70001220703125
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
+      "tool_shed_repository": {
+        "changeset_revision": "4c752559b236",
+        "name": "text_processing",
+        "owner": "bgruening",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"adv_opts\": \"{\\\"adv_opts_selector\\\": \\\"basic\\\", \\\"__current_case__\\\": 0}\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"code\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.1.0",
+      "type": "tool",
+      "uuid": "bb2b2580-2717-4a0d-a8e6-208790dc2a70",
+      "workflow_outputs": []
+    },
+    "18": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
+      "errors": null,
+      "id": 18,
+      "input_connections": {
+        "infile": {
+          "id": 16,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Text transformation",
+          "name": "infile"
+        }
+      ],
+      "label": null,
+      "name": "Text transformation",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 372,
+        "top": 998.4333343505859
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
+      "tool_shed_repository": {
+        "changeset_revision": "4c752559b236",
+        "name": "text_processing",
+        "owner": "bgruening",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"adv_opts\": \"{\\\"adv_opts_selector\\\": \\\"basic\\\", \\\"__current_case__\\\": 0}\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"code\": \"\\\"s/\\\\\\\\-/_/g\\\"\", \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.1.0",
+      "type": "tool",
+      "uuid": "d523bcbf-36fe-422d-9b4d-22e4b8a03087",
+      "workflow_outputs": []
+    },
+    "19": {
+      "annotation": "",
+      "content_id": "Paste1",
+      "errors": null,
+      "id": 19,
+      "input_connections": {
+        "input1": {
+          "id": 17,
+          "output_name": "output"
+        },
+        "input2": {
+          "id": 1,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Paste",
+          "name": "input2"
+        },
+        {
+          "description": "runtime parameter for tool Paste",
+          "name": "input1"
+        }
+      ],
+      "label": null,
+      "name": "Paste",
+      "outputs": [
+        {
+          "name": "out_file1",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 1387.85009765625,
+        "top": 260.25
+      },
+      "post_job_actions": {
+        "HideDatasetActionout_file1": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "out_file1"
+        }
+      },
+      "tool_id": "Paste1",
+      "tool_state": "{\"input2\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__page__\": null, \"delimiter\": \"\\\"T\\\"\", \"input1\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "82d59c44-5326-4713-8fb0-ff256be10013",
+      "workflow_outputs": []
+    },
+    "2": {
+      "annotation": "",
+      "content_id": null,
+      "errors": null,
+      "id": 2,
+      "input_connections": {},
+      "inputs": [
+        {
+          "description": "",
+          "name": "spectra"
+        }
+      ],
+      "label": "spectra",
+      "name": "Input dataset collection",
+      "outputs": [],
+      "position": {
+        "left": 693.716796875,
+        "top": 1316.816650390625
+      },
+      "tool_id": null,
+      "tool_state": "{\"collection_type\": \"list\", \"name\": \"spectra\"}",
+      "tool_version": null,
+      "type": "data_collection_input",
+      "uuid": "ddff31d3-0ef2-4d2a-8ce5-e953a56d8f97",
+      "workflow_outputs": [
+        {
+          "label": null,
+          "output_name": "output",
+          "uuid": "d0343c0d-bd9e-45f2-bb0c-0f3ad6c6c7f5"
+        }
+      ]
+    },
+    "20": {
+      "annotation": "",
+      "content_id": "Paste1",
+      "errors": null,
+      "id": 20,
+      "input_connections": {
+        "input1": {
+          "id": 16,
+          "output_name": "output"
+        },
+        "input2": {
+          "id": 18,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Paste",
+          "name": "input2"
+        },
+        {
+          "description": "runtime parameter for tool Paste",
+          "name": "input1"
+        }
+      ],
+      "label": null,
+      "name": "Paste",
+      "outputs": [
+        {
+          "name": "out_file1",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 600,
+        "top": 827.4333343505859
+      },
+      "post_job_actions": {
+        "HideDatasetActionout_file1": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "out_file1"
+        }
+      },
+      "tool_id": "Paste1",
+      "tool_state": "{\"input2\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__page__\": null, \"delimiter\": \"\\\"T\\\"\", \"input1\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "1fc6f24f-4fa9-4423-8e71-06079f00c3ea",
+      "workflow_outputs": []
+    },
+    "21": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspsmtable_split/1.1",
+      "errors": null,
+      "id": 21,
+      "input_connections": {
+        "input": {
+          "id": 19,
+          "output_name": "out_file1"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Split tabular data",
+          "name": "input"
+        }
+      ],
+      "label": "split on set",
+      "name": "Split tabular data",
+      "outputs": [
+        {
+          "name": "splitpsms",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 1566.716796875,
+        "top": 243.25
+      },
+      "post_job_actions": {
+        "HideDatasetActionsplitpsms": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "splitpsms"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspsmtable_split/1.1",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"splitcol\": \"\\\"3\\\"\", \"__page__\": null}",
+      "tool_version": "1.1",
+      "type": "tool",
+      "uuid": "48876086-2d52-445e-8041-79488a26afb1",
+      "workflow_outputs": []
+    },
+    "22": {
+      "annotation": "",
+      "content_id": "__RELABEL_FROM_FILE__",
+      "errors": null,
+      "id": 22,
+      "input_connections": {
+        "how|labels": {
+          "id": 20,
+          "output_name": "out_file1"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Relabel List Identifiers",
+          "name": "input"
+        },
+        {
+          "description": "runtime parameter for tool Relabel List Identifiers",
+          "name": "how"
+        }
+      ],
+      "label": null,
+      "name": "Relabel List Identifiers",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 600,
+        "top": 962.4333343505859
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "__RELABEL_FROM_FILE__",
+      "tool_state": "{\"__page__\": null, \"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"how\": \"{\\\"labels\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"strict\\\": \\\"false\\\", \\\"how_select\\\": \\\"tabular\\\", \\\"__current_case__\\\": 1}\"}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "b2ecc9d4-ac21-44c3-bd3e-3beccb139429",
+      "workflow_outputs": []
+    },
+    "23": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/create_peptide_table/1.2",
+      "errors": null,
+      "id": 23,
+      "input_connections": {
+        "psmtable": {
+          "id": 21,
+          "output_name": "splitpsms"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Create peptide table",
+          "name": "psmtable"
+        }
+      ],
+      "label": null,
+      "name": "Create peptide table",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "tabular"
+        }
+      ],
+      "position": {
+        "left": 1772.35009765625,
+        "top": 239.25
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/create_peptide_table/1.2",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"scorecol\": \"\\\"area\\\"\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"fncol\": \"\\\"2\\\"\", \"psmtable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"precurqcolpattern\": \"\\\"\\\"\", \"isoquant\": \"{\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 0}\"}",
+      "tool_version": "1.2",
+      "type": "tool",
+      "uuid": "fe08dde2-4bc7-4878-a6af-cb85b35714b6",
+      "workflow_outputs": []
+    },
+    "24": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_input_output/write_element_ids/0.1",
+      "errors": null,
+      "id": 24,
+      "input_connections": {
+        "input": {
+          "id": 22,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Write element identifiers",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Write element identifiers",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "tabular"
+        }
+      ],
+      "position": {
+        "left": 661.033447265625,
+        "top": 674.6166687011719
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_input_output/write_element_ids/0.1",
+      "tool_shed_repository": {
+        "changeset_revision": "85a8cf9edb19",
+        "name": "lehtio_input_output",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"__page__\": null}",
+      "tool_version": "0.1",
+      "type": "tool",
+      "uuid": "87f8e13c-3d2d-410d-ac75-c609406beca9",
+      "workflow_outputs": []
+    },
+    "25": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspsmtable_split/1.1",
+      "errors": null,
+      "id": 25,
+      "input_connections": {
+        "input": {
+          "id": 23,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Split tabular data",
+          "name": "input"
+        }
+      ],
+      "label": "split on plate",
+      "name": "Split tabular data",
+      "outputs": [
+        {
+          "name": "splitpsms",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 2008.166748046875,
+        "top": 228.066650390625
+      },
+      "post_job_actions": {
+        "HideDatasetActionsplitpsms": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "splitpsms"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspsmtable_split/1.1",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"splitcol\": \"\\\"2\\\"\", \"__page__\": null}",
+      "tool_version": "1.1",
+      "type": "tool",
+      "uuid": "5742081a-3341-4bce-bf4f-2f80907d8873",
+      "workflow_outputs": []
+    },
+    "26": {
+      "annotation": "Set sed---\n\nFor example\ns/.*(set[0-9]).*\\.mzML/\\1/",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
+      "errors": null,
+      "id": 26,
+      "input_connections": {
+        "infile": {
+          "id": 24,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Text transformation",
+          "name": "code"
+        },
+        {
+          "description": "runtime parameter for tool Text transformation",
+          "name": "infile"
+        }
+      ],
+      "label": "Set sed",
+      "name": "Text transformation",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 945.916748046875,
+        "top": 677.8166656494141
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
+      "tool_shed_repository": {
+        "changeset_revision": "4c752559b236",
+        "name": "text_processing",
+        "owner": "bgruening",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"adv_opts\": \"{\\\"adv_opts_selector\\\": \\\"basic\\\", \\\"__current_case__\\\": 0}\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"code\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.1.0",
+      "type": "tool",
+      "uuid": "2e9f747d-2d8f-417f-b0da-df835ebbf243",
+      "workflow_outputs": []
+    },
+    "27": {
+      "annotation": "Plate sed---\n\nFor example (2 plates):\ns/.*(IPG3-10).*\\.mzML/\\1/;s/.*(IPG37-49).*\\.mzML/\\1/",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
+      "errors": null,
+      "id": 27,
+      "input_connections": {
+        "infile": {
+          "id": 24,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Text transformation",
+          "name": "code"
+        },
+        {
+          "description": "runtime parameter for tool Text transformation",
+          "name": "infile"
+        }
+      ],
+      "label": "Plate sed",
+      "name": "Text transformation",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 946.85009765625,
+        "top": 808.5666656494141
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
+      "tool_shed_repository": {
+        "changeset_revision": "4c752559b236",
+        "name": "text_processing",
+        "owner": "bgruening",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"adv_opts\": \"{\\\"adv_opts_selector\\\": \\\"basic\\\", \\\"__current_case__\\\": 0}\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"code\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.1.0",
+      "type": "tool",
+      "uuid": "f12d3143-2046-4dcd-9b52-a472d2514c30",
+      "workflow_outputs": []
+    },
+    "28": {
+      "annotation": "",
+      "content_id": "__FLATTEN__",
+      "errors": null,
+      "id": 28,
+      "input_connections": {
+        "input": {
+          "id": 25,
+          "output_name": "splitpsms"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Flatten Collection",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Flatten Collection",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 2235.550048828125,
+        "top": 220.63336181640625
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "__FLATTEN__",
+      "tool_state": "{\"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"join_identifier\": \"\\\"_\\\"\", \"__page__\": null}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "e1bf49e7-14e6-4ab1-b10e-c9a0087c9ebf",
+      "workflow_outputs": []
+    },
+    "29": {
+      "annotation": "",
+      "content_id": "Paste1",
+      "errors": null,
+      "id": 29,
+      "input_connections": {
+        "input1": {
+          "id": 24,
+          "output_name": "output"
+        },
+        "input2": {
+          "id": 26,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Paste",
+          "name": "input2"
+        },
+        {
+          "description": "runtime parameter for tool Paste",
+          "name": "input1"
+        }
+      ],
+      "label": null,
+      "name": "Paste",
+      "outputs": [
+        {
+          "name": "out_file1",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 1195.216796875,
+        "top": 549
+      },
+      "post_job_actions": {
+        "HideDatasetActionout_file1": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "out_file1"
+        }
+      },
+      "tool_id": "Paste1",
+      "tool_state": "{\"input2\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__page__\": null, \"delimiter\": \"\\\"T\\\"\", \"input1\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "417500f1-fe6f-4706-97c2-201542f7ccbd",
+      "workflow_outputs": []
+    },
+    "3": {
+      "annotation": "",
+      "content_id": null,
+      "errors": null,
+      "id": 3,
+      "input_connections": {},
+      "inputs": [
+        {
+          "description": "",
+          "name": "quant lookup"
+        }
+      ],
+      "label": "quant lookup",
+      "name": "Input dataset",
+      "outputs": [],
+      "position": {
+        "left": 705.033447265625,
+        "top": 1107.816650390625
+      },
+      "tool_id": null,
+      "tool_state": "{\"name\": \"quant lookup\"}",
+      "tool_version": null,
+      "type": "data_input",
+      "uuid": "703bb094-3892-44cd-ab19-6e1e037d1efc",
+      "workflow_outputs": [
+        {
+          "label": null,
+          "output_name": "output",
+          "uuid": "f97bad55-631b-43de-896f-a4a7494db0b1"
+        }
+      ]
+    },
+    "30": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/hirieftools/pi_db_split/1.1",
+      "errors": null,
+      "id": 30,
+      "input_connections": {
+        "peptable": {
+          "id": 28,
+          "output_name": "output"
+        },
+        "pipeptides": {
+          "id": 13,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Split peptide database",
+          "name": "pipeptides"
+        },
+        {
+          "description": "runtime parameter for tool Split peptide database",
+          "name": "peptable"
+        }
+      ],
+      "label": null,
+      "name": "Split peptide database",
+      "outputs": [
+        {
+          "name": "target_pi_db",
+          "type": "input"
+        },
+        {
+          "name": "decoy_pi_db",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 1765.166748046875,
+        "top": 622.0666656494141
+      },
+      "post_job_actions": {
+        "HideDatasetActiondecoy_pi_db": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "decoy_pi_db"
+        },
+        "HideDatasetActiontarget_pi_db": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "target_pi_db"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/hirieftools/pi_db_split/1.1",
+      "tool_shed_repository": {
+        "changeset_revision": "8a30d6e5b97d",
+        "name": "hirieftools",
+        "owner": "galaxyp",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"pipeptides\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"strips\": \"[]\", \"peptable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"minlen\": \"\\\"8\\\"\", \"fdrcol\": \"\\\"\\\"\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"fdrcolpattern\": \"\\\"^q-value\\\"\", \"maxlen\": \"\\\"50\\\"\", \"deltacol\": \"\\\"\\\"\", \"deltacolpattern\": \"\\\"Delta\\\"\", \"fdrcutoff\": \"\\\"0.0\\\"\"}",
+      "tool_version": "1.1",
+      "type": "tool",
+      "uuid": "dab4760f-2b2c-4191-9a1f-69820a341ec3",
+      "workflow_outputs": []
+    },
+    "31": {
+      "annotation": "",
+      "content_id": "Paste1",
+      "errors": null,
+      "id": 31,
+      "input_connections": {
+        "input1": {
+          "id": 29,
+          "output_name": "out_file1"
+        },
+        "input2": {
+          "id": 27,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Paste",
+          "name": "input2"
+        },
+        {
+          "description": "runtime parameter for tool Paste",
+          "name": "input1"
+        }
+      ],
+      "label": null,
+      "name": "Paste",
+      "outputs": [
+        {
+          "name": "out_file1",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 1243.166748046875,
+        "top": 726.8666687011719
+      },
+      "post_job_actions": {
+        "HideDatasetActionout_file1": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "out_file1"
+        }
+      },
+      "tool_id": "Paste1",
+      "tool_state": "{\"input2\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__page__\": null, \"delimiter\": \"\\\"T\\\"\", \"input1\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "ba53e9d7-d447-40a9-8662-3f700dfc6671",
+      "workflow_outputs": []
+    },
+    "32": {
+      "annotation": "",
+      "content_id": "Show beginning1",
+      "errors": null,
+      "id": 32,
+      "input_connections": {
+        "input": {
+          "id": 31,
+          "output_name": "out_file1"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Select first",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Select first",
+      "outputs": [
+        {
+          "name": "out_file1",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 1388.666748046875,
+        "top": 417.433349609375
+      },
+      "post_job_actions": {
+        "HideDatasetActionout_file1": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "out_file1"
+        }
+      },
+      "tool_id": "Show beginning1",
+      "tool_state": "{\"__page__\": null, \"lineNum\": \"\\\"1\\\"\", \"__rerun_remap_job_id__\": null, \"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "f1a21ac6-3988-4f28-827e-51c3a3049cf1",
+      "workflow_outputs": []
+    },
+    "33": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
+      "errors": null,
+      "id": 33,
+      "input_connections": {
+        "infile": {
+          "id": 31,
+          "output_name": "out_file1"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Text transformation",
+          "name": "infile"
+        }
+      ],
+      "label": "s/tab/Underscore for plate/set columns",
+      "name": "Text transformation",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 2467.416748046875,
+        "top": 200
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
+      "tool_shed_repository": {
+        "changeset_revision": "4c752559b236",
+        "name": "text_processing",
+        "owner": "bgruening",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"adv_opts\": \"{\\\"adv_opts_selector\\\": \\\"basic\\\", \\\"__current_case__\\\": 0}\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"code\": \"\\\"s/(.*)\\\\\\\\t(.*)\\\\\\\\t(.*)/\\\\\\\\2_\\\\\\\\3_\\\\\\\\1\\\\\\\\t\\\\\\\\1/\\\"\", \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.1.0",
+      "type": "tool",
+      "uuid": "f0928dad-4bbd-49c2-8196-3762de1a6956",
+      "workflow_outputs": []
+    },
+    "34": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
+      "errors": null,
+      "id": 34,
+      "input_connections": {
+        "infile": {
+          "id": 32,
+          "output_name": "out_file1"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Text transformation",
+          "name": "infile"
+        }
+      ],
+      "label": null,
+      "name": "Text transformation",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 1403.716796875,
+        "top": 565.7666625976562
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
+      "tool_shed_repository": {
+        "changeset_revision": "4c752559b236",
+        "name": "text_processing",
+        "owner": "bgruening",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"adv_opts\": \"{\\\"adv_opts_selector\\\": \\\"basic\\\", \\\"__current_case__\\\": 0}\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"code\": \"\\\"s/.*/Specfile\\\\\\\\tSet\\\\\\\\tPlate/\\\"\", \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.1.0",
+      "type": "tool",
+      "uuid": "96892228-eec4-4e27-8fc8-d9539ea72540",
+      "workflow_outputs": []
+    },
+    "35": {
+      "annotation": "",
+      "content_id": "cat1",
+      "errors": null,
+      "id": 35,
+      "input_connections": {
+        "input1": {
+          "id": 34,
+          "output_name": "output"
+        },
+        "queries_0|input2": {
+          "id": 31,
+          "output_name": "out_file1"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Concatenate datasets",
+          "name": "input1"
+        }
+      ],
+      "label": null,
+      "name": "Concatenate datasets",
+      "outputs": [
+        {
+          "name": "out_file1",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 1479.85009765625,
+        "top": 702.5666656494141
+      },
+      "post_job_actions": {
+        "HideDatasetActionout_file1": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "out_file1"
+        }
+      },
+      "tool_id": "cat1",
+      "tool_state": "{\"__page__\": null, \"__rerun_remap_job_id__\": null, \"input1\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"queries\": \"[{\\\"input2\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"__index__\\\": 0}]\"}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "a9ba77ad-73be-4a27-8762-7ad85f4d3d64",
+      "workflow_outputs": []
+    },
+    "36": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspsmtable_split/1.1",
+      "errors": null,
+      "id": 36,
+      "input_connections": {
+        "input": {
+          "id": 35,
+          "output_name": "out_file1"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Split tabular data",
+          "name": "input"
+        }
+      ],
+      "label": "set split specfilenames",
+      "name": "Split tabular data",
+      "outputs": [
+        {
+          "name": "splitpsms",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 1634.783447265625,
+        "top": 362.316650390625
+      },
+      "post_job_actions": {
+        "HideDatasetActionsplitpsms": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "splitpsms"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspsmtable_split/1.1",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"splitcol\": \"\\\"2\\\"\", \"__page__\": null}",
+      "tool_version": "1.1",
+      "type": "tool",
+      "uuid": "1d47b327-6274-49cb-85fc-c5a3458a75c0",
+      "workflow_outputs": []
+    },
+    "37": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspsmtable_split/1.1",
+      "errors": null,
+      "id": 37,
+      "input_connections": {
+        "input": {
+          "id": 36,
+          "output_name": "splitpsms"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Split tabular data",
+          "name": "input"
+        }
+      ],
+      "label": "plate split specfilenames",
+      "name": "Split tabular data",
+      "outputs": [
+        {
+          "name": "splitpsms",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 1645.35009765625,
+        "top": 492.3833312988281
+      },
+      "post_job_actions": {
+        "HideDatasetActionsplitpsms": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "splitpsms"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspsmtable_split/1.1",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"splitcol\": \"\\\"3\\\"\", \"__page__\": null}",
+      "tool_version": "1.1",
+      "type": "tool",
+      "uuid": "d66c26da-c339-4de1-b837-1df8f5557f49",
+      "workflow_outputs": []
+    },
+    "38": {
+      "annotation": "",
+      "content_id": "Remove beginning1",
+      "errors": null,
+      "id": 38,
+      "input_connections": {
+        "input": {
+          "id": 37,
+          "output_name": "splitpsms"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Remove beginning",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Remove beginning",
+      "outputs": [
+        {
+          "name": "out_file1",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 1918.800048828125,
+        "top": 367.51666259765625
+      },
+      "post_job_actions": {
+        "HideDatasetActionout_file1": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "out_file1"
+        }
+      },
+      "tool_id": "Remove beginning1",
+      "tool_state": "{\"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"num_lines\": \"\\\"1\\\"\", \"__page__\": null}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "b736dfd9-188b-42dc-b099-68bdc9b5f2a2",
+      "workflow_outputs": []
+    },
+    "39": {
+      "annotation": "",
+      "content_id": "Cut1",
+      "errors": null,
+      "id": 39,
+      "input_connections": {
+        "input": {
+          "id": 38,
+          "output_name": "out_file1"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Cut",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Cut",
+      "outputs": [
+        {
+          "name": "out_file1",
+          "type": "tabular"
+        }
+      ],
+      "position": {
+        "left": 2147.166748046875,
+        "top": 380.6333312988281
+      },
+      "post_job_actions": {
+        "HideDatasetActionout_file1": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "out_file1"
+        }
+      },
+      "tool_id": "Cut1",
+      "tool_state": "{\"columnList\": \"\\\"c1\\\"\", \"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"delimiter\": \"\\\"T\\\"\", \"__rerun_remap_job_id__\": null, \"__page__\": null}",
+      "tool_version": "1.0.2",
+      "type": "tool",
+      "uuid": "f4618b03-7cb7-47a1-b23d-120bea160c4f",
+      "workflow_outputs": []
+    },
+    "4": {
+      "annotation": "",
+      "content_id": null,
+      "errors": null,
+      "id": 4,
+      "input_connections": {},
+      "inputs": [],
+      "label": "knownpep db",
+      "name": "Input dataset",
+      "outputs": [],
+      "position": {
+        "left": 716.783447265625,
+        "top": 1391.1333618164062
+      },
+      "tool_id": null,
+      "tool_state": "{}",
+      "tool_version": null,
+      "type": "data_input",
+      "uuid": "34cf23ec-b37c-4493-82a0-a389ec3d03ba",
+      "workflow_outputs": [
+        {
+          "label": null,
+          "output_name": "output",
+          "uuid": "ae3b2926-3ca3-4ac5-9ac7-67a15c60c2bb"
+        }
+      ]
+    },
+    "40": {
+      "annotation": "",
+      "content_id": "__FLATTEN__",
+      "errors": null,
+      "id": 40,
+      "input_connections": {
+        "input": {
+          "id": 39,
+          "output_name": "out_file1"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Flatten Collection",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Flatten Collection",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 2364.61669921875,
+        "top": 353.566650390625
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "__FLATTEN__",
+      "tool_state": "{\"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"join_identifier\": \"\\\"_\\\"\", \"__page__\": null}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "32faf279-3817-427e-a537-d22bf404ee5a",
+      "workflow_outputs": []
+    },
+    "41": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/hirieftools/pi_dbspec_align/0.3",
+      "errors": null,
+      "id": 41,
+      "input_connections": {
+        "databases": {
+          "id": 30,
+          "output_name": "target_pi_db"
+        },
+        "specnames": {
+          "id": 40,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Align DB fractions",
+          "name": "specnames"
+        },
+        {
+          "description": "runtime parameter for tool Align DB fractions",
+          "name": "frspec"
+        },
+        {
+          "description": "runtime parameter for tool Align DB fractions",
+          "name": "firstfr"
+        },
+        {
+          "description": "runtime parameter for tool Align DB fractions",
+          "name": "databases"
+        }
+      ],
+      "label": null,
+      "name": "Align DB fractions",
+      "outputs": [
+        {
+          "name": "aligned_db",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 2145.8834228515625,
+        "top": 549.6666564941406
+      },
+      "post_job_actions": {
+        "HideDatasetActionaligned_db": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "aligned_db"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/hirieftools/pi_dbspec_align/0.3",
+      "tool_shed_repository": {
+        "changeset_revision": "78afc81ab244",
+        "name": "hirieftools",
+        "owner": "galaxyp",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": null, \"specnames\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"firstfr\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"databases\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"frspec\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "0.3",
+      "type": "tool",
+      "uuid": "bde98587-215d-44a9-a48f-b4bd8c366733",
+      "workflow_outputs": []
+    },
+    "42": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/hirieftools/pi_dbspec_align/0.3",
+      "errors": null,
+      "id": 42,
+      "input_connections": {
+        "databases": {
+          "id": 30,
+          "output_name": "decoy_pi_db"
+        },
+        "specnames": {
+          "id": 40,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Align DB fractions",
+          "name": "specnames"
+        },
+        {
+          "description": "runtime parameter for tool Align DB fractions",
+          "name": "frspec"
+        },
+        {
+          "description": "runtime parameter for tool Align DB fractions",
+          "name": "firstfr"
+        },
+        {
+          "description": "runtime parameter for tool Align DB fractions",
+          "name": "databases"
+        }
+      ],
+      "label": null,
+      "name": "Align DB fractions",
+      "outputs": [
+        {
+          "name": "aligned_db",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 2156.8834228515625,
+        "top": 726.6666564941406
+      },
+      "post_job_actions": {
+        "HideDatasetActionaligned_db": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "aligned_db"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/hirieftools/pi_dbspec_align/0.3",
+      "tool_shed_repository": {
+        "changeset_revision": "78afc81ab244",
+        "name": "hirieftools",
+        "owner": "galaxyp",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": null, \"specnames\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"firstfr\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"databases\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"frspec\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "0.3",
+      "type": "tool",
+      "uuid": "b97d8c2a-f441-48b2-aeb2-8dd7786861a9",
+      "workflow_outputs": []
+    },
+    "43": {
+      "annotation": "",
+      "content_id": "__FLATTEN__",
+      "errors": null,
+      "id": 43,
+      "input_connections": {
+        "input": {
+          "id": 41,
+          "output_name": "aligned_db"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Flatten Collection",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Flatten Collection",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 2466.3833923339844,
+        "top": 537.6666564941406
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "__FLATTEN__",
+      "tool_state": "{\"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"join_identifier\": \"\\\"_\\\"\", \"__page__\": null}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "867b1a77-a11b-481f-9ce8-83ee235ef8b4",
+      "workflow_outputs": []
+    },
+    "44": {
+      "annotation": "",
+      "content_id": "__FLATTEN__",
+      "errors": null,
+      "id": 44,
+      "input_connections": {
+        "input": {
+          "id": 42,
+          "output_name": "aligned_db"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Flatten Collection",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Flatten Collection",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 2450.3833923339844,
+        "top": 712.6666564941406
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "__FLATTEN__",
+      "tool_state": "{\"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"join_identifier\": \"\\\"_\\\"\", \"__page__\": null}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "3cdb234d-fdfb-4e9a-8d08-b86577d58fbe",
+      "workflow_outputs": []
+    },
+    "45": {
+      "annotation": "",
+      "content_id": "__RELABEL_FROM_FILE__",
+      "errors": null,
+      "id": 45,
+      "input_connections": {
+        "how|labels": {
+          "id": 33,
+          "output_name": "output"
+        },
+        "input": {
+          "id": 43,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Relabel List Identifiers",
+          "name": "input"
+        },
+        {
+          "description": "runtime parameter for tool Relabel List Identifiers",
+          "name": "how"
+        }
+      ],
+      "label": null,
+      "name": "Relabel List Identifiers",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 2732.4667358398438,
+        "top": 526.683349609375
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "__RELABEL_FROM_FILE__",
+      "tool_state": "{\"__page__\": null, \"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"how\": \"{\\\"labels\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"strict\\\": \\\"false\\\", \\\"how_select\\\": \\\"tabular\\\", \\\"__current_case__\\\": 1}\"}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "78e1dc29-b1e5-4122-92c6-42f46d021d44",
+      "workflow_outputs": []
+    },
+    "46": {
+      "annotation": "",
+      "content_id": "__RELABEL_FROM_FILE__",
+      "errors": null,
+      "id": 46,
+      "input_connections": {
+        "how|labels": {
+          "id": 33,
+          "output_name": "output"
+        },
+        "input": {
+          "id": 44,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Relabel List Identifiers",
+          "name": "input"
+        },
+        {
+          "description": "runtime parameter for tool Relabel List Identifiers",
+          "name": "how"
+        }
+      ],
+      "label": null,
+      "name": "Relabel List Identifiers",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 2700.4667358398438,
+        "top": 680.6166687011719
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "__RELABEL_FROM_FILE__",
+      "tool_state": "{\"__page__\": null, \"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"how\": \"{\\\"labels\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"strict\\\": \\\"false\\\", \\\"how_select\\\": \\\"tabular\\\", \\\"__current_case__\\\": 1}\"}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "0a869134-e536-42eb-b59c-1619ea2117a5",
+      "workflow_outputs": []
+    },
+    "47": {
+      "annotation": "",
+      "content_id": "__SORTLIST__",
+      "errors": null,
+      "id": 47,
+      "input_connections": {
+        "input": {
+          "id": 45,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Sort Collection",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Sort Collection",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 2968.366729736328,
+        "top": 553.25
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "__SORTLIST__",
+      "tool_state": "{\"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"sort_type\": \"\\\"alpha\\\"\", \"__rerun_remap_job_id__\": null, \"__page__\": null}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "42072de0-b646-44d2-9183-852f3b91aa12",
+      "workflow_outputs": []
+    },
+    "48": {
+      "annotation": "",
+      "content_id": "__SORTLIST__",
+      "errors": null,
+      "id": 48,
+      "input_connections": {
+        "input": {
+          "id": 46,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Sort Collection",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Sort Collection",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 2967.416732788086,
+        "top": 701.25
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "__SORTLIST__",
+      "tool_state": "{\"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"sort_type\": \"\\\"alpha\\\"\", \"__rerun_remap_job_id__\": null, \"__page__\": null}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "0e37daeb-8977-4dbb-8ff3-f25631dfe1fe",
+      "workflow_outputs": []
+    },
+    "49": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/fasta_merge_files_and_filter_unique_sequences/fasta_merge_files_and_filter_unique_sequences/1.2.0",
+      "errors": null,
+      "id": 49,
+      "input_connections": {
+        "batchmode|input_fastas_0|input_fasta": {
+          "id": 47,
+          "output_name": "output"
+        },
+        "batchmode|input_fastas_1|input_fasta": {
+          "id": 4,
+          "output_name": "output"
+        }
+      },
+      "inputs": [],
+      "label": null,
+      "name": "FASTA Merge Files and Filter Unique Sequences",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "fasta"
+        }
+      ],
+      "position": {
+        "left": 971.716796875,
+        "top": 951.2666625976562
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/fasta_merge_files_and_filter_unique_sequences/fasta_merge_files_and_filter_unique_sequences/1.2.0",
+      "tool_shed_repository": {
+        "changeset_revision": "650d553c1fda",
+        "name": "fasta_merge_files_and_filter_unique_sequences",
+        "owner": "galaxyp",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"batchmode\": \"{\\\"input_fastas\\\": [{\\\"__index__\\\": 0, \\\"input_fasta\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}}, {\\\"__index__\\\": 1, \\\"input_fasta\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}}], \\\"processmode\\\": \\\"individual\\\", \\\"__current_case__\\\": 0}\", \"__page__\": null, \"accession_parser\": \"\\\"^>([^ ]+).*$\\\"\", \"uniqueness_criterion\": \"\\\"accession\\\"\", \"__rerun_remap_job_id__\": null}",
+      "tool_version": "1.2.0",
+      "type": "tool",
+      "uuid": "2152f44b-c413-41f6-8d74-ada484625374",
+      "workflow_outputs": []
+    },
+    "5": {
+      "annotation": "",
+      "content_id": null,
+      "errors": null,
+      "id": 5,
+      "input_connections": {},
+      "inputs": [
+        {
+          "description": "",
+          "name": "knownpep predpi tabular"
+        }
+      ],
+      "label": "knownpep predpi tabular",
+      "name": "Input dataset",
+      "outputs": [],
+      "position": {
+        "left": 701.166748046875,
+        "top": 1217.683349609375
+      },
+      "tool_id": null,
+      "tool_state": "{\"name\": \"knownpep predpi tabular\"}",
+      "tool_version": null,
+      "type": "data_input",
+      "uuid": "711875d6-dfb4-45b3-9abb-121daeb98a48",
+      "workflow_outputs": [
+        {
+          "label": null,
+          "output_name": "output",
+          "uuid": "02e72b61-6e27-4108-91be-278c35472951"
+        }
+      ]
+    },
+    "50": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/fasta_merge_files_and_filter_unique_sequences/fasta_merge_files_and_filter_unique_sequences/1.2.0",
+      "errors": null,
+      "id": 50,
+      "input_connections": {
+        "batchmode|input_fastas_0|input_fasta": {
+          "id": 48,
+          "output_name": "output"
+        },
+        "batchmode|input_fastas_1|input_fasta": {
+          "id": 6,
+          "output_name": "output"
+        }
+      },
+      "inputs": [],
+      "label": null,
+      "name": "FASTA Merge Files and Filter Unique Sequences",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "fasta"
+        }
+      ],
+      "position": {
+        "left": 1020.716796875,
+        "top": 1279.2666625976562
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/fasta_merge_files_and_filter_unique_sequences/fasta_merge_files_and_filter_unique_sequences/1.2.0",
+      "tool_shed_repository": {
+        "changeset_revision": "650d553c1fda",
+        "name": "fasta_merge_files_and_filter_unique_sequences",
+        "owner": "galaxyp",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"batchmode\": \"{\\\"input_fastas\\\": [{\\\"__index__\\\": 0, \\\"input_fasta\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}}, {\\\"__index__\\\": 1, \\\"input_fasta\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}}], \\\"processmode\\\": \\\"individual\\\", \\\"__current_case__\\\": 0}\", \"__page__\": null, \"accession_parser\": \"\\\"^>([^ ]+).*$\\\"\", \"uniqueness_criterion\": \"\\\"accession\\\"\", \"__rerun_remap_job_id__\": null}",
+      "tool_version": "1.2.0",
+      "type": "tool",
+      "uuid": "007f4b98-30e4-49ae-ab11-4e39d866108c",
+      "workflow_outputs": []
+    },
+    "51": {
+      "annotation": "",
+      "content_id": "__ZIP_COLLECTION__",
+      "errors": null,
+      "id": 51,
+      "input_connections": {
+        "input_forward": {
+          "id": 22,
+          "output_name": "output"
+        },
+        "input_reverse": {
+          "id": 49,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Zip Collection",
+          "name": "input_reverse"
+        },
+        {
+          "description": "runtime parameter for tool Zip Collection",
+          "name": "input_forward"
+        }
+      ],
+      "label": null,
+      "name": "Zip Collection",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 1061.533447265625,
+        "top": 1115.2666625976562
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "__ZIP_COLLECTION__",
+      "tool_state": "{\"__page__\": null, \"__rerun_remap_job_id__\": null, \"input_reverse\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"input_forward\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "642d8ac9-4ef9-4eed-a9da-21e1f5156c57",
+      "workflow_outputs": []
+    },
+    "52": {
+      "annotation": "",
+      "content_id": "__ZIP_COLLECTION__",
+      "errors": null,
+      "id": 52,
+      "input_connections": {
+        "input_forward": {
+          "id": 22,
+          "output_name": "output"
+        },
+        "input_reverse": {
+          "id": 50,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Zip Collection",
+          "name": "input_reverse"
+        },
+        {
+          "description": "runtime parameter for tool Zip Collection",
+          "name": "input_forward"
+        }
+      ],
+      "label": null,
+      "name": "Zip Collection",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 1073.416748046875,
+        "top": 1417.2666625976562
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "__ZIP_COLLECTION__",
+      "tool_state": "{\"__page__\": null, \"__rerun_remap_job_id__\": null, \"input_reverse\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"input_forward\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "651f32aa-d788-43ec-9c0a-a941aa77cda3",
+      "workflow_outputs": []
+    },
+    "53": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/msgfplus/msgfplus/0.1",
+      "errors": null,
+      "id": 53,
+      "input_connections": {
+        "msgf_input|db_spectra": {
+          "id": 51,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool MS-GF+",
+          "name": "common_fixed_modifications"
+        },
+        {
+          "description": "runtime parameter for tool MS-GF+",
+          "name": "common_variable_modifications"
+        },
+        {
+          "description": "runtime parameter for tool MS-GF+",
+          "name": "inst"
+        },
+        {
+          "description": "runtime parameter for tool MS-GF+",
+          "name": "msgf_input"
+        },
+        {
+          "description": "runtime parameter for tool MS-GF+",
+          "name": "advanced"
+        }
+      ],
+      "label": null,
+      "name": "MS-GF+",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "mzid"
+        },
+        {
+          "name": "tsvoutput",
+          "type": "tabular"
+        }
+      ],
+      "position": {
+        "left": 1306.033447265625,
+        "top": 1083.2666625976562
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        },
+        "HideDatasetActiontsvoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "tsvoutput"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/msgfplus/msgfplus/0.1",
+      "tool_shed_repository": {
+        "changeset_revision": "b4ccaf21855d",
+        "name": "msgfplus",
+        "owner": "galaxyp",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": null, \"e\": \"\\\"1\\\"\", \"tda\": \"\\\"false\\\"\", \"tsvcheck\": \"\\\"true\\\"\", \"ntt\": \"\\\"2\\\"\", \"common_fixed_modifications\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"inst\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"t\": \"\\\"10.0\\\"\", \"precursor_ion_tol_units\": \"\\\"ppm\\\"\", \"custom_mods\": \"[]\", \"common_variable_modifications\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"msgf_input\": \"{\\\"intype_selector\\\": \\\"fractions\\\", \\\"db_spectra\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"__current_case__\\\": 1}\", \"__rerun_remap_job_id__\": null, \"advanced\": \"{\\\"minCharge\\\": \\\"2\\\", \\\"protocol\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"minLength\\\": \\\"6\\\", \\\"num_ptms\\\": \\\"2\\\", \\\"m\\\": \\\"0\\\", \\\"n\\\": \\\"1\\\", \\\"isotope_low\\\": \\\"-1\\\", \\\"maxCharge\\\": \\\"6\\\", \\\"maxLength\\\": \\\"50\\\", \\\"addFeatures\\\": \\\"true\\\", \\\"isotope_high\\\": \\\"2\\\"}\"}",
+      "tool_version": "0.1",
+      "type": "tool",
+      "uuid": "68315712-eafb-4216-8e67-99739964fe0b",
+      "workflow_outputs": []
+    },
+    "54": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/msgfplus/msgfplus/0.1",
+      "errors": null,
+      "id": 54,
+      "input_connections": {
+        "msgf_input|db_spectra": {
+          "id": 52,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool MS-GF+",
+          "name": "common_fixed_modifications"
+        },
+        {
+          "description": "runtime parameter for tool MS-GF+",
+          "name": "common_variable_modifications"
+        },
+        {
+          "description": "runtime parameter for tool MS-GF+",
+          "name": "inst"
+        },
+        {
+          "description": "runtime parameter for tool MS-GF+",
+          "name": "msgf_input"
+        },
+        {
+          "description": "runtime parameter for tool MS-GF+",
+          "name": "advanced"
+        }
+      ],
+      "label": null,
+      "name": "MS-GF+",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "mzid"
+        },
+        {
+          "name": "tsvoutput",
+          "type": "tabular"
+        }
+      ],
+      "position": {
+        "left": 1306.033447265625,
+        "top": 1372.2666625976562
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        },
+        "HideDatasetActiontsvoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "tsvoutput"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/msgfplus/msgfplus/0.1",
+      "tool_shed_repository": {
+        "changeset_revision": "b4ccaf21855d",
+        "name": "msgfplus",
+        "owner": "galaxyp",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": null, \"e\": \"\\\"1\\\"\", \"tda\": \"\\\"false\\\"\", \"tsvcheck\": \"\\\"true\\\"\", \"ntt\": \"\\\"2\\\"\", \"common_fixed_modifications\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"inst\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"t\": \"\\\"10.0\\\"\", \"precursor_ion_tol_units\": \"\\\"ppm\\\"\", \"custom_mods\": \"[]\", \"common_variable_modifications\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"msgf_input\": \"{\\\"intype_selector\\\": \\\"fractions\\\", \\\"db_spectra\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"__current_case__\\\": 1}\", \"__rerun_remap_job_id__\": null, \"advanced\": \"{\\\"minCharge\\\": \\\"2\\\", \\\"protocol\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"minLength\\\": \\\"6\\\", \\\"num_ptms\\\": \\\"2\\\", \\\"m\\\": \\\"0\\\", \\\"n\\\": \\\"1\\\", \\\"isotope_low\\\": \\\"-1\\\", \\\"maxCharge\\\": \\\"6\\\", \\\"maxLength\\\": \\\"50\\\", \\\"addFeatures\\\": \\\"true\\\", \\\"isotope_high\\\": \\\"2\\\"}\"}",
+      "tool_version": "0.1",
+      "type": "tool",
+      "uuid": "f6ab93e9-a7de-4642-b94e-d2904b2c13b3",
+      "workflow_outputs": []
+    },
+    "55": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/batched_set_list_creator/3.3",
+      "errors": null,
+      "id": 55,
+      "input_connections": {
+        "listtobatch": {
+          "id": 53,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Create nested list",
+          "name": "batchsize"
+        },
+        {
+          "description": "runtime parameter for tool Create nested list",
+          "name": "listtobatch"
+        }
+      ],
+      "label": null,
+      "name": "Create nested list",
+      "outputs": [
+        {
+          "name": "batched_fractions_mzid",
+          "type": "input"
+        },
+        {
+          "name": "batched_fractions_perco",
+          "type": "input"
+        },
+        {
+          "name": "batched_fractions_tab",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 1631.416748046875,
+        "top": 1302.433349609375
+      },
+      "post_job_actions": {
+        "HideDatasetActionbatched_fractions_mzid": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_mzid"
+        },
+        "HideDatasetActionbatched_fractions_perco": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_perco"
+        },
+        "HideDatasetActionbatched_fractions_tab": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_tab"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/batched_set_list_creator/3.3",
+      "tool_shed_repository": {
+        "changeset_revision": "dce55ca21b98",
+        "name": "percolator",
+        "owner": "galaxyp",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": 0, \"poolids\": \"[]\", \"filetype\": \"\\\"mzid\\\"\", \"batchsize\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"listtobatch\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null}",
+      "tool_version": "3.3",
+      "type": "tool",
+      "uuid": "4da7f02f-7ddc-40a7-8595-d57019735bf9",
+      "workflow_outputs": []
+    },
+    "56": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/batched_set_list_creator/3.3",
+      "errors": null,
+      "id": 56,
+      "input_connections": {
+        "listtobatch": {
+          "id": 53,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Create nested list",
+          "name": "listtobatch"
+        }
+      ],
+      "label": null,
+      "name": "Create nested list",
+      "outputs": [
+        {
+          "name": "batched_fractions_mzid",
+          "type": "input"
+        },
+        {
+          "name": "batched_fractions_perco",
+          "type": "input"
+        },
+        {
+          "name": "batched_fractions_tab",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 1723.35009765625,
+        "top": 1841.2000122070312
+      },
+      "post_job_actions": {
+        "HideDatasetActionbatched_fractions_mzid": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_mzid"
+        },
+        "HideDatasetActionbatched_fractions_perco": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_perco"
+        },
+        "HideDatasetActionbatched_fractions_tab": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_tab"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/batched_set_list_creator/3.3",
+      "tool_shed_repository": {
+        "changeset_revision": "dce55ca21b98",
+        "name": "percolator",
+        "owner": "galaxyp",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": 0, \"poolids\": \"[]\", \"filetype\": \"\\\"mzid\\\"\", \"batchsize\": \"\\\"\\\"\", \"listtobatch\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null}",
+      "tool_version": "3.3",
+      "type": "tool",
+      "uuid": "0e97227a-19fa-486a-b4ae-7108bd3ce97e",
+      "workflow_outputs": []
+    },
+    "57": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/batched_set_list_creator/3.3",
+      "errors": null,
+      "id": 57,
+      "input_connections": {
+        "listtobatch": {
+          "id": 53,
+          "output_name": "tsvoutput"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Create nested list",
+          "name": "listtobatch"
+        }
+      ],
+      "label": null,
+      "name": "Create nested list",
+      "outputs": [
+        {
+          "name": "batched_fractions_mzid",
+          "type": "input"
+        },
+        {
+          "name": "batched_fractions_perco",
+          "type": "input"
+        },
+        {
+          "name": "batched_fractions_tab",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 1764.216796875,
+        "top": 2167.8167114257812
+      },
+      "post_job_actions": {
+        "HideDatasetActionbatched_fractions_mzid": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_mzid"
+        },
+        "HideDatasetActionbatched_fractions_perco": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_perco"
+        },
+        "HideDatasetActionbatched_fractions_tab": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_tab"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/batched_set_list_creator/3.3",
+      "tool_shed_repository": {
+        "changeset_revision": "dce55ca21b98",
+        "name": "percolator",
+        "owner": "galaxyp",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": 0, \"poolids\": \"[]\", \"filetype\": \"\\\"tabular\\\"\", \"batchsize\": \"\\\"\\\"\", \"listtobatch\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null}",
+      "tool_version": "3.3",
+      "type": "tool",
+      "uuid": "46c2c10e-c0c6-4d79-8865-3fdfddda66f3",
+      "workflow_outputs": []
+    },
+    "58": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/batched_set_list_creator/3.3",
+      "errors": null,
+      "id": 58,
+      "input_connections": {
+        "listtobatch": {
+          "id": 54,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Create nested list",
+          "name": "batchsize"
+        },
+        {
+          "description": "runtime parameter for tool Create nested list",
+          "name": "listtobatch"
+        }
+      ],
+      "label": null,
+      "name": "Create nested list",
+      "outputs": [
+        {
+          "name": "batched_fractions_mzid",
+          "type": "input"
+        },
+        {
+          "name": "batched_fractions_perco",
+          "type": "input"
+        },
+        {
+          "name": "batched_fractions_tab",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 1683.60009765625,
+        "top": 1488.25
+      },
+      "post_job_actions": {
+        "HideDatasetActionbatched_fractions_mzid": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_mzid"
+        },
+        "HideDatasetActionbatched_fractions_perco": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_perco"
+        },
+        "HideDatasetActionbatched_fractions_tab": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_tab"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/batched_set_list_creator/3.3",
+      "tool_shed_repository": {
+        "changeset_revision": "dce55ca21b98",
+        "name": "percolator",
+        "owner": "galaxyp",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": 0, \"poolids\": \"[]\", \"filetype\": \"\\\"mzid\\\"\", \"batchsize\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"listtobatch\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null}",
+      "tool_version": "3.3",
+      "type": "tool",
+      "uuid": "d6754903-bad4-4e89-9728-9cd564518552",
+      "workflow_outputs": []
+    },
+    "59": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/batched_set_list_creator/3.3",
+      "errors": null,
+      "id": 59,
+      "input_connections": {
+        "listtobatch": {
+          "id": 54,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Create nested list",
+          "name": "listtobatch"
+        }
+      ],
+      "label": null,
+      "name": "Create nested list",
+      "outputs": [
+        {
+          "name": "batched_fractions_mzid",
+          "type": "input"
+        },
+        {
+          "name": "batched_fractions_perco",
+          "type": "input"
+        },
+        {
+          "name": "batched_fractions_tab",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 1760.216796875,
+        "top": 2000.0667114257812
+      },
+      "post_job_actions": {
+        "HideDatasetActionbatched_fractions_mzid": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_mzid"
+        },
+        "HideDatasetActionbatched_fractions_perco": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_perco"
+        },
+        "HideDatasetActionbatched_fractions_tab": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_tab"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/batched_set_list_creator/3.3",
+      "tool_shed_repository": {
+        "changeset_revision": "dce55ca21b98",
+        "name": "percolator",
+        "owner": "galaxyp",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": 0, \"poolids\": \"[]\", \"filetype\": \"\\\"mzid\\\"\", \"batchsize\": \"\\\"\\\"\", \"listtobatch\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null}",
+      "tool_version": "3.3",
+      "type": "tool",
+      "uuid": "4b11dbe3-3bac-47aa-bba5-af8e052c4bd8",
+      "workflow_outputs": []
+    },
+    "6": {
+      "annotation": "",
+      "content_id": null,
+      "errors": null,
+      "id": 6,
+      "input_connections": {},
+      "inputs": [],
+      "label": "knownpep db decoy",
+      "name": "Input dataset",
+      "outputs": [],
+      "position": {
+        "left": 720.283447265625,
+        "top": 1462.433349609375
+      },
+      "tool_id": null,
+      "tool_state": "{}",
+      "tool_version": null,
+      "type": "data_input",
+      "uuid": "df48a1e5-8c49-4e0a-bd05-b83de1b73600",
+      "workflow_outputs": [
+        {
+          "label": null,
+          "output_name": "output",
+          "uuid": "d43e9cb3-d152-4e36-817d-3ed6afe75532"
+        }
+      ]
+    },
+    "60": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/batched_set_list_creator/3.3",
+      "errors": null,
+      "id": 60,
+      "input_connections": {
+        "listtobatch": {
+          "id": 54,
+          "output_name": "tsvoutput"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Create nested list",
+          "name": "listtobatch"
+        }
+      ],
+      "label": null,
+      "name": "Create nested list",
+      "outputs": [
+        {
+          "name": "batched_fractions_mzid",
+          "type": "input"
+        },
+        {
+          "name": "batched_fractions_perco",
+          "type": "input"
+        },
+        {
+          "name": "batched_fractions_tab",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 1726.166748046875,
+        "top": 2354.5000610351562
+      },
+      "post_job_actions": {
+        "HideDatasetActionbatched_fractions_mzid": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_mzid"
+        },
+        "HideDatasetActionbatched_fractions_perco": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_perco"
+        },
+        "HideDatasetActionbatched_fractions_tab": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_tab"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/batched_set_list_creator/3.3",
+      "tool_shed_repository": {
+        "changeset_revision": "dce55ca21b98",
+        "name": "percolator",
+        "owner": "galaxyp",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": 0, \"poolids\": \"[]\", \"filetype\": \"\\\"tabular\\\"\", \"batchsize\": \"\\\"\\\"\", \"listtobatch\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null}",
+      "tool_version": "3.3",
+      "type": "tool",
+      "uuid": "f2edd2b0-c45a-4220-a16b-ccd44718e955",
+      "workflow_outputs": []
+    },
+    "61": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/percolator_input_converters/3.1",
+      "errors": null,
+      "id": 61,
+      "input_connections": {
+        "mzids|target": {
+          "id": 55,
+          "output_name": "batched_fractions_mzid"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Search engine output to Pin converter",
+          "name": "mzids"
+        },
+        {
+          "description": "runtime parameter for tool Search engine output to Pin converter",
+          "name": "mzids"
+        }
+      ],
+      "label": null,
+      "name": "Search engine output to Pin converter",
+      "outputs": [
+        {
+          "name": "pinout",
+          "type": "percin"
+        }
+      ],
+      "position": {
+        "left": 1830.216796875,
+        "top": 1311.183349609375
+      },
+      "post_job_actions": {
+        "HideDatasetActionpinout": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "pinout"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/percolator_input_converters/3.1",
+      "tool_shed_repository": {
+        "changeset_revision": "dce55ca21b98",
+        "name": "percolator",
+        "owner": "galaxyp",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"isotope\": \"\\\"false\\\"\", \"__page__\": 0, \"ptm\": \"\\\"false\\\"\", \"matches\": \"\\\"\\\"\", \"__rerun_remap_job_id__\": null, \"mzids\": \"{\\\"decoy\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"inputtype\\\": \\\"multi\\\", \\\"__current_case__\\\": 1, \\\"target\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}}\", \"aafreq\": \"\\\"false\\\"\", \"pngase\": \"\\\"false\\\"\", \"enzyme\": \"\\\"trypsin\\\"\", \"searchengine\": \"\\\"msgf2pin\\\"\"}",
+      "tool_version": "3.1",
+      "type": "tool",
+      "uuid": "9f82e762-db22-4100-837d-73c88d23000b",
+      "workflow_outputs": []
+    },
+    "62": {
+      "annotation": "Flatten nested list ---\nThis combi of nested list/flatten makes sure the order of the mzidtsv s is the same as the order of the mzid out from pout2mzid. Otherwise the mzidtsv would be in same order (alphabetical) as spectra collection.",
+      "content_id": "__FLATTEN__",
+      "errors": null,
+      "id": 62,
+      "input_connections": {
+        "input": {
+          "id": 57,
+          "output_name": "batched_fractions_tab"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Flatten Collection",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Flatten Collection",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 3084.416732788086,
+        "top": 1863.0667114257812
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "__FLATTEN__",
+      "tool_state": "{\"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"join_identifier\": \"\\\"_\\\"\", \"__page__\": 0}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "4c59049b-40c0-46b8-951a-db94b7797ab6",
+      "workflow_outputs": []
+    },
+    "63": {
+      "annotation": "Flatten nested list ---\nThis combi of nested list/flatten makes sure the order of the mzidtsv s is the same as the order of the mzid out from pout2mzid. Otherwise the mzidtsv would be in same order (alphabetical) as spectra collection.",
+      "content_id": "__FLATTEN__",
+      "errors": null,
+      "id": 63,
+      "input_connections": {
+        "input": {
+          "id": 60,
+          "output_name": "batched_fractions_tab"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Flatten Collection",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Flatten Collection",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 3067.416732788086,
+        "top": 2004.7666625976562
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "__FLATTEN__",
+      "tool_state": "{\"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"join_identifier\": \"\\\"_\\\"\", \"__page__\": 0}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "30f64605-e77d-4af1-be38-07acc48f2937",
+      "workflow_outputs": []
+    },
+    "64": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/percolator/3.1.0",
+      "errors": null,
+      "id": 64,
+      "input_connections": {
+        "input": {
+          "id": 61,
+          "output_name": "pinout"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Percolator",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Percolator",
+      "outputs": [
+        {
+          "name": "percoout",
+          "type": "percout"
+        }
+      ],
+      "position": {
+        "left": 2108.4667358398438,
+        "top": 1325.2000122070312
+      },
+      "post_job_actions": {
+        "HideDatasetActionpercoout": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "percoout"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/percolator/3.1.0",
+      "tool_shed_repository": {
+        "changeset_revision": "dce55ca21b98",
+        "name": "percolator",
+        "owner": "galaxyp",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": 0, \"quickval\": \"\\\"false\\\"\", \"testfdr\": \"\\\"\\\"\", \"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"default_direction\": \"\\\"\\\"\", \"__rerun_remap_job_id__\": null, \"tdmethod\": \"\\\"-y\\\"\", \"trainfdr\": \"\\\"\\\"\", \"unitnorm\": \"\\\"false\\\"\", \"cneg\": \"\\\"\\\"\", \"maxiter\": \"\\\"\\\"\", \"override\": \"\\\"false\\\"\", \"output_type\": \"\\\"xml\\\"\", \"cpos\": \"\\\"\\\"\", \"seed\": \"\\\"\\\"\", \"onlypsms\": \"\\\"false\\\"\"}",
+      "tool_version": "3.1.0",
+      "type": "tool",
+      "uuid": "7d661186-ec7d-4124-aea0-6842969d59e9",
+      "workflow_outputs": []
+    },
+    "65": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspercolator_split/1.1",
+      "errors": null,
+      "id": 65,
+      "input_connections": {
+        "input": {
+          "id": 64,
+          "output_name": "percoout"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Split percolator output",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Split percolator output",
+      "outputs": [
+        {
+          "name": "headerout",
+          "type": "input"
+        },
+        {
+          "name": "targetout",
+          "type": "percout"
+        },
+        {
+          "name": "decoyout",
+          "type": "percout"
+        }
+      ],
+      "position": {
+        "left": 2244.300048828125,
+        "top": 1457.5
+      },
+      "post_job_actions": {
+        "HideDatasetActiondecoyout": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "decoyout"
+        },
+        "HideDatasetActionheaderout": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "headerout"
+        },
+        "HideDatasetActiontargetout": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "targetout"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspercolator_split/1.1",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": 0, \"splitter\": \"{\\\"splittype\\\": \\\"td\\\", \\\"__current_case__\\\": 0}\", \"__rerun_remap_job_id__\": null, \"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.1",
+      "type": "tool",
+      "uuid": "48340e6c-6d8c-42e4-9ce6-352b7bbc7155",
+      "workflow_outputs": []
+    },
+    "66": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspercolator_filter/1.2",
+      "errors": null,
+      "id": 66,
+      "input_connections": {
+        "filterseq|lookup": {
+          "id": 8,
+          "output_name": "output"
+        },
+        "filterwholeprot|fasta": {
+          "id": 4,
+          "output_name": "output"
+        },
+        "filterwholeprot|lookup": {
+          "id": 7,
+          "output_name": "output"
+        },
+        "input": {
+          "id": 65,
+          "output_name": "targetout"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Filter percolator output",
+          "name": "filterwholeprot"
+        },
+        {
+          "description": "runtime parameter for tool Filter percolator output",
+          "name": "filterwholeprot"
+        },
+        {
+          "description": "runtime parameter for tool Filter percolator output",
+          "name": "input"
+        },
+        {
+          "description": "runtime parameter for tool Filter percolator output",
+          "name": "filterseq"
+        }
+      ],
+      "label": null,
+      "name": "Filter percolator output",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "percout"
+        }
+      ],
+      "position": {
+        "left": 2332.916748046875,
+        "top": 1165.816650390625
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspercolator_filter/1.2",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"filteruni\": \"{\\\"yesno\\\": \\\"no\\\", \\\"__current_case__\\\": 0}\", \"filterwholeprot\": \"{\\\"yesno\\\": \\\"yes\\\", \\\"minlen\\\": \\\"6\\\", \\\"forcetryp\\\": \\\"true\\\", \\\"lookup\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"deamidate\\\": \\\"true\\\", \\\"__current_case__\\\": 1, \\\"fasta\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}}\", \"__page__\": null, \"filterlen\": \"{\\\"yesno\\\": \\\"no\\\", \\\"__current_case__\\\": 0}\", \"filterheader\": \"{\\\"pattern\\\": \\\"^6FT\\\", \\\"yesno\\\": \\\"yes\\\", \\\"__current_case__\\\": 1}\", \"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"filterseq\": \"{\\\"deamidate\\\": \\\"true\\\", \\\"lookup\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"yesno\\\": \\\"yes\\\", \\\"__current_case__\\\": 1, \\\"falloff\\\": \\\"2\\\"}\", \"__rerun_remap_job_id__\": null}",
+      "tool_version": "1.2",
+      "type": "tool",
+      "uuid": "06707899-d75e-4963-9ad7-f4e55b56c2ba",
+      "workflow_outputs": []
+    },
+    "67": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspercolator_filter/1.2",
+      "errors": null,
+      "id": 67,
+      "input_connections": {
+        "input": {
+          "id": 65,
+          "output_name": "decoyout"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Filter percolator output",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Filter percolator output",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "percout"
+        }
+      ],
+      "position": {
+        "left": 2365.550048828125,
+        "top": 1645.1333618164062
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspercolator_filter/1.2",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"filteruni\": \"{\\\"yesno\\\": \\\"no\\\", \\\"__current_case__\\\": 0}\", \"filterwholeprot\": \"{\\\"yesno\\\": \\\"no\\\", \\\"__current_case__\\\": 0}\", \"__page__\": null, \"filterlen\": \"{\\\"yesno\\\": \\\"no\\\", \\\"__current_case__\\\": 0}\", \"filterheader\": \"{\\\"pattern\\\": \\\"^decoy_6FT\\\", \\\"yesno\\\": \\\"yes\\\", \\\"__current_case__\\\": 1}\", \"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"filterseq\": \"{\\\"yesno\\\": \\\"no\\\", \\\"__current_case__\\\": 0}\", \"__rerun_remap_job_id__\": null}",
+      "tool_version": "1.2",
+      "type": "tool",
+      "uuid": "a7b233ee-76ce-4b3b-9a73-20a57b919187",
+      "workflow_outputs": []
+    },
+    "68": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/batched_set_list_creator/3.3",
+      "errors": null,
+      "id": 68,
+      "input_connections": {
+        "listtobatch": {
+          "id": 66,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Create nested list",
+          "name": "listtobatch"
+        }
+      ],
+      "label": null,
+      "name": "Create nested list",
+      "outputs": [
+        {
+          "name": "batched_fractions_mzid",
+          "type": "input"
+        },
+        {
+          "name": "batched_fractions_perco",
+          "type": "input"
+        },
+        {
+          "name": "batched_fractions_tab",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 2624.5333862304688,
+        "top": 1293.066650390625
+      },
+      "post_job_actions": {
+        "HideDatasetActionbatched_fractions_mzid": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_mzid"
+        },
+        "HideDatasetActionbatched_fractions_perco": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_perco"
+        },
+        "HideDatasetActionbatched_fractions_tab": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_tab"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/batched_set_list_creator/3.3",
+      "tool_shed_repository": {
+        "changeset_revision": "dce55ca21b98",
+        "name": "percolator",
+        "owner": "galaxyp",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": null, \"poolids\": \"[]\", \"filetype\": \"\\\"percout\\\"\", \"batchsize\": \"\\\"\\\"\", \"listtobatch\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null}",
+      "tool_version": "3.3",
+      "type": "tool",
+      "uuid": "78af0702-ff1b-49b5-bc47-41bfdb23b62e",
+      "workflow_outputs": []
+    },
+    "69": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/batched_set_list_creator/3.3",
+      "errors": null,
+      "id": 69,
+      "input_connections": {
+        "listtobatch": {
+          "id": 67,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Create nested list",
+          "name": "listtobatch"
+        }
+      ],
+      "label": null,
+      "name": "Create nested list",
+      "outputs": [
+        {
+          "name": "batched_fractions_mzid",
+          "type": "input"
+        },
+        {
+          "name": "batched_fractions_perco",
+          "type": "input"
+        },
+        {
+          "name": "batched_fractions_tab",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 2596.5333862304688,
+        "top": 1515.9500122070312
+      },
+      "post_job_actions": {
+        "HideDatasetActionbatched_fractions_mzid": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_mzid"
+        },
+        "HideDatasetActionbatched_fractions_perco": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_perco"
+        },
+        "HideDatasetActionbatched_fractions_tab": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "batched_fractions_tab"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/batched_set_list_creator/3.3",
+      "tool_shed_repository": {
+        "changeset_revision": "dce55ca21b98",
+        "name": "percolator",
+        "owner": "galaxyp",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": null, \"poolids\": \"[]\", \"filetype\": \"\\\"percout\\\"\", \"batchsize\": \"\\\"\\\"\", \"listtobatch\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null}",
+      "tool_version": "3.3",
+      "type": "tool",
+      "uuid": "3d687de8-7f06-4cbc-992c-ad7ecf6a5df6",
+      "workflow_outputs": []
+    },
+    "7": {
+      "annotation": "",
+      "content_id": null,
+      "errors": null,
+      "id": 7,
+      "input_connections": {},
+      "inputs": [],
+      "label": "knownpep tryp lookup",
+      "name": "Input dataset",
+      "outputs": [],
+      "position": {
+        "left": 720.783447265625,
+        "top": 1548.1333618164062
+      },
+      "tool_id": null,
+      "tool_state": "{}",
+      "tool_version": null,
+      "type": "data_input",
+      "uuid": "cb74f189-7b32-4256-908c-592e866c0825",
+      "workflow_outputs": [
+        {
+          "label": null,
+          "output_name": "output",
+          "uuid": "feb0eaad-7e60-4516-9c7e-1b0a3ee23876"
+        }
+      ]
+    },
+    "70": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspercolator_merge/1.1",
+      "errors": null,
+      "id": 70,
+      "input_connections": {
+        "fm|input": {
+          "id": 68,
+          "output_name": "batched_fractions_perco"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Merge Percolator",
+          "name": "fm"
+        }
+      ],
+      "label": null,
+      "name": "Merge Percolator",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "percout"
+        }
+      ],
+      "position": {
+        "left": 2872.916732788086,
+        "top": 1349.1333618164062
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspercolator_merge/1.1",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": 0, \"__rerun_remap_job_id__\": null, \"fm\": \"{\\\"input\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"flattenormerge\\\": \\\"flatten\\\", \\\"__current_case__\\\": 0}\"}",
+      "tool_version": "1.1",
+      "type": "tool",
+      "uuid": "b4b14801-7525-43e9-852d-0dbfb77f02f1",
+      "workflow_outputs": []
+    },
+    "71": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspercolator_merge/1.1",
+      "errors": null,
+      "id": 71,
+      "input_connections": {
+        "fm|input": {
+          "id": 69,
+          "output_name": "batched_fractions_perco"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Merge Percolator",
+          "name": "fm"
+        }
+      ],
+      "label": null,
+      "name": "Merge Percolator",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "percout"
+        }
+      ],
+      "position": {
+        "left": 2866.916732788086,
+        "top": 1550.9500122070312
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspercolator_merge/1.1",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": 0, \"__rerun_remap_job_id__\": null, \"fm\": \"{\\\"input\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"flattenormerge\\\": \\\"flatten\\\", \\\"__current_case__\\\": 0}\"}",
+      "tool_version": "1.1",
+      "type": "tool",
+      "uuid": "ebf21926-54e6-4998-9cc3-4767315fb184",
+      "workflow_outputs": []
+    },
+    "72": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspercolator_filter/1.2",
+      "errors": null,
+      "id": 72,
+      "input_connections": {
+        "input": {
+          "id": 70,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Filter percolator output",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Filter percolator output",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "percout"
+        }
+      ],
+      "position": {
+        "left": 3098.5000610351562,
+        "top": 1346.2000122070312
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspercolator_filter/1.2",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"filteruni\": \"{\\\"score\\\": \\\"svm\\\", \\\"yesno\\\": \\\"yes\\\", \\\"__current_case__\\\": 1}\", \"filterwholeprot\": \"{\\\"yesno\\\": \\\"no\\\", \\\"__current_case__\\\": 0}\", \"__page__\": null, \"filterlen\": \"{\\\"yesno\\\": \\\"no\\\", \\\"__current_case__\\\": 0}\", \"filterheader\": \"{\\\"yesno\\\": \\\"no\\\", \\\"__current_case__\\\": 0}\", \"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"filterseq\": \"{\\\"yesno\\\": \\\"no\\\", \\\"__current_case__\\\": 0}\", \"__rerun_remap_job_id__\": null}",
+      "tool_version": "1.2",
+      "type": "tool",
+      "uuid": "9d0d682f-30c5-40a2-9922-e93e3c6973f6",
+      "workflow_outputs": []
+    },
+    "73": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspercolator_filter/1.2",
+      "errors": null,
+      "id": 73,
+      "input_connections": {
+        "input": {
+          "id": 71,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Filter percolator output",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Filter percolator output",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "percout"
+        }
+      ],
+      "position": {
+        "left": 3054.5000610351562,
+        "top": 1608.2000122070312
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspercolator_filter/1.2",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"filteruni\": \"{\\\"score\\\": \\\"svm\\\", \\\"yesno\\\": \\\"yes\\\", \\\"__current_case__\\\": 1}\", \"filterwholeprot\": \"{\\\"yesno\\\": \\\"no\\\", \\\"__current_case__\\\": 0}\", \"__page__\": null, \"filterlen\": \"{\\\"yesno\\\": \\\"no\\\", \\\"__current_case__\\\": 0}\", \"filterheader\": \"{\\\"yesno\\\": \\\"no\\\", \\\"__current_case__\\\": 0}\", \"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"filterseq\": \"{\\\"yesno\\\": \\\"no\\\", \\\"__current_case__\\\": 0}\", \"__rerun_remap_job_id__\": null}",
+      "tool_version": "1.2",
+      "type": "tool",
+      "uuid": "595c5b1f-8eff-4eab-b433-b270b861972f",
+      "workflow_outputs": []
+    },
+    "74": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/percolator_recalculate/1.1",
+      "errors": null,
+      "id": 74,
+      "input_connections": {
+        "decoy": {
+          "id": 73,
+          "output_name": "output"
+        },
+        "target": {
+          "id": 72,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Recalculate FDR",
+          "name": "decoy"
+        },
+        {
+          "description": "runtime parameter for tool Recalculate FDR",
+          "name": "target"
+        }
+      ],
+      "label": null,
+      "name": "Recalculate FDR",
+      "outputs": [
+        {
+          "name": "targetoutput",
+          "type": "percout"
+        },
+        {
+          "name": "decoyoutput",
+          "type": "percout"
+        }
+      ],
+      "position": {
+        "left": 3294.850067138672,
+        "top": 1519.566650390625
+      },
+      "post_job_actions": {
+        "HideDatasetActiondecoyoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "decoyoutput"
+        },
+        "HideDatasetActiontargetoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "targetoutput"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/percolator_recalculate/1.1",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": 0, \"target\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"decoy\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"feature\": \"\\\"psm\\\"\", \"qoptions\": \"{\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}\"}",
+      "tool_version": "1.1",
+      "type": "tool",
+      "uuid": "8132f8e6-2964-453b-a4ed-91313306ebf5",
+      "workflow_outputs": []
+    },
+    "75": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/percolator_recalculate/1.1",
+      "errors": null,
+      "id": 75,
+      "input_connections": {
+        "decoy": {
+          "id": 74,
+          "output_name": "decoyoutput"
+        },
+        "target": {
+          "id": 74,
+          "output_name": "targetoutput"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Recalculate FDR",
+          "name": "decoy"
+        },
+        {
+          "description": "runtime parameter for tool Recalculate FDR",
+          "name": "target"
+        }
+      ],
+      "label": null,
+      "name": "Recalculate FDR",
+      "outputs": [
+        {
+          "name": "targetoutput",
+          "type": "percout"
+        },
+        {
+          "name": "decoyoutput",
+          "type": "percout"
+        }
+      ],
+      "position": {
+        "left": 3498.61669921875,
+        "top": 1465.6333618164062
+      },
+      "post_job_actions": {
+        "HideDatasetActiondecoyoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "decoyoutput"
+        },
+        "HideDatasetActiontargetoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "targetoutput"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/percolator_recalculate/1.1",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": 0, \"target\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"decoy\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"feature\": \"\\\"peptide\\\"\", \"qoptions\": \"{\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}\"}",
+      "tool_version": "1.1",
+      "type": "tool",
+      "uuid": "bd61bd78-8b41-4afb-b59a-e4e95ad227da",
+      "workflow_outputs": []
+    },
+    "76": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/pout2mzid/0.3.03",
+      "errors": null,
+      "id": 76,
+      "input_connections": {
+        "mzid|mzids": {
+          "id": 56,
+          "output_name": "batched_fractions_mzid"
+        },
+        "percout": {
+          "id": 75,
+          "output_name": "targetoutput"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Pout2mzid",
+          "name": "mzid"
+        },
+        {
+          "description": "runtime parameter for tool Pout2mzid",
+          "name": "percout"
+        }
+      ],
+      "label": null,
+      "name": "Pout2mzid",
+      "outputs": [
+        {
+          "name": "output_multi",
+          "type": "input"
+        },
+        {
+          "name": "output_single",
+          "type": "mzid"
+        }
+      ],
+      "position": {
+        "left": 3665.2833862304688,
+        "top": 1278.066650390625
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput_multi": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output_multi"
+        },
+        "HideDatasetActionoutput_single": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output_single"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/pout2mzid/0.3.03",
+      "tool_shed_repository": {
+        "changeset_revision": "dce55ca21b98",
+        "name": "percolator",
+        "owner": "galaxyp",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": 0, \"percout\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"targetdecoy\": \"\\\"target\\\"\", \"schemaskip\": \"\\\"true\\\"\", \"mzid\": \"{\\\"multifile\\\": \\\"true\\\", \\\"mzids\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"__current_case__\\\": 0}\"}",
+      "tool_version": "0.3.03",
+      "type": "tool",
+      "uuid": "4365d38b-6d6f-49a1-91dc-9e4e04a52ce8",
+      "workflow_outputs": []
+    },
+    "77": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/pout2mzid/0.3.03",
+      "errors": null,
+      "id": 77,
+      "input_connections": {
+        "mzid|mzids": {
+          "id": 59,
+          "output_name": "batched_fractions_mzid"
+        },
+        "percout": {
+          "id": 75,
+          "output_name": "decoyoutput"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Pout2mzid",
+          "name": "mzid"
+        },
+        {
+          "description": "runtime parameter for tool Pout2mzid",
+          "name": "percout"
+        }
+      ],
+      "label": null,
+      "name": "Pout2mzid",
+      "outputs": [
+        {
+          "name": "output_multi",
+          "type": "input"
+        },
+        {
+          "name": "output_single",
+          "type": "mzid"
+        }
+      ],
+      "position": {
+        "left": 3678.10009765625,
+        "top": 1603.816650390625
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput_multi": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output_multi"
+        },
+        "HideDatasetActionoutput_single": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output_single"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/percolator/pout2mzid/0.3.03",
+      "tool_shed_repository": {
+        "changeset_revision": "dce55ca21b98",
+        "name": "percolator",
+        "owner": "galaxyp",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": 0, \"percout\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"targetdecoy\": \"\\\"decoy\\\"\", \"schemaskip\": \"\\\"true\\\"\", \"mzid\": \"{\\\"multifile\\\": \\\"true\\\", \\\"mzids\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"__current_case__\\\": 0}\"}",
+      "tool_version": "0.3.03",
+      "type": "tool",
+      "uuid": "88d9e3b2-12e4-4d0b-b727-95efe492914f",
+      "workflow_outputs": []
+    },
+    "78": {
+      "annotation": "",
+      "content_id": "__FLATTEN__",
+      "errors": null,
+      "id": 78,
+      "input_connections": {
+        "input": {
+          "id": 76,
+          "output_name": "output_multi"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Flatten Collection",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Flatten Collection",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 3876.050048828125,
+        "top": 1450.316650390625
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "__FLATTEN__",
+      "tool_state": "{\"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"join_identifier\": \"\\\"_\\\"\", \"__page__\": 0}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "b6791e51-9c62-4ef6-ad52-82f16f75ac8c",
+      "workflow_outputs": []
+    },
+    "79": {
+      "annotation": "",
+      "content_id": "__FLATTEN__",
+      "errors": null,
+      "id": 79,
+      "input_connections": {
+        "input": {
+          "id": 77,
+          "output_name": "output_multi"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Flatten Collection",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Flatten Collection",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 3883.86669921875,
+        "top": 1569.066650390625
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "__FLATTEN__",
+      "tool_state": "{\"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"join_identifier\": \"\\\"_\\\"\", \"__page__\": 0}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "d9b59c40-e6c1-43a9-906e-77a2918df3f7",
+      "workflow_outputs": []
+    },
+    "8": {
+      "annotation": "",
+      "content_id": null,
+      "errors": null,
+      "id": 8,
+      "input_connections": {},
+      "inputs": [],
+      "label": "knownpep allpep lookup",
+      "name": "Input dataset",
+      "outputs": [],
+      "position": {
+        "left": 725.783447265625,
+        "top": 1633.8833618164062
+      },
+      "tool_id": null,
+      "tool_state": "{}",
+      "tool_version": null,
+      "type": "data_input",
+      "uuid": "31a3dc35-7949-43cb-b2cf-366fabd8fa65",
+      "workflow_outputs": [
+        {
+          "label": null,
+          "output_name": "output",
+          "uuid": "3a1156b6-a905-455d-b1cf-7fc1ddc134bd"
+        }
+      ]
+    },
+    "80": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_input_output/package_collection/0.11",
+      "errors": null,
+      "id": 80,
+      "input_connections": {
+        "collection": {
+          "id": 78,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Package dataset",
+          "name": "collection"
+        }
+      ],
+      "label": "out: mzidentml target",
+      "name": "Package dataset",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "tar"
+        }
+      ],
+      "position": {
+        "left": 3903.2333984375,
+        "top": 1226.683349609375
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        },
+        "RenameDatasetActionoutput": {
+          "action_arguments": {
+            "newname": "out: mzidentml target.tar.gz"
+          },
+          "action_type": "RenameDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_input_output/package_collection/0.11",
+      "tool_shed_repository": {
+        "changeset_revision": "85a8cf9edb19",
+        "name": "lehtio_input_output",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": null, \"__rerun_remap_job_id__\": null, \"method\": \"\\\"tar\\\"\", \"collection\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "0.11",
+      "type": "tool",
+      "uuid": "364a23ee-0496-435a-8126-b0dc62b8cecd",
+      "workflow_outputs": []
+    },
+    "81": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspsmtable_percolator/1.1",
+      "errors": null,
+      "id": 81,
+      "input_connections": {
+        "mzidentml": {
+          "id": 78,
+          "output_name": "output"
+        },
+        "psmtable": {
+          "id": 62,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Add percolator data to PSM table",
+          "name": "psmtable"
+        },
+        {
+          "description": "runtime parameter for tool Add percolator data to PSM table",
+          "name": "mzidentml"
+        }
+      ],
+      "label": null,
+      "name": "Add percolator data to PSM table",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "tabular"
+        }
+      ],
+      "position": {
+        "left": 4177.2667236328125,
+        "top": 1415.7166748046875
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspsmtable_percolator/1.1",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": null, \"__rerun_remap_job_id__\": null, \"filterpsm\": \"\\\"0.01\\\"\", \"filterpeptide\": \"\\\"0.01\\\"\", \"psmtable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"mzidentml\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.1",
+      "type": "tool",
+      "uuid": "6c65c707-261c-4aa1-9ef9-2fceee6b8208",
+      "workflow_outputs": []
+    },
+    "82": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_input_output/package_collection/0.11",
+      "errors": null,
+      "id": 82,
+      "input_connections": {
+        "collection": {
+          "id": 79,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Package dataset",
+          "name": "collection"
+        }
+      ],
+      "label": "out: mzidentml decoy",
+      "name": "Package dataset",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "tar"
+        }
+      ],
+      "position": {
+        "left": 3895.11669921875,
+        "top": 1793.066650390625
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        },
+        "RenameDatasetActionoutput": {
+          "action_arguments": {
+            "newname": "out: mzidentml decoy.tar.gz"
+          },
+          "action_type": "RenameDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_input_output/package_collection/0.11",
+      "tool_shed_repository": {
+        "changeset_revision": "85a8cf9edb19",
+        "name": "lehtio_input_output",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": null, \"__rerun_remap_job_id__\": null, \"method\": \"\\\"tar\\\"\", \"collection\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "0.11",
+      "type": "tool",
+      "uuid": "c1f940ee-718c-42bd-8173-7eecf6cf4324",
+      "workflow_outputs": []
+    },
+    "83": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspsmtable_percolator/1.1",
+      "errors": null,
+      "id": 83,
+      "input_connections": {
+        "mzidentml": {
+          "id": 79,
+          "output_name": "output"
+        },
+        "psmtable": {
+          "id": 63,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Add percolator data to PSM table",
+          "name": "psmtable"
+        },
+        {
+          "description": "runtime parameter for tool Add percolator data to PSM table",
+          "name": "mzidentml"
+        }
+      ],
+      "label": null,
+      "name": "Add percolator data to PSM table",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "tabular"
+        }
+      ],
+      "position": {
+        "left": 4165.2667236328125,
+        "top": 1608.7166748046875
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspsmtable_percolator/1.1",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": null, \"__rerun_remap_job_id__\": null, \"filterpsm\": \"\\\"0.01\\\"\", \"filterpeptide\": \"\\\"0.01\\\"\", \"psmtable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"mzidentml\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.1",
+      "type": "tool",
+      "uuid": "b4c5a47a-e3e1-4005-baf5-f19a92a12d68",
+      "workflow_outputs": []
+    },
+    "84": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/process_psmtable/1.1",
+      "errors": null,
+      "id": 84,
+      "input_connections": {
+        "lookup": {
+          "id": 3,
+          "output_name": "output"
+        },
+        "psms|psmtables": {
+          "id": 81,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Process PSM table",
+          "name": "mapfn"
+        },
+        {
+          "description": "runtime parameter for tool Process PSM table",
+          "name": "lookup"
+        },
+        {
+          "description": "runtime parameter for tool Process PSM table",
+          "name": "dbase"
+        },
+        {
+          "description": "runtime parameter for tool Process PSM table",
+          "name": "psms"
+        }
+      ],
+      "label": null,
+      "name": "Process PSM table",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "tabular"
+        },
+        {
+          "name": "lookupoutput",
+          "type": "sqlite"
+        }
+      ],
+      "position": {
+        "left": 4531.4833984375,
+        "top": 1333.7000122070312
+      },
+      "post_job_actions": {
+        "ChangeDatatypeActionlookupoutput": {
+          "action_arguments": {
+            "newtype": "sqlite"
+          },
+          "action_type": "ChangeDatatypeAction",
+          "output_name": "lookupoutput"
+        },
+        "HideDatasetActionlookupoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "lookupoutput"
+        },
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        },
+        "RenameDatasetActionlookupoutput": {
+          "action_arguments": {
+            "newname": "out: psm lookup target.sql"
+          },
+          "action_type": "RenameDatasetAction",
+          "output_name": "lookupoutput"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/process_psmtable/1.1",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": null, \"isobaric\": \"{\\\"ratios\\\": {\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}, \\\"yesno\\\": \\\"true\\\", \\\"__current_case__\\\": 0}\", \"mapfn\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"dbase\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"decoy\": \"\\\"false\\\"\", \"__rerun_remap_job_id__\": null, \"genes\": \"\\\"false\\\"\", \"genefield\": \"\\\"\\\"\", \"speccol\": \"\\\"1\\\"\", \"filter\": \"{\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}\", \"lookup\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"fastadelim\": \"null\", \"precursorquant\": \"\\\"true\\\"\", \"proteingroup\": \"\\\"false\\\"\", \"psms\": \"{\\\"psmtables\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"multiple\\\": \\\"true\\\", \\\"__current_case__\\\": 0, \\\"percolator\\\": {\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}}\"}",
+      "tool_version": "1.1",
+      "type": "tool",
+      "uuid": "2c8c21e6-4421-425f-9a88-dec0295cbd84",
+      "workflow_outputs": []
+    },
+    "85": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/process_psmtable/1.1",
+      "errors": null,
+      "id": 85,
+      "input_connections": {
+        "lookup": {
+          "id": 3,
+          "output_name": "output"
+        },
+        "psms|psmtables": {
+          "id": 83,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Process PSM table",
+          "name": "mapfn"
+        },
+        {
+          "description": "runtime parameter for tool Process PSM table",
+          "name": "lookup"
+        },
+        {
+          "description": "runtime parameter for tool Process PSM table",
+          "name": "dbase"
+        },
+        {
+          "description": "runtime parameter for tool Process PSM table",
+          "name": "psms"
+        }
+      ],
+      "label": "out: psm table decoy",
+      "name": "Process PSM table",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "tabular"
+        },
+        {
+          "name": "lookupoutput",
+          "type": "sqlite"
+        }
+      ],
+      "position": {
+        "left": 4542.4833984375,
+        "top": 1616.25
+      },
+      "post_job_actions": {
+        "HideDatasetActionlookupoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "lookupoutput"
+        },
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        },
+        "RenameDatasetActionoutput": {
+          "action_arguments": {
+            "newname": "out: psm table decoy.txt"
+          },
+          "action_type": "RenameDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/process_psmtable/1.1",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": null, \"isobaric\": \"{\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}\", \"mapfn\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"dbase\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"decoy\": \"\\\"true\\\"\", \"__rerun_remap_job_id__\": null, \"genes\": \"\\\"false\\\"\", \"genefield\": \"\\\"\\\"\", \"speccol\": \"\\\"1\\\"\", \"filter\": \"{\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}\", \"lookup\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"fastadelim\": \"null\", \"precursorquant\": \"\\\"false\\\"\", \"proteingroup\": \"\\\"false\\\"\", \"psms\": \"{\\\"psmtables\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"multiple\\\": \\\"true\\\", \\\"__current_case__\\\": 0, \\\"percolator\\\": {\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}}\"}",
+      "tool_version": "1.1",
+      "type": "tool",
+      "uuid": "f7c4f017-ba90-4051-883c-f7ae3a04671b",
+      "workflow_outputs": []
+    },
+    "86": {
+      "annotation": "",
+      "content_id": "Cut1",
+      "errors": null,
+      "id": 86,
+      "input_connections": {
+        "input": {
+          "id": 84,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Cut",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Cut",
+      "outputs": [
+        {
+          "name": "out_file1",
+          "type": "tabular"
+        }
+      ],
+      "position": {
+        "left": 3355.4833984375,
+        "top": 1011.0166625976562
+      },
+      "post_job_actions": {
+        "HideDatasetActionout_file1": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "out_file1"
+        }
+      },
+      "tool_id": "Cut1",
+      "tool_state": "{\"columnList\": \"\\\"c1\\\"\", \"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"delimiter\": \"\\\"T\\\"\", \"__rerun_remap_job_id__\": null, \"__page__\": null}",
+      "tool_version": "1.0.2",
+      "type": "tool",
+      "uuid": "3d04dc14-f66e-4e2b-bdee-32e1164c536a",
+      "workflow_outputs": []
+    },
+    "87": {
+      "annotation": "Get fraction numbers---\n\ns/.*fr([0-9][0-9]).*/\\1/;s/\\#SpecFile/Fraction/",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
+      "errors": null,
+      "id": 87,
+      "input_connections": {
+        "infile": {
+          "id": 86,
+          "output_name": "out_file1"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Text transformation",
+          "name": "code"
+        },
+        {
+          "description": "runtime parameter for tool Text transformation",
+          "name": "infile"
+        }
+      ],
+      "label": null,
+      "name": "Text transformation",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 3561.7333984375,
+        "top": 1016.8833312988281
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
+      "tool_shed_repository": {
+        "changeset_revision": "4c752559b236",
+        "name": "text_processing",
+        "owner": "bgruening",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"adv_opts\": \"{\\\"adv_opts_selector\\\": \\\"basic\\\", \\\"__current_case__\\\": 0}\", \"__page__\": 0, \"__rerun_remap_job_id__\": null, \"code\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.1.0",
+      "type": "tool",
+      "uuid": "955c3b33-d719-4449-861a-39f0857e15e0",
+      "workflow_outputs": []
+    },
+    "88": {
+      "annotation": "",
+      "content_id": "Paste1",
+      "errors": null,
+      "id": 88,
+      "input_connections": {
+        "input1": {
+          "id": 84,
+          "output_name": "output"
+        },
+        "input2": {
+          "id": 87,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Paste",
+          "name": "input2"
+        },
+        {
+          "description": "runtime parameter for tool Paste",
+          "name": "input1"
+        }
+      ],
+      "label": null,
+      "name": "Paste",
+      "outputs": [
+        {
+          "name": "out_file1",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 3813.60009765625,
+        "top": 1008.0666656494141
+      },
+      "post_job_actions": {
+        "HideDatasetActionout_file1": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "out_file1"
+        }
+      },
+      "tool_id": "Paste1",
+      "tool_state": "{\"input2\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__page__\": 0, \"delimiter\": \"\\\"T\\\"\", \"input1\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null}",
+      "tool_version": "1.0.0",
+      "type": "tool",
+      "uuid": "4b0f4943-e4fe-44b3-b286-d069305d77ff",
+      "workflow_outputs": []
+    },
+    "89": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/hirieftools/calc_delta_pi/1.3",
+      "errors": null,
+      "id": 89,
+      "input_connections": {
+        "peptable": {
+          "id": 88,
+          "output_name": "out_file1"
+        },
+        "trainingpi": {
+          "id": 5,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Add delta pI",
+          "name": "peptable"
+        },
+        {
+          "description": "runtime parameter for tool Add delta pI",
+          "name": "trainingpi"
+        }
+      ],
+      "label": null,
+      "name": "Add delta pI",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "tabular"
+        }
+      ],
+      "position": {
+        "left": 4037.9833984375,
+        "top": 983.9166564941406
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        },
+        "RenameDatasetActionoutput": {
+          "action_arguments": {
+            "newname": "out: psm table target.txt"
+          },
+          "action_type": "RenameDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/hirieftools/calc_delta_pi/1.3",
+      "tool_shed_repository": {
+        "changeset_revision": "78afc81ab244",
+        "name": "hirieftools",
+        "owner": "galaxyp",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": null, \"strips\": \"[{\\\"__index__\\\": 0, \\\"intercept\\\": \\\"\\\", \\\"fr_width\\\": \\\"\\\", \\\"pattern\\\": \\\"\\\"}]\", \"peptable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"pepcol\": \"\\\"11\\\"\", \"trainingpi\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"pepcolpattern\": \"\\\"\\\"\", \"__rerun_remap_job_id__\": null, \"stripcol\": \"\\\"1\\\"\", \"fraccol\": \"\\\"-1\\\"\", \"stripcolpattern\": \"\\\"\\\"\", \"fraccolpattern\": \"\\\"\\\"\", \"ignoremods\": \"[{\\\"regex\\\": \\\"*\\\", \\\"__index__\\\": 0}]\"}",
+      "tool_version": "1.3",
+      "type": "tool",
+      "uuid": "524b805c-2300-4c88-bfd5-b72c40620f3d",
+      "workflow_outputs": []
+    },
+    "9": {
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_tail_tool/1.1.0",
+      "errors": null,
+      "id": 9,
+      "input_connections": {
+        "infile": {
+          "id": 0,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Select last",
+          "name": "infile"
+        }
+      ],
+      "label": "remove header pipeptides",
+      "name": "Select last",
+      "outputs": [
+        {
+          "name": "outfile",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 921.033447265625,
+        "top": 269.70001220703125
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutfile": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "outfile"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_tail_tool/1.1.0",
+      "tool_shed_repository": {
+        "changeset_revision": "4c752559b236",
+        "name": "text_processing",
+        "owner": "bgruening",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": null, \"complement\": \"\\\"+\\\"\", \"__rerun_remap_job_id__\": null, \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"num_lines\": \"\\\"2\\\"\"}",
+      "tool_version": "1.1.0",
+      "type": "tool",
+      "uuid": "aeb96fc1-1a30-459d-8013-d3b5ed08f52d",
+      "workflow_outputs": []
+    },
+    "90": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspsmtable_split/1.1",
+      "errors": null,
+      "id": 90,
+      "input_connections": {
+        "input": {
+          "id": 89,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Split tabular data",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Split tabular data",
+      "outputs": [
+        {
+          "name": "splitpsms",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 4346.4833984375,
+        "top": 996.5
+      },
+      "post_job_actions": {
+        "HideDatasetActionsplitpsms": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "splitpsms"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspsmtable_split/1.1",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"splitcol\": \"\\\"2\\\"\", \"__page__\": null}",
+      "tool_version": "1.1",
+      "type": "tool",
+      "uuid": "58d26b6e-bc9d-4e4a-8bd6-41999690dff4",
+      "workflow_outputs": []
+    },
+    "91": {
+      "annotation": "Create peptide table---\nAnnotation for workflow driver. This contains the stdout with median normalizing which will be stored as report.",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/create_peptide_table/1.2",
+      "errors": null,
+      "id": 91,
+      "input_connections": {
+        "isoquant|normalize|norm_ratio_table": {
+          "id": 15,
+          "output_name": "output"
+        },
+        "psmtable": {
+          "id": 90,
+          "output_name": "splitpsms"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Create peptide table",
+          "name": "psmtable"
+        }
+      ],
+      "label": null,
+      "name": "Create peptide table",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "tabular"
+        }
+      ],
+      "position": {
+        "left": 4604.61669921875,
+        "top": 981.8166656494141
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/create_peptide_table/1.2",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"scorecol\": \"\\\"svm\\\"\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"fncol\": \"\\\"1\\\"\", \"psmtable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"precurqcolpattern\": \"\\\"area\\\"\", \"isoquant\": \"{\\\"isobpatternratio\\\": \\\"plex\\\", \\\"normalize\\\": {\\\"type\\\": \\\"medianother\\\", \\\"__current_case__\\\": 2, \\\"norm_ratio_table\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}}, \\\"yesno\\\": \\\"true\\\", \\\"accessioncol\\\": \\\"11\\\", \\\"isobpatternstrip\\\": \\\"plex\\\", \\\"setdenoms\\\": [], \\\"minint\\\": \\\"0.1\\\", \\\"__current_case__\\\": 1}\"}",
+      "tool_version": "1.2",
+      "type": "tool",
+      "uuid": "3e31ae07-8b50-46c8-844b-5f1e3be41c75",
+      "workflow_outputs": []
+    },
+    "92": {
+      "annotation": "merge peptide table---",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspepprottable_merge/1.1",
+      "errors": null,
+      "id": 92,
+      "input_connections": {
+        "lookup": {
+          "id": 84,
+          "output_name": "lookupoutput"
+        },
+        "tables": {
+          "id": 91,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Merge peptide or protein tables",
+          "name": "tables"
+        },
+        {
+          "description": "runtime parameter for tool Merge peptide or protein tables",
+          "name": "lookup"
+        }
+      ],
+      "label": null,
+      "name": "Merge peptide or protein tables",
+      "outputs": [
+        {
+          "name": "mergedout",
+          "type": "tabular"
+        },
+        {
+          "name": "lookupoutput",
+          "type": "sqlite"
+        }
+      ],
+      "position": {
+        "left": 5271.800048828125,
+        "top": 1012.1333312988281
+      },
+      "post_job_actions": {
+        "HideDatasetActionlookupoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "lookupoutput"
+        },
+        "HideDatasetActionmergedout": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "mergedout"
+        },
+        "RenameDatasetActionmergedout": {
+          "action_arguments": {
+            "newname": "out: peptide table.txt"
+          },
+          "action_type": "RenameDatasetAction",
+          "output_name": "mergedout"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspepprottable_merge/1.1",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"nopsmcolpattern\": \"\\\"quanted\\\"\", \"featcol\": \"\\\"1\\\"\", \"isobqcolpattern\": \"\\\"plex\\\"\", \"quants\": \"{\\\"centric\\\": \\\"plain\\\", \\\"type\\\": \\\"peptide\\\", \\\"__current_case__\\\": 0}\", \"tables\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"fdrpattern\": \"\\\"^q-value\\\"\", \"precurqcolpattern\": \"\\\"area\\\"\", \"lookup\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.1",
+      "type": "tool",
+      "uuid": "7ea899b1-5607-42cf-a462-fd7a4b95d819",
+      "workflow_outputs": []
+    },
+    "93": {
+      "annotation": "",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_input_output/msstitch_qc/0.15",
+      "errors": null,
+      "id": 93,
+      "input_connections": {
+        "lookup": {
+          "id": 3,
+          "output_name": "output"
+        },
+        "peptides": {
+          "id": 92,
+          "output_name": "mergedout"
+        },
+        "psmtable": {
+          "id": 89,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool msstitch QC",
+          "name": "symbols"
+        },
+        {
+          "description": "runtime parameter for tool msstitch QC",
+          "name": "isobaric"
+        },
+        {
+          "description": "runtime parameter for tool msstitch QC",
+          "name": "genes"
+        },
+        {
+          "description": "runtime parameter for tool msstitch QC",
+          "name": "proteins"
+        },
+        {
+          "description": "runtime parameter for tool msstitch QC",
+          "name": "platepatterns"
+        },
+        {
+          "description": "runtime parameter for tool msstitch QC",
+          "name": "psmtable"
+        },
+        {
+          "description": "runtime parameter for tool msstitch QC",
+          "name": "peptides"
+        },
+        {
+          "description": "runtime parameter for tool msstitch QC",
+          "name": "lookup"
+        },
+        {
+          "description": "runtime parameter for tool msstitch QC",
+          "name": "setnames"
+        }
+      ],
+      "label": null,
+      "name": "msstitch QC",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "data"
+        }
+      ],
+      "position": {
+        "left": 5641.166748046875,
+        "top": 1024.433334350586
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        },
+        "RenameDatasetActionoutput": {
+          "action_arguments": {
+            "newname": "out: qc.tar.gz"
+          },
+          "action_type": "RenameDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_input_output/msstitch_qc/0.15",
+      "tool_shed_repository": {
+        "changeset_revision": "85a8cf9edb19",
+        "name": "lehtio_input_output",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"platepatterns\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"isobaric\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"genes\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"proteins\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"symbols\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"setnames\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"peptides\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"lookup\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"psmtable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "0.15",
+      "type": "tool",
+      "uuid": "f99b7167-a85b-4323-9f03-51c8d8245528",
+      "workflow_outputs": []
+    }
+  },
+  "uuid": "0473fd44-412c-4c99-81a5-e3e5e016cd76"
+}
