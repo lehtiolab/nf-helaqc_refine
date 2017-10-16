@@ -20,8 +20,8 @@
       "name": "Input dataset collection",
       "outputs": [],
       "position": {
-        "left": 269.10009765625,
-        "top": 1113.9999694824219
+        "left": 269.099853515625,
+        "top": 1114
       },
       "tool_id": null,
       "tool_state": "{\"collection_type\": \"list\", \"name\": \"spectra\"}",
@@ -52,8 +52,8 @@
       "name": "Input dataset",
       "outputs": [],
       "position": {
-        "left": 269.35009765625,
-        "top": 920.0666351318359
+        "left": 269.349853515625,
+        "top": 920.066650390625
       },
       "tool_id": null,
       "tool_state": "{\"name\": \"quant lookup\"}",
@@ -102,8 +102,8 @@
         }
       ],
       "position": {
-        "left": 700.10009765625,
-        "top": 927.9999694824219
+        "left": 700.099853515625,
+        "top": 928
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -173,8 +173,8 @@
         }
       ],
       "position": {
-        "left": 713.60009765625,
-        "top": 1108.9999694824219
+        "left": 713.599853515625,
+        "top": 1109
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -255,7 +255,7 @@
         }
       ],
       "position": {
-        "left": 709.666748046875,
+        "left": 709.66650390625,
         "top": 1361.066650390625
       },
       "post_job_actions": {
@@ -321,8 +321,8 @@
         }
       ],
       "position": {
-        "left": 1030.783447265625,
-        "top": 976.4999694824219
+        "left": 1030.783203125,
+        "top": 976.5
       },
       "post_job_actions": {
         "HideDatasetActionbatched_fractions_mzid": {
@@ -388,7 +388,7 @@
         }
       ],
       "position": {
-        "left": 1297.666748046875,
+        "left": 1297.6665649414062,
         "top": 1638.75
       },
       "post_job_actions": {
@@ -455,7 +455,7 @@
         }
       ],
       "position": {
-        "left": 1338.666748046875,
+        "left": 1338.6665649414062,
         "top": 1965.683349609375
       },
       "post_job_actions": {
@@ -526,8 +526,8 @@
         }
       ],
       "position": {
-        "left": 1024.85009765625,
-        "top": 1193.4332885742188
+        "left": 1024.849853515625,
+        "top": 1193.433349609375
       },
       "post_job_actions": {
         "HideDatasetActionbatched_fractions_mzid": {
@@ -593,7 +593,7 @@
         }
       ],
       "position": {
-        "left": 1334.60009765625,
+        "left": 1334.5999145507812,
         "top": 1797.683349609375
       },
       "post_job_actions": {
@@ -660,7 +660,7 @@
         }
       ],
       "position": {
-        "left": 1300.666748046875,
+        "left": 1300.6665649414062,
         "top": 2151.683349609375
       },
       "post_job_actions": {
@@ -723,8 +723,8 @@
         }
       ],
       "position": {
-        "left": 1256.60009765625,
-        "top": 1130.1832885742188
+        "left": 1256.599853515625,
+        "top": 1130.183349609375
       },
       "post_job_actions": {
         "HideDatasetActionpinout": {
@@ -762,7 +762,7 @@
       "name": "Input dataset",
       "outputs": [],
       "position": {
-        "left": 276.533447265625,
+        "left": 276.533203125,
         "top": 1014.816650390625
       },
       "tool_id": null,
@@ -804,8 +804,8 @@
         }
       ],
       "position": {
-        "left": 2658.916748046875,
-        "top": 1660.4332885742188
+        "left": 2658.9165649414062,
+        "top": 1660.433349609375
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -847,7 +847,7 @@
         }
       ],
       "position": {
-        "left": 2641.916748046875,
+        "left": 2641.9165649414062,
         "top": 1802.433349609375
       },
       "post_job_actions": {
@@ -890,8 +890,8 @@
         }
       ],
       "position": {
-        "left": 1607.10009765625,
-        "top": 1129.2499694824219
+        "left": 1607.0999145507812,
+        "top": 1129.25
       },
       "post_job_actions": {
         "HideDatasetActionpercoout": {
@@ -947,7 +947,7 @@
         }
       ],
       "position": {
-        "left": 1869.85009765625,
+        "left": 1869.8499145507812,
         "top": 1272.75
       },
       "post_job_actions": {
@@ -1014,7 +1014,7 @@
         }
       ],
       "position": {
-        "left": 2110.60009765625,
+        "left": 2110.599899291992,
         "top": 1095.13330078125
       },
       "post_job_actions": {
@@ -1081,8 +1081,8 @@
         }
       ],
       "position": {
-        "left": 2113.533447265625,
-        "top": 1347.1832885742188
+        "left": 2113.533233642578,
+        "top": 1347.183349609375
       },
       "post_job_actions": {
         "HideDatasetActionbatched_fractions_mzid": {
@@ -1140,7 +1140,7 @@
         }
       ],
       "position": {
-        "left": 2343.2333984375,
+        "left": 2343.2332305908203,
         "top": 1116.316650390625
       },
       "post_job_actions": {
@@ -1189,7 +1189,7 @@
         }
       ],
       "position": {
-        "left": 2327.2333984375,
+        "left": 2327.2332305908203,
         "top": 1391.38330078125
       },
       "post_job_actions": {
@@ -1238,7 +1238,7 @@
         }
       ],
       "position": {
-        "left": 2536.783416748047,
+        "left": 2536.783233642578,
         "top": 1168.316650390625
       },
       "post_job_actions": {
@@ -1287,7 +1287,7 @@
         }
       ],
       "position": {
-        "left": 2518.783416748047,
+        "left": 2518.783233642578,
         "top": 1335.316650390625
       },
       "post_job_actions": {
@@ -1326,7 +1326,7 @@
       "name": "Input dataset",
       "outputs": [],
       "position": {
-        "left": 298.533447265625,
+        "left": 298.533203125,
         "top": 1226.38330078125
       },
       "tool_id": null,
@@ -1380,7 +1380,7 @@
         }
       ],
       "position": {
-        "left": 2791.416748046875,
+        "left": 2791.4165649414062,
         "top": 1301.75
       },
       "post_job_actions": {
@@ -1446,7 +1446,7 @@
         }
       ],
       "position": {
-        "left": 3004.350082397461,
+        "left": 3004.3499145507812,
         "top": 1298.75
       },
       "post_job_actions": {
@@ -1512,8 +1512,8 @@
         }
       ],
       "position": {
-        "left": 3207.166748046875,
-        "top": 1136.1832885742188
+        "left": 3207.1665649414062,
+        "top": 1136.183349609375
       },
       "post_job_actions": {
         "HideDatasetActionoutput_multi": {
@@ -1578,8 +1578,8 @@
         }
       ],
       "position": {
-        "left": 3224.10009765625,
-        "top": 1365.1832885742188
+        "left": 3224.0999145507812,
+        "top": 1365.183349609375
       },
       "post_job_actions": {
         "HideDatasetActionoutput_multi": {
@@ -1632,8 +1632,8 @@
         }
       ],
       "position": {
-        "left": 3422.916748046875,
-        "top": 1249.4332885742188
+        "left": 3422.91650390625,
+        "top": 1249.433349609375
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -1675,8 +1675,8 @@
         }
       ],
       "position": {
-        "left": 3436.85009765625,
-        "top": 1373.4332885742188
+        "left": 3436.849853515625,
+        "top": 1373.433349609375
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -1718,8 +1718,8 @@
         }
       ],
       "position": {
-        "left": 3453.783447265625,
-        "top": 1072.9332885742188
+        "left": 3453.783203125,
+        "top": 1072.933349609375
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -1806,8 +1806,8 @@
         }
       ],
       "position": {
-        "left": 3644.783447265625,
-        "top": 1157.6832885742188
+        "left": 3644.783203125,
+        "top": 1157.683349609375
       },
       "post_job_actions": {
         "ChangeDatatypeActionlookupoutput": {
@@ -1874,8 +1874,8 @@
         }
       ],
       "position": {
-        "left": 3447.85009765625,
-        "top": 1636.9332885742188
+        "left": 3447.849853515625,
+        "top": 1636.933349609375
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -1962,8 +1962,8 @@
         }
       ],
       "position": {
-        "left": 3626.783447265625,
-        "top": 1459.6832885742188
+        "left": 3626.783203125,
+        "top": 1459.683349609375
       },
       "post_job_actions": {
         "HideDatasetActionlookupoutput": {
@@ -2013,8 +2013,8 @@
       "name": "Input dataset",
       "outputs": [],
       "position": {
-        "left": 307.533447265625,
-        "top": 1305.4332885742188
+        "left": 307.533203125,
+        "top": 1305.433349609375
       },
       "tool_id": null,
       "tool_state": "{\"name\": \"decoy db\"}",
@@ -2030,46 +2030,52 @@
       ]
     },
     "40": {
-      "annotation": "IPG-deltapi---\nCut filename col",
-      "content_id": "Cut1",
+      "annotation": "",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
       "errors": null,
       "id": 40,
       "input_connections": {
-        "input": {
+        "infile": {
           "id": 37,
           "output_name": "output"
         }
       },
       "inputs": [
         {
-          "description": "runtime parameter for tool Cut",
-          "name": "input"
+          "description": "runtime parameter for tool Text transformation",
+          "name": "infile"
         }
       ],
       "label": null,
-      "name": "Cut",
+      "name": "Text transformation",
       "outputs": [
         {
-          "name": "out_file1",
-          "type": "tabular"
+          "name": "output",
+          "type": "input"
         }
       ],
       "position": {
-        "left": 2940.666748046875,
-        "top": 820.5999755859375
+        "left": 2683.64990234375,
+        "top": 806.316650390625
       },
       "post_job_actions": {
-        "HideDatasetActionout_file1": {
+        "HideDatasetActionoutput": {
           "action_arguments": {},
           "action_type": "HideDatasetAction",
-          "output_name": "out_file1"
+          "output_name": "output"
         }
       },
-      "tool_id": "Cut1",
-      "tool_state": "{\"columnList\": \"\\\"c1\\\"\", \"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"delimiter\": \"\\\"T\\\"\", \"__rerun_remap_job_id__\": null, \"__page__\": null}",
-      "tool_version": "1.0.2",
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
+      "tool_shed_repository": {
+        "changeset_revision": "4c752559b236",
+        "name": "text_processing",
+        "owner": "bgruening",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"adv_opts\": \"{\\\"adv_opts_selector\\\": \\\"basic\\\", \\\"__current_case__\\\": 0}\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"code\": \"\\\"s/\\\\\\\\#SpecFile/Fractions/\\\"\", \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.1.0",
       "type": "tool",
-      "uuid": "3710e9bb-6e55-4008-8448-b0db03aaad14",
+      "uuid": "966052ef-4501-4bb4-8011-943f56193953",
       "workflow_outputs": []
     },
     "41": {
@@ -2098,8 +2104,8 @@
         }
       ],
       "position": {
-        "left": 5453.533447265625,
-        "top": 292.4999694824219
+        "left": 5453.533203125,
+        "top": 292.49998474121094
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -2147,7 +2153,7 @@
         }
       ],
       "position": {
-        "left": 3925.35009765625,
+        "left": 3925.349853515625,
         "top": 1501.066650390625
       },
       "post_job_actions": {
@@ -2196,8 +2202,8 @@
         }
       ],
       "position": {
-        "left": 5860.60009765625,
-        "top": 556.9999694824219
+        "left": 5860.599853515625,
+        "top": 556.9999847412109
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -2220,56 +2226,46 @@
       "workflow_outputs": []
     },
     "44": {
-      "annotation": "Get fraction numbers---\n\ns/.*fr([0-9][0-9]).*/\\1/;s/\\#SpecFile/Fraction/",
-      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
+      "annotation": "IPG-deltapi---\nCut filename col",
+      "content_id": "Cut1",
       "errors": null,
       "id": 44,
       "input_connections": {
-        "infile": {
+        "input": {
           "id": 40,
-          "output_name": "out_file1"
+          "output_name": "output"
         }
       },
       "inputs": [
         {
-          "description": "runtime parameter for tool Text transformation",
-          "name": "code"
-        },
-        {
-          "description": "runtime parameter for tool Text transformation",
-          "name": "infile"
+          "description": "runtime parameter for tool Cut",
+          "name": "input"
         }
       ],
       "label": null,
-      "name": "Text transformation",
+      "name": "Cut",
       "outputs": [
         {
-          "name": "output",
-          "type": "input"
+          "name": "out_file1",
+          "type": "tabular"
         }
       ],
       "position": {
-        "left": 3136.533416748047,
-        "top": 814.8833160400391
+        "left": 2940.6665649414062,
+        "top": 820.5999755859375
       },
       "post_job_actions": {
-        "HideDatasetActionoutput": {
+        "HideDatasetActionout_file1": {
           "action_arguments": {},
           "action_type": "HideDatasetAction",
-          "output_name": "output"
+          "output_name": "out_file1"
         }
       },
-      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
-      "tool_shed_repository": {
-        "changeset_revision": "4c752559b236",
-        "name": "text_processing",
-        "owner": "bgruening",
-        "tool_shed": "toolshed.g2.bx.psu.edu"
-      },
-      "tool_state": "{\"adv_opts\": \"{\\\"adv_opts_selector\\\": \\\"basic\\\", \\\"__current_case__\\\": 0}\", \"__page__\": 0, \"__rerun_remap_job_id__\": null, \"code\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
-      "tool_version": "1.1.0",
+      "tool_id": "Cut1",
+      "tool_state": "{\"columnList\": \"\\\"c1\\\"\", \"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"delimiter\": \"\\\"T\\\"\", \"__rerun_remap_job_id__\": null, \"__page__\": null}",
+      "tool_version": "1.0.2",
       "type": "tool",
-      "uuid": "955c3b33-d719-4449-861a-39f0857e15e0",
+      "uuid": "3710e9bb-6e55-4008-8448-b0db03aaad14",
       "workflow_outputs": []
     },
     "45": {
@@ -2298,8 +2294,8 @@
         }
       ],
       "position": {
-        "left": 5715.35009765625,
-        "top": 302.18328857421875
+        "left": 5715.349853515625,
+        "top": 302.1833190917969
       },
       "post_job_actions": {
         "HideDatasetActionout_file1": {
@@ -2341,7 +2337,7 @@
         }
       ],
       "position": {
-        "left": 4161.10009765625,
+        "left": 4161.099853515625,
         "top": 1429.816650390625
       },
       "post_job_actions": {
@@ -2390,7 +2386,7 @@
         }
       ],
       "position": {
-        "left": 4167.666748046875,
+        "left": 4167.66650390625,
         "top": 1547.75
       },
       "post_job_actions": {
@@ -2439,7 +2435,7 @@
         }
       ],
       "position": {
-        "left": 4157.666748046875,
+        "left": 4157.66650390625,
         "top": 1653.75
       },
       "post_job_actions": {
@@ -2488,7 +2484,7 @@
         }
       ],
       "position": {
-        "left": 4156.60009765625,
+        "left": 4156.599853515625,
         "top": 1769.75
       },
       "post_job_actions": {
@@ -2527,7 +2523,7 @@
       "name": "Input dataset",
       "outputs": [],
       "position": {
-        "left": 270.60009765625,
+        "left": 270.599853515625,
         "top": 1389
       },
       "tool_id": null,
@@ -2569,7 +2565,7 @@
         }
       ],
       "position": {
-        "left": 5483.533447265625,
+        "left": 5483.533203125,
         "top": 1105.066650390625
       },
       "post_job_actions": {
@@ -2618,7 +2614,7 @@
         }
       ],
       "position": {
-        "left": 5488.533447265625,
+        "left": 5488.533203125,
         "top": 1337
       },
       "post_job_actions": {
@@ -2667,7 +2663,7 @@
         }
       ],
       "position": {
-        "left": 5485.60009765625,
+        "left": 5485.599853515625,
         "top": 1606.066650390625
       },
       "post_job_actions": {
@@ -2716,8 +2712,8 @@
         }
       ],
       "position": {
-        "left": 6354.10009765625,
-        "top": 602.9999694824219
+        "left": 6354.099853515625,
+        "top": 602.9999847412109
       },
       "post_job_actions": {
         "HideDatasetActionoutfile": {
@@ -2740,54 +2736,56 @@
       "workflow_outputs": []
     },
     "54": {
-      "annotation": "IPG-deltapi---\nPaste fractions",
-      "content_id": "Paste1",
+      "annotation": "Get fraction numbers---\n\ns/.*fr([0-9][0-9]).*/\\1/",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
       "errors": null,
       "id": 54,
       "input_connections": {
-        "input1": {
-          "id": 37,
-          "output_name": "output"
-        },
-        "input2": {
+        "infile": {
           "id": 44,
-          "output_name": "output"
+          "output_name": "out_file1"
         }
       },
       "inputs": [
         {
-          "description": "runtime parameter for tool Paste",
-          "name": "input2"
+          "description": "runtime parameter for tool Text transformation",
+          "name": "code"
         },
         {
-          "description": "runtime parameter for tool Paste",
-          "name": "input1"
+          "description": "runtime parameter for tool Text transformation",
+          "name": "infile"
         }
       ],
       "label": null,
-      "name": "Paste",
+      "name": "Text transformation",
       "outputs": [
         {
-          "name": "out_file1",
+          "name": "output",
           "type": "input"
         }
       ],
       "position": {
-        "left": 3370.4833984375,
-        "top": 806.8833160400391
+        "left": 3136.533203125,
+        "top": 814.88330078125
       },
       "post_job_actions": {
-        "HideDatasetActionout_file1": {
+        "HideDatasetActionoutput": {
           "action_arguments": {},
           "action_type": "HideDatasetAction",
-          "output_name": "out_file1"
+          "output_name": "output"
         }
       },
-      "tool_id": "Paste1",
-      "tool_state": "{\"input2\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__page__\": null, \"delimiter\": \"\\\"T\\\"\", \"input1\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null}",
-      "tool_version": "1.0.0",
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
+      "tool_shed_repository": {
+        "changeset_revision": "4c752559b236",
+        "name": "text_processing",
+        "owner": "bgruening",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"adv_opts\": \"{\\\"adv_opts_selector\\\": \\\"basic\\\", \\\"__current_case__\\\": 0}\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"code\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.1.0",
       "type": "tool",
-      "uuid": "4b0f4943-e4fe-44b3-b286-d069305d77ff",
+      "uuid": "955c3b33-d719-4449-861a-39f0857e15e0",
       "workflow_outputs": []
     },
     "55": {
@@ -2816,7 +2814,7 @@
         }
       ],
       "position": {
-        "left": 5489.533447265625,
+        "left": 5489.533203125,
         "top": 972.566650390625
       },
       "post_job_actions": {
@@ -2865,7 +2863,7 @@
         }
       ],
       "position": {
-        "left": 5483.533447265625,
+        "left": 5483.533203125,
         "top": 1241
       },
       "post_job_actions": {
@@ -2914,7 +2912,7 @@
         }
       ],
       "position": {
-        "left": 5487.533447265625,
+        "left": 5487.533203125,
         "top": 1509.066650390625
       },
       "post_job_actions": {
@@ -2963,8 +2961,8 @@
         }
       ],
       "position": {
-        "left": 6175.033447265625,
-        "top": 345.9999694824219
+        "left": 6175.033203125,
+        "top": 345.99998474121094
       },
       "post_job_actions": {
         "HideDatasetActionoutfile": {
@@ -3012,8 +3010,8 @@
         }
       ],
       "position": {
-        "left": 6343.10009765625,
-        "top": 466.4999694824219
+        "left": 6343.099853515625,
+        "top": 466.49998474121094
       },
       "post_job_actions": {
         "HideDatasetActionoutfile": {
@@ -3061,8 +3059,8 @@
         }
       ],
       "position": {
-        "left": 298.10009765625,
-        "top": 738.9999694824219
+        "left": 298.099853515625,
+        "top": 739
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -3104,8 +3102,8 @@
         }
       ],
       "position": {
-        "left": 6587.033447265625,
-        "top": 596.0666351318359
+        "left": 6587.033203125,
+        "top": 596.066650390625
       },
       "post_job_actions": {
         "HideDatasetActionout_file1": {
@@ -3122,67 +3120,54 @@
       "workflow_outputs": []
     },
     "61": {
-      "annotation": "IPG-deltapi---\nAdd deltapi",
-      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/hirieftools/calc_delta_pi/1.1",
+      "annotation": "IPG-deltapi---\nPaste fractions",
+      "content_id": "Paste1",
       "errors": null,
       "id": 61,
       "input_connections": {
-        "peptable": {
-          "id": 54,
-          "output_name": "out_file1"
+        "input1": {
+          "id": 37,
+          "output_name": "output"
         },
-        "trainingpi": {
-          "id": 2,
+        "input2": {
+          "id": 54,
           "output_name": "output"
         }
       },
       "inputs": [
         {
-          "description": "runtime parameter for tool Add delta pI",
-          "name": "peptable"
+          "description": "runtime parameter for tool Paste",
+          "name": "input2"
         },
         {
-          "description": "runtime parameter for tool Add delta pI",
-          "name": "trainingpi"
+          "description": "runtime parameter for tool Paste",
+          "name": "input1"
         }
       ],
       "label": null,
-      "name": "Add delta pI",
+      "name": "Paste",
       "outputs": [
         {
-          "name": "output",
-          "type": "tabular"
+          "name": "out_file1",
+          "type": "input"
         }
       ],
       "position": {
-        "left": 3621.0000610351562,
-        "top": 789.4999694824219
+        "left": 3370.4832763671875,
+        "top": 806.88330078125
       },
       "post_job_actions": {
-        "HideDatasetActionoutput": {
+        "HideDatasetActionout_file1": {
           "action_arguments": {},
           "action_type": "HideDatasetAction",
-          "output_name": "output"
-        },
-        "RenameDatasetActionoutput": {
-          "action_arguments": {
-            "newname": "out: psm table target.txt"
-          },
-          "action_type": "RenameDatasetAction",
-          "output_name": "output"
+          "output_name": "out_file1"
         }
       },
-      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/hirieftools/calc_delta_pi/1.1",
-      "tool_shed_repository": {
-        "changeset_revision": "8a30d6e5b97d",
-        "name": "hirieftools",
-        "owner": "galaxyp",
-        "tool_shed": "toolshed.g2.bx.psu.edu"
-      },
-      "tool_state": "{\"__page__\": null, \"strips\": \"[]\", \"peptable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"pepcol\": \"\\\"11\\\"\", \"trainingpi\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"pepcolpattern\": \"\\\"\\\"\", \"__rerun_remap_job_id__\": null, \"stripcol\": \"\\\"1\\\"\", \"fraccol\": \"\\\"-1\\\"\", \"stripcolpattern\": \"\\\"\\\"\", \"fraccolpattern\": \"\\\"\\\"\", \"ignoremods\": \"[{\\\"regex\\\": \\\"*\\\", \\\"__index__\\\": 0}]\"}",
-      "tool_version": "1.1",
+      "tool_id": "Paste1",
+      "tool_state": "{\"input2\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__page__\": null, \"delimiter\": \"\\\"T\\\"\", \"input1\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null}",
+      "tool_version": "1.0.0",
       "type": "tool",
-      "uuid": "8ab40619-a116-43b5-bded-d493116f1a51",
+      "uuid": "4b0f4943-e4fe-44b3-b286-d069305d77ff",
       "workflow_outputs": []
     },
     "62": {
@@ -3211,8 +3196,8 @@
         }
       ],
       "position": {
-        "left": 6416.033447265625,
-        "top": 338.9999694824219
+        "left": 6416.033203125,
+        "top": 338.99998474121094
       },
       "post_job_actions": {
         "HideDatasetActionout_file1": {
@@ -3254,8 +3239,8 @@
         }
       ],
       "position": {
-        "left": 6572.033447265625,
-        "top": 453.56663513183594
+        "left": 6572.033203125,
+        "top": 453.566650390625
       },
       "post_job_actions": {
         "HideDatasetActionout_file1": {
@@ -3272,52 +3257,67 @@
       "workflow_outputs": []
     },
     "64": {
-      "annotation": "split psm target---\nAnnotated for autoconnecting with psm table",
-      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspsmtable_split/1.1",
+      "annotation": "IPG-deltapi---\nAdd deltapi",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/hirieftools/calc_delta_pi/1.1",
       "errors": null,
       "id": 64,
       "input_connections": {
-        "input": {
+        "peptable": {
           "id": 61,
+          "output_name": "out_file1"
+        },
+        "trainingpi": {
+          "id": 2,
           "output_name": "output"
         }
       },
       "inputs": [
         {
-          "description": "runtime parameter for tool Split tabular data",
-          "name": "input"
+          "description": "runtime parameter for tool Add delta pI",
+          "name": "peptable"
+        },
+        {
+          "description": "runtime parameter for tool Add delta pI",
+          "name": "trainingpi"
         }
       ],
       "label": null,
-      "name": "Split tabular data",
+      "name": "Add delta pI",
       "outputs": [
         {
-          "name": "splitpsms",
-          "type": "input"
+          "name": "output",
+          "type": "tabular"
         }
       ],
       "position": {
-        "left": 3927.5001220703125,
-        "top": 779.4999694824219
+        "left": 3620.9998779296875,
+        "top": 789.5
       },
       "post_job_actions": {
-        "HideDatasetActionsplitpsms": {
+        "HideDatasetActionoutput": {
           "action_arguments": {},
           "action_type": "HideDatasetAction",
-          "output_name": "splitpsms"
+          "output_name": "output"
+        },
+        "RenameDatasetActionoutput": {
+          "action_arguments": {
+            "newname": "out: psm table target.txt"
+          },
+          "action_type": "RenameDatasetAction",
+          "output_name": "output"
         }
       },
-      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspsmtable_split/1.1",
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/galaxyp/hirieftools/calc_delta_pi/1.1",
       "tool_shed_repository": {
-        "changeset_revision": "c7f3a84931ee",
-        "name": "msstitch_test2",
-        "owner": "jorritb",
-        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+        "changeset_revision": "8a30d6e5b97d",
+        "name": "hirieftools",
+        "owner": "galaxyp",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
       },
-      "tool_state": "{\"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"splitcol\": \"\\\"2\\\"\", \"__page__\": null}",
+      "tool_state": "{\"__page__\": null, \"strips\": \"[]\", \"peptable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"pepcol\": \"\\\"11\\\"\", \"trainingpi\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"pepcolpattern\": \"\\\"\\\"\", \"__rerun_remap_job_id__\": null, \"stripcol\": \"\\\"1\\\"\", \"fraccol\": \"\\\"-1\\\"\", \"stripcolpattern\": \"\\\"\\\"\", \"fraccolpattern\": \"\\\"\\\"\", \"ignoremods\": \"[{\\\"regex\\\": \\\"*\\\", \\\"__index__\\\": 0}]\"}",
       "tool_version": "1.1",
       "type": "tool",
-      "uuid": "d8c77c15-bbb0-441c-8502-a0e3bde40535",
+      "uuid": "8ab40619-a116-43b5-bded-d493116f1a51",
       "workflow_outputs": []
     },
     "65": {
@@ -3346,8 +3346,8 @@
         }
       ],
       "position": {
-        "left": 6632.033447265625,
-        "top": 346.9999694824219
+        "left": 6632.033203125,
+        "top": 346.99998474121094
       },
       "post_job_actions": {
         "HideDatasetActionout_file1": {
@@ -3393,8 +3393,8 @@
         }
       ],
       "position": {
-        "left": 6863.533447265625,
-        "top": 522.9999694824219
+        "left": 6863.533203125,
+        "top": 522.9999847412109
       },
       "post_job_actions": {
         "HideDatasetActionout_file1": {
@@ -3417,52 +3417,52 @@
       "workflow_outputs": []
     },
     "67": {
-      "annotation": "Normalization protein isobaric ratio table---\nProtein table with unnormalized ratios  (median of PSM ratios per protein). Used for calculating medians for normalizing in later steps.",
-      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/create_protein_table/1.2",
+      "annotation": "split psm target---\nAnnotated for autoconnecting with psm table",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspsmtable_split/1.1",
       "errors": null,
       "id": 67,
       "input_connections": {
-        "psmtable": {
+        "input": {
           "id": 64,
-          "output_name": "splitpsms"
+          "output_name": "output"
         }
       },
       "inputs": [
         {
-          "description": "runtime parameter for tool Create protein table",
-          "name": "psmtable"
+          "description": "runtime parameter for tool Split tabular data",
+          "name": "input"
         }
       ],
       "label": null,
-      "name": "Create protein table",
+      "name": "Split tabular data",
       "outputs": [
         {
-          "name": "output",
-          "type": "tabular"
+          "name": "splitpsms",
+          "type": "input"
         }
       ],
       "position": {
-        "left": 3896.85009765625,
-        "top": 998.4999694824219
+        "left": 3927.4998779296875,
+        "top": 779.5
       },
       "post_job_actions": {
-        "HideDatasetActionoutput": {
+        "HideDatasetActionsplitpsms": {
           "action_arguments": {},
           "action_type": "HideDatasetAction",
-          "output_name": "output"
+          "output_name": "splitpsms"
         }
       },
-      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/create_protein_table/1.2",
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspsmtable_split/1.1",
       "tool_shed_repository": {
         "changeset_revision": "c7f3a84931ee",
         "name": "msstitch_test2",
         "owner": "jorritb",
         "tool_shed": "testtoolshed.g2.bx.psu.edu"
       },
-      "tool_state": "{\"__page__\": null, \"accessioncol\": \"\\\"13\\\"\", \"__rerun_remap_job_id__\": null, \"psmtable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"ms1quant\": \"\\\"false\\\"\", \"isoquant\": \"{\\\"normalize\\\": {\\\"type\\\": \\\"false\\\", \\\"__current_case__\\\": 0}, \\\"yesno\\\": \\\"true\\\", \\\"setdenoms\\\": [], \\\"minint\\\": \\\"0.1\\\", \\\"__current_case__\\\": 1, \\\"isobpattern\\\": \\\"plex\\\"}\"}",
-      "tool_version": "1.2",
+      "tool_state": "{\"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"splitcol\": \"\\\"2\\\"\", \"__page__\": null}",
+      "tool_version": "1.1",
       "type": "tool",
-      "uuid": "9ef494fa-b0bc-4bc6-9076-4814aeafcd25",
+      "uuid": "d8c77c15-bbb0-441c-8502-a0e3bde40535",
       "workflow_outputs": []
     },
     "68": {
@@ -3491,8 +3491,8 @@
         }
       ],
       "position": {
-        "left": 5400.60009765625,
-        "top": 678.5666351318359
+        "left": 5400.599853515625,
+        "top": 678.566650390625
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -3515,28 +3515,24 @@
       "workflow_outputs": []
     },
     "69": {
-      "annotation": "Create peptide table---\nAnnotation for workflow driver. This contains the stdout with median normalizing which will be stored as report.",
-      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/create_peptide_table/1.2",
+      "annotation": "Normalization protein isobaric ratio table---\nProtein table with unnormalized ratios  (median of PSM ratios per protein). Used for calculating medians for normalizing in later steps.",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/create_protein_table/1.2",
       "errors": null,
       "id": 69,
       "input_connections": {
-        "isoquant|normalize|norm_ratio_table": {
-          "id": 67,
-          "output_name": "output"
-        },
         "psmtable": {
-          "id": 64,
+          "id": 67,
           "output_name": "splitpsms"
         }
       },
       "inputs": [
         {
-          "description": "runtime parameter for tool Create peptide table",
+          "description": "runtime parameter for tool Create protein table",
           "name": "psmtable"
         }
       ],
       "label": null,
-      "name": "Create peptide table",
+      "name": "Create protein table",
       "outputs": [
         {
           "name": "output",
@@ -3544,8 +3540,8 @@
         }
       ],
       "position": {
-        "left": 4180.166748046875,
-        "top": 779.8166351318359
+        "left": 3896.849853515625,
+        "top": 998.5
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -3554,17 +3550,17 @@
           "output_name": "output"
         }
       },
-      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/create_peptide_table/1.2",
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/create_protein_table/1.2",
       "tool_shed_repository": {
         "changeset_revision": "c7f3a84931ee",
         "name": "msstitch_test2",
         "owner": "jorritb",
         "tool_shed": "testtoolshed.g2.bx.psu.edu"
       },
-      "tool_state": "{\"scorecol\": \"\\\"svm\\\"\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"fncol\": \"\\\"1\\\"\", \"psmtable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"precurqcolpattern\": \"\\\"area\\\"\", \"isoquant\": \"{\\\"isobpatternratio\\\": \\\"plex\\\", \\\"normalize\\\": {\\\"type\\\": \\\"medianother\\\", \\\"__current_case__\\\": 2, \\\"norm_ratio_table\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}}, \\\"yesno\\\": \\\"true\\\", \\\"accessioncol\\\": \\\"11\\\", \\\"isobpatternstrip\\\": \\\"plex\\\", \\\"setdenoms\\\": [], \\\"minint\\\": \\\"0.1\\\", \\\"__current_case__\\\": 1}\"}",
+      "tool_state": "{\"__page__\": null, \"accessioncol\": \"\\\"13\\\"\", \"__rerun_remap_job_id__\": null, \"psmtable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"ms1quant\": \"\\\"false\\\"\", \"isoquant\": \"{\\\"normalize\\\": {\\\"type\\\": \\\"false\\\", \\\"__current_case__\\\": 0}, \\\"yesno\\\": \\\"true\\\", \\\"setdenoms\\\": [], \\\"minint\\\": \\\"0.1\\\", \\\"__current_case__\\\": 1, \\\"isobpattern\\\": \\\"plex\\\"}\"}",
       "tool_version": "1.2",
       "type": "tool",
-      "uuid": "3e31ae07-8b50-46c8-844b-5f1e3be41c75",
+      "uuid": "9ef494fa-b0bc-4bc6-9076-4814aeafcd25",
       "workflow_outputs": []
     },
     "7": {
@@ -3593,8 +3589,8 @@
         }
       ],
       "position": {
-        "left": 487.10009765625,
-        "top": 731.9999694824219
+        "left": 487.099853515625,
+        "top": 732
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -3617,17 +3613,168 @@
       "workflow_outputs": []
     },
     "70": {
-      "annotation": "Create protein table---\nENSP, uniprot acc, etc",
-      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/create_protein_table/1.2",
+      "annotation": "X-set protein table---\nRelevant for for ENSP, genes, symbols",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_replace_in_column/1.1.1",
       "errors": null,
       "id": 70,
       "input_connections": {
+        "infile": {
+          "id": 68,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Replace Text",
+          "name": "infile"
+        }
+      ],
+      "label": null,
+      "name": "Replace Text",
+      "outputs": [
+        {
+          "name": "outfile",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 5748.099853515625,
+        "top": 755.566650390625
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutfile": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "outfile"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_replace_in_column/1.1.1",
+      "tool_shed_repository": {
+        "changeset_revision": "4c752559b236",
+        "name": "text_processing",
+        "owner": "bgruening",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": null, \"find_pattern\": \"\\\"0\\\"\", \"column\": \"\\\"30\\\"\", \"__rerun_remap_job_id__\": null, \"replace_pattern\": \"\\\"__TARGET__\\\"\", \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.1.1",
+      "type": "tool",
+      "uuid": "aa7f2a32-e006-4d3d-8743-76e628e1705e",
+      "workflow_outputs": []
+    },
+    "71": {
+      "annotation": "X-set protein table---\nRelevant for for ENSP, genes, symbols",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_replace_in_column/1.1.1",
+      "errors": null,
+      "id": 71,
+      "input_connections": {
+        "infile": {
+          "id": 68,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Replace Text",
+          "name": "infile"
+        }
+      ],
+      "label": null,
+      "name": "Replace Text",
+      "outputs": [
+        {
+          "name": "outfile",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 5754.099853515625,
+        "top": 880.566650390625
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutfile": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "outfile"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_replace_in_column/1.1.1",
+      "tool_shed_repository": {
+        "changeset_revision": "4c752559b236",
+        "name": "text_processing",
+        "owner": "bgruening",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": null, \"find_pattern\": \"\\\"1\\\"\", \"column\": \"\\\"30\\\"\", \"__rerun_remap_job_id__\": null, \"replace_pattern\": \"\\\"__DECOY__\\\"\", \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.1.1",
+      "type": "tool",
+      "uuid": "074f763a-cc12-447e-91a3-bf5914cc013f",
+      "workflow_outputs": []
+    },
+    "72": {
+      "annotation": "Create peptide table---\nAnnotation for workflow driver. This contains the stdout with median normalizing which will be stored as report.",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/create_peptide_table/1.2",
+      "errors": null,
+      "id": 72,
+      "input_connections": {
         "isoquant|normalize|norm_ratio_table": {
-          "id": 67,
+          "id": 69,
           "output_name": "output"
         },
         "psmtable": {
-          "id": 64,
+          "id": 67,
+          "output_name": "splitpsms"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Create peptide table",
+          "name": "psmtable"
+        }
+      ],
+      "label": null,
+      "name": "Create peptide table",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "tabular"
+        }
+      ],
+      "position": {
+        "left": 4180.16650390625,
+        "top": 779.816650390625
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/create_peptide_table/1.2",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"scorecol\": \"\\\"svm\\\"\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"fncol\": \"\\\"1\\\"\", \"psmtable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"precurqcolpattern\": \"\\\"area\\\"\", \"isoquant\": \"{\\\"isobpatternratio\\\": \\\"plex\\\", \\\"normalize\\\": {\\\"type\\\": \\\"medianother\\\", \\\"__current_case__\\\": 2, \\\"norm_ratio_table\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}}, \\\"yesno\\\": \\\"true\\\", \\\"accessioncol\\\": \\\"11\\\", \\\"isobpatternstrip\\\": \\\"plex\\\", \\\"setdenoms\\\": [], \\\"minint\\\": \\\"0.1\\\", \\\"__current_case__\\\": 1}\"}",
+      "tool_version": "1.2",
+      "type": "tool",
+      "uuid": "3e31ae07-8b50-46c8-844b-5f1e3be41c75",
+      "workflow_outputs": []
+    },
+    "73": {
+      "annotation": "Create protein table---\nENSP, uniprot acc, etc",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/create_protein_table/1.2",
+      "errors": null,
+      "id": 73,
+      "input_connections": {
+        "isoquant|normalize|norm_ratio_table": {
+          "id": 69,
+          "output_name": "output"
+        },
+        "psmtable": {
+          "id": 67,
           "output_name": "splitpsms"
         }
       },
@@ -3646,8 +3793,8 @@
         }
       ],
       "position": {
-        "left": 4178.666748046875,
-        "top": 940.7499694824219
+        "left": 4178.66650390625,
+        "top": 940.75
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -3669,18 +3816,18 @@
       "uuid": "8e526913-d6e1-45cf-90c4-2c700f4cff92",
       "workflow_outputs": []
     },
-    "71": {
+    "74": {
       "annotation": "Create gene table---\nENSG, uniprot gene field, etc",
       "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/create_protein_table/1.2",
       "errors": null,
-      "id": 71,
+      "id": 74,
       "input_connections": {
         "isoquant|normalize|norm_ratio_table": {
-          "id": 67,
+          "id": 69,
           "output_name": "output"
         },
         "psmtable": {
-          "id": 64,
+          "id": 67,
           "output_name": "splitpsms"
         }
       },
@@ -3699,8 +3846,8 @@
         }
       ],
       "position": {
-        "left": 4178.666748046875,
-        "top": 1085.7499694824219
+        "left": 4178.66650390625,
+        "top": 1085.75
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -3722,18 +3869,18 @@
       "uuid": "0e8b3209-bd36-463c-837d-62b4178ef10e",
       "workflow_outputs": []
     },
-    "72": {
+    "75": {
       "annotation": "Create symbol table---\nOnly for ENSEMBL, symbols via biomart map",
       "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/create_protein_table/1.2",
       "errors": null,
-      "id": 72,
+      "id": 75,
       "input_connections": {
         "isoquant|normalize|norm_ratio_table": {
-          "id": 67,
+          "id": 69,
           "output_name": "output"
         },
         "psmtable": {
-          "id": 64,
+          "id": 67,
           "output_name": "splitpsms"
         }
       },
@@ -3752,7 +3899,7 @@
         }
       ],
       "position": {
-        "left": 4182.666748046875,
+        "left": 4182.66650390625,
         "top": 1244.75
       },
       "post_job_actions": {
@@ -3775,116 +3922,116 @@
       "uuid": "2a2cadd7-123c-46c1-9bb4-3e08b148ae2a",
       "workflow_outputs": []
     },
-    "73": {
+    "76": {
       "annotation": "X-set protein table---\nRelevant for for ENSP, genes, symbols",
-      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_replace_in_column/1.1.1",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_grep_tool/1.1.0",
       "errors": null,
-      "id": 73,
+      "id": 76,
       "input_connections": {
         "infile": {
-          "id": 68,
-          "output_name": "output"
+          "id": 70,
+          "output_name": "outfile"
         }
       },
       "inputs": [
         {
-          "description": "runtime parameter for tool Replace Text",
+          "description": "runtime parameter for tool Search in textfiles",
           "name": "infile"
         }
       ],
       "label": null,
-      "name": "Replace Text",
+      "name": "Search in textfiles",
       "outputs": [
         {
-          "name": "outfile",
+          "name": "output",
           "type": "input"
         }
       ],
       "position": {
-        "left": 5748.10009765625,
-        "top": 755.5666351318359
+        "left": 5958.099853515625,
+        "top": 754.5
       },
       "post_job_actions": {
-        "HideDatasetActionoutfile": {
+        "HideDatasetActionoutput": {
           "action_arguments": {},
           "action_type": "HideDatasetAction",
-          "output_name": "outfile"
+          "output_name": "output"
         }
       },
-      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_replace_in_column/1.1.1",
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_grep_tool/1.1.0",
       "tool_shed_repository": {
         "changeset_revision": "4c752559b236",
         "name": "text_processing",
         "owner": "bgruening",
         "tool_shed": "toolshed.g2.bx.psu.edu"
       },
-      "tool_state": "{\"__page__\": null, \"find_pattern\": \"\\\"0\\\"\", \"column\": \"\\\"30\\\"\", \"__rerun_remap_job_id__\": null, \"replace_pattern\": \"\\\"__TARGET__\\\"\", \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
-      "tool_version": "1.1.1",
+      "tool_state": "{\"lines_before\": \"\\\"0\\\"\", \"regex_type\": \"\\\"-P\\\"\", \"__page__\": null, \"color\": \"\\\"NOCOLOR\\\"\", \"invert\": \"\\\"\\\"\", \"case_sensitive\": \"\\\"\\\"\", \"__rerun_remap_job_id__\": null, \"url_paste\": \"\\\"__TARGET__\\\"\", \"lines_after\": \"\\\"0\\\"\", \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.1.0",
       "type": "tool",
-      "uuid": "aa7f2a32-e006-4d3d-8743-76e628e1705e",
+      "uuid": "255fab51-f1e6-4eb8-97e1-8e4dc1cfe924",
       "workflow_outputs": []
     },
-    "74": {
+    "77": {
       "annotation": "X-set protein table---\nRelevant for for ENSP, genes, symbols",
-      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_replace_in_column/1.1.1",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_grep_tool/1.1.0",
       "errors": null,
-      "id": 74,
+      "id": 77,
       "input_connections": {
         "infile": {
-          "id": 68,
-          "output_name": "output"
+          "id": 71,
+          "output_name": "outfile"
         }
       },
       "inputs": [
         {
-          "description": "runtime parameter for tool Replace Text",
+          "description": "runtime parameter for tool Search in textfiles",
           "name": "infile"
         }
       ],
       "label": null,
-      "name": "Replace Text",
+      "name": "Search in textfiles",
       "outputs": [
         {
-          "name": "outfile",
+          "name": "output",
           "type": "input"
         }
       ],
       "position": {
-        "left": 5754.10009765625,
-        "top": 880.5666351318359
+        "left": 5956.099853515625,
+        "top": 875.566650390625
       },
       "post_job_actions": {
-        "HideDatasetActionoutfile": {
+        "HideDatasetActionoutput": {
           "action_arguments": {},
           "action_type": "HideDatasetAction",
-          "output_name": "outfile"
+          "output_name": "output"
         }
       },
-      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_replace_in_column/1.1.1",
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_grep_tool/1.1.0",
       "tool_shed_repository": {
         "changeset_revision": "4c752559b236",
         "name": "text_processing",
         "owner": "bgruening",
         "tool_shed": "toolshed.g2.bx.psu.edu"
       },
-      "tool_state": "{\"__page__\": null, \"find_pattern\": \"\\\"1\\\"\", \"column\": \"\\\"30\\\"\", \"__rerun_remap_job_id__\": null, \"replace_pattern\": \"\\\"__DECOY__\\\"\", \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
-      "tool_version": "1.1.1",
+      "tool_state": "{\"lines_before\": \"\\\"0\\\"\", \"regex_type\": \"\\\"-P\\\"\", \"__page__\": null, \"color\": \"\\\"NOCOLOR\\\"\", \"invert\": \"\\\"\\\"\", \"case_sensitive\": \"\\\"\\\"\", \"__rerun_remap_job_id__\": null, \"url_paste\": \"\\\"__DECOY__\\\"\", \"lines_after\": \"\\\"0\\\"\", \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.1.0",
       "type": "tool",
-      "uuid": "074f763a-cc12-447e-91a3-bf5914cc013f",
+      "uuid": "0e45fc7a-bb44-45bf-bb1b-3f1f042362e6",
       "workflow_outputs": []
     },
-    "75": {
+    "78": {
       "annotation": "merge peptide table---",
       "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspepprottable_merge/1.1",
       "errors": null,
-      "id": 75,
+      "id": 78,
       "input_connections": {
         "lookup": {
           "id": 37,
           "output_name": "lookupoutput"
         },
         "tables": {
-          "id": 69,
+          "id": 72,
           "output_name": "output"
         }
       },
@@ -3911,8 +4058,8 @@
         }
       ],
       "position": {
-        "left": 4849.35009765625,
-        "top": 795.0666351318359
+        "left": 4849.349853515625,
+        "top": 795.066650390625
       },
       "post_job_actions": {
         "HideDatasetActionlookupoutput": {
@@ -3946,11 +4093,11 @@
       "uuid": "7ea899b1-5607-42cf-a462-fd7a4b95d819",
       "workflow_outputs": []
     },
-    "76": {
+    "79": {
       "annotation": "FDR protein table---\nENSP, uniprot acc, etc",
       "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/protein_table_fdr/1.1",
       "errors": null,
-      "id": 76,
+      "id": 79,
       "input_connections": {
         "decoypeptable": {
           "id": 46,
@@ -3961,11 +4108,11 @@
           "output_name": "output"
         },
         "targetpeptable": {
-          "id": 69,
+          "id": 72,
           "output_name": "output"
         },
         "targetproteins": {
-          "id": 70,
+          "id": 73,
           "output_name": "output"
         }
       },
@@ -3996,7 +4143,7 @@
         }
       ],
       "position": {
-        "left": 4487.35009765625,
+        "left": 4487.349853515625,
         "top": 995.13330078125
       },
       "post_job_actions": {
@@ -4017,217 +4164,6 @@
       "tool_version": "1.1",
       "type": "tool",
       "uuid": "09ac1fa2-5fa4-442d-9881-2378c15d0489",
-      "workflow_outputs": []
-    },
-    "77": {
-      "annotation": "FDR gene table---\nENSG, uniprot gene, etc",
-      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/protein_table_fdr/1.1",
-      "errors": null,
-      "id": 77,
-      "input_connections": {
-        "decoypeptable": {
-          "id": 46,
-          "output_name": "output"
-        },
-        "decoyproteins": {
-          "id": 48,
-          "output_name": "output"
-        },
-        "fdr|dfasta": {
-          "id": 4,
-          "output_name": "output"
-        },
-        "fdr|tfasta": {
-          "id": 3,
-          "output_name": "output"
-        },
-        "targetpeptable": {
-          "id": 69,
-          "output_name": "output"
-        },
-        "targetproteins": {
-          "id": 71,
-          "output_name": "output"
-        }
-      },
-      "inputs": [
-        {
-          "description": "runtime parameter for tool Calculate protein FDR",
-          "name": "targetpeptable"
-        },
-        {
-          "description": "runtime parameter for tool Calculate protein FDR",
-          "name": "decoyproteins"
-        },
-        {
-          "description": "runtime parameter for tool Calculate protein FDR",
-          "name": "targetproteins"
-        },
-        {
-          "description": "runtime parameter for tool Calculate protein FDR",
-          "name": "fdr"
-        },
-        {
-          "description": "runtime parameter for tool Calculate protein FDR",
-          "name": "fdr"
-        },
-        {
-          "description": "runtime parameter for tool Calculate protein FDR",
-          "name": "decoypeptable"
-        }
-      ],
-      "label": null,
-      "name": "Calculate protein FDR",
-      "outputs": [
-        {
-          "name": "output",
-          "type": "tabular"
-        }
-      ],
-      "position": {
-        "left": 4518.35009765625,
-        "top": 1204.13330078125
-      },
-      "post_job_actions": {
-        "HideDatasetActionoutput": {
-          "action_arguments": {},
-          "action_type": "HideDatasetAction",
-          "output_name": "output"
-        }
-      },
-      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/protein_table_fdr/1.1",
-      "tool_shed_repository": {
-        "changeset_revision": "c7f3a84931ee",
-        "name": "msstitch_test2",
-        "owner": "jorritb",
-        "tool_shed": "testtoolshed.g2.bx.psu.edu"
-      },
-      "tool_state": "{\"__page__\": null, \"targetpeptable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"minlog\": \"\\\"true\\\"\", \"decoyproteins\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"targetproteins\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"fdr\": \"{\\\"fastadelim\\\": null, \\\"genefield\\\": \\\"\\\", \\\"tfasta\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"qvaluecolpattern\\\": \\\"^q-value\\\", \\\"__current_case__\\\": 0, \\\"scorecolpattern\\\": \\\"^q-value\\\", \\\"type\\\": \\\"pickfasta\\\", \\\"dfasta\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}}\", \"decoypeptable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"proteincolumn\": \"\\\"^Gene\\\"\"}",
-      "tool_version": "1.1",
-      "type": "tool",
-      "uuid": "031b5b9d-17cd-423d-8019-69a8f10a8779",
-      "workflow_outputs": []
-    },
-    "78": {
-      "annotation": "FDR symbol table---\nOnly for ENSEMBL, symbols via biomart map",
-      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/protein_table_fdr/1.1",
-      "errors": null,
-      "id": 78,
-      "input_connections": {
-        "decoypeptable": {
-          "id": 46,
-          "output_name": "output"
-        },
-        "decoyproteins": {
-          "id": 49,
-          "output_name": "output"
-        },
-        "targetpeptable": {
-          "id": 69,
-          "output_name": "output"
-        },
-        "targetproteins": {
-          "id": 72,
-          "output_name": "output"
-        }
-      },
-      "inputs": [
-        {
-          "description": "runtime parameter for tool Calculate protein FDR",
-          "name": "targetpeptable"
-        },
-        {
-          "description": "runtime parameter for tool Calculate protein FDR",
-          "name": "decoyproteins"
-        },
-        {
-          "description": "runtime parameter for tool Calculate protein FDR",
-          "name": "targetproteins"
-        },
-        {
-          "description": "runtime parameter for tool Calculate protein FDR",
-          "name": "decoypeptable"
-        }
-      ],
-      "label": null,
-      "name": "Calculate protein FDR",
-      "outputs": [
-        {
-          "name": "output",
-          "type": "tabular"
-        }
-      ],
-      "position": {
-        "left": 4499.35009765625,
-        "top": 1493.13330078125
-      },
-      "post_job_actions": {
-        "HideDatasetActionoutput": {
-          "action_arguments": {},
-          "action_type": "HideDatasetAction",
-          "output_name": "output"
-        }
-      },
-      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/protein_table_fdr/1.1",
-      "tool_shed_repository": {
-        "changeset_revision": "c7f3a84931ee",
-        "name": "msstitch_test2",
-        "owner": "jorritb",
-        "tool_shed": "testtoolshed.g2.bx.psu.edu"
-      },
-      "tool_state": "{\"__page__\": null, \"targetpeptable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"minlog\": \"\\\"true\\\"\", \"decoyproteins\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"targetproteins\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"fdr\": \"{\\\"qvaluecolpattern\\\": \\\"^q-value\\\", \\\"scorecolpattern\\\": \\\"^q-value\\\", \\\"type\\\": \\\"pickresult\\\", \\\"__current_case__\\\": 1}\", \"decoypeptable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"proteincolumn\": \"\\\"Symbol\\\"\"}",
-      "tool_version": "1.1",
-      "type": "tool",
-      "uuid": "847766b1-0685-4a73-b403-fd9eecd2bdd9",
-      "workflow_outputs": []
-    },
-    "79": {
-      "annotation": "X-set protein table---\nRelevant for for ENSP, genes, symbols",
-      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_grep_tool/1.1.0",
-      "errors": null,
-      "id": 79,
-      "input_connections": {
-        "infile": {
-          "id": 73,
-          "output_name": "outfile"
-        }
-      },
-      "inputs": [
-        {
-          "description": "runtime parameter for tool Search in textfiles",
-          "name": "infile"
-        }
-      ],
-      "label": null,
-      "name": "Search in textfiles",
-      "outputs": [
-        {
-          "name": "output",
-          "type": "input"
-        }
-      ],
-      "position": {
-        "left": 5958.10009765625,
-        "top": 754.4999694824219
-      },
-      "post_job_actions": {
-        "HideDatasetActionoutput": {
-          "action_arguments": {},
-          "action_type": "HideDatasetAction",
-          "output_name": "output"
-        }
-      },
-      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_grep_tool/1.1.0",
-      "tool_shed_repository": {
-        "changeset_revision": "4c752559b236",
-        "name": "text_processing",
-        "owner": "bgruening",
-        "tool_shed": "toolshed.g2.bx.psu.edu"
-      },
-      "tool_state": "{\"lines_before\": \"\\\"0\\\"\", \"regex_type\": \"\\\"-P\\\"\", \"__page__\": null, \"color\": \"\\\"NOCOLOR\\\"\", \"invert\": \"\\\"\\\"\", \"case_sensitive\": \"\\\"\\\"\", \"__rerun_remap_job_id__\": null, \"url_paste\": \"\\\"__TARGET__\\\"\", \"lines_after\": \"\\\"0\\\"\", \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
-      "tool_version": "1.1.0",
-      "type": "tool",
-      "uuid": "255fab51-f1e6-4eb8-97e1-8e4dc1cfe924",
       "workflow_outputs": []
     },
     "8": {
@@ -4256,8 +4192,8 @@
         }
       ],
       "position": {
-        "left": 516.10009765625,
-        "top": 858.9999694824219
+        "left": 516.099853515625,
+        "top": 859
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -4280,33 +4216,73 @@
       "workflow_outputs": []
     },
     "80": {
-      "annotation": "X-set protein table---\nRelevant for for ENSP, genes, symbols",
-      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_grep_tool/1.1.0",
+      "annotation": "FDR gene table---\nENSG, uniprot gene, etc",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/protein_table_fdr/1.1",
       "errors": null,
       "id": 80,
       "input_connections": {
-        "infile": {
+        "decoypeptable": {
+          "id": 46,
+          "output_name": "output"
+        },
+        "decoyproteins": {
+          "id": 48,
+          "output_name": "output"
+        },
+        "fdr|dfasta": {
+          "id": 4,
+          "output_name": "output"
+        },
+        "fdr|tfasta": {
+          "id": 3,
+          "output_name": "output"
+        },
+        "targetpeptable": {
+          "id": 72,
+          "output_name": "output"
+        },
+        "targetproteins": {
           "id": 74,
-          "output_name": "outfile"
+          "output_name": "output"
         }
       },
       "inputs": [
         {
-          "description": "runtime parameter for tool Search in textfiles",
-          "name": "infile"
+          "description": "runtime parameter for tool Calculate protein FDR",
+          "name": "targetpeptable"
+        },
+        {
+          "description": "runtime parameter for tool Calculate protein FDR",
+          "name": "decoyproteins"
+        },
+        {
+          "description": "runtime parameter for tool Calculate protein FDR",
+          "name": "targetproteins"
+        },
+        {
+          "description": "runtime parameter for tool Calculate protein FDR",
+          "name": "fdr"
+        },
+        {
+          "description": "runtime parameter for tool Calculate protein FDR",
+          "name": "fdr"
+        },
+        {
+          "description": "runtime parameter for tool Calculate protein FDR",
+          "name": "decoypeptable"
         }
       ],
       "label": null,
-      "name": "Search in textfiles",
+      "name": "Calculate protein FDR",
       "outputs": [
         {
           "name": "output",
-          "type": "input"
+          "type": "tabular"
         }
       ],
       "position": {
-        "left": 5956.10009765625,
-        "top": 875.5666351318359
+        "left": 4518.349853515625,
+        "top": 1204.13330078125
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -4315,31 +4291,210 @@
           "output_name": "output"
         }
       },
-      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_grep_tool/1.1.0",
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/protein_table_fdr/1.1",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": null, \"targetpeptable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"minlog\": \"\\\"true\\\"\", \"decoyproteins\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"targetproteins\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"fdr\": \"{\\\"fastadelim\\\": null, \\\"genefield\\\": \\\"\\\", \\\"tfasta\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"qvaluecolpattern\\\": \\\"^q-value\\\", \\\"__current_case__\\\": 0, \\\"scorecolpattern\\\": \\\"^q-value\\\", \\\"type\\\": \\\"pickfasta\\\", \\\"dfasta\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}}\", \"decoypeptable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"proteincolumn\": \"\\\"^Gene\\\"\"}",
+      "tool_version": "1.1",
+      "type": "tool",
+      "uuid": "031b5b9d-17cd-423d-8019-69a8f10a8779",
+      "workflow_outputs": []
+    },
+    "81": {
+      "annotation": "FDR symbol table---\nOnly for ENSEMBL, symbols via biomart map",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/protein_table_fdr/1.1",
+      "errors": null,
+      "id": 81,
+      "input_connections": {
+        "decoypeptable": {
+          "id": 46,
+          "output_name": "output"
+        },
+        "decoyproteins": {
+          "id": 49,
+          "output_name": "output"
+        },
+        "targetpeptable": {
+          "id": 72,
+          "output_name": "output"
+        },
+        "targetproteins": {
+          "id": 75,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Calculate protein FDR",
+          "name": "targetpeptable"
+        },
+        {
+          "description": "runtime parameter for tool Calculate protein FDR",
+          "name": "decoyproteins"
+        },
+        {
+          "description": "runtime parameter for tool Calculate protein FDR",
+          "name": "targetproteins"
+        },
+        {
+          "description": "runtime parameter for tool Calculate protein FDR",
+          "name": "decoypeptable"
+        }
+      ],
+      "label": null,
+      "name": "Calculate protein FDR",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "tabular"
+        }
+      ],
+      "position": {
+        "left": 4499.349853515625,
+        "top": 1493.13330078125
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/protein_table_fdr/1.1",
+      "tool_shed_repository": {
+        "changeset_revision": "c7f3a84931ee",
+        "name": "msstitch_test2",
+        "owner": "jorritb",
+        "tool_shed": "testtoolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": null, \"targetpeptable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"minlog\": \"\\\"true\\\"\", \"decoyproteins\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"targetproteins\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"fdr\": \"{\\\"qvaluecolpattern\\\": \\\"^q-value\\\", \\\"scorecolpattern\\\": \\\"^q-value\\\", \\\"type\\\": \\\"pickresult\\\", \\\"__current_case__\\\": 1}\", \"decoypeptable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"proteincolumn\": \"\\\"Symbol\\\"\"}",
+      "tool_version": "1.1",
+      "type": "tool",
+      "uuid": "847766b1-0685-4a73-b403-fd9eecd2bdd9",
+      "workflow_outputs": []
+    },
+    "82": {
+      "annotation": "X-set protein table---\nRelevant for for ENSP, genes, symbols",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_cat/0.1.0",
+      "errors": null,
+      "id": 82,
+      "input_connections": {
+        "inputs": {
+          "id": 65,
+          "output_name": "out_file1"
+        },
+        "queries_0|inputs2": {
+          "id": 76,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Concatenate datasets",
+          "name": "inputs"
+        }
+      ],
+      "label": null,
+      "name": "Concatenate datasets",
+      "outputs": [
+        {
+          "name": "out_file1",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 6210.599853515625,
+        "top": 739.066650390625
+      },
+      "post_job_actions": {
+        "HideDatasetActionout_file1": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "out_file1"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_cat/0.1.0",
       "tool_shed_repository": {
         "changeset_revision": "4c752559b236",
         "name": "text_processing",
         "owner": "bgruening",
         "tool_shed": "toolshed.g2.bx.psu.edu"
       },
-      "tool_state": "{\"lines_before\": \"\\\"0\\\"\", \"regex_type\": \"\\\"-P\\\"\", \"__page__\": null, \"color\": \"\\\"NOCOLOR\\\"\", \"invert\": \"\\\"\\\"\", \"case_sensitive\": \"\\\"\\\"\", \"__rerun_remap_job_id__\": null, \"url_paste\": \"\\\"__DECOY__\\\"\", \"lines_after\": \"\\\"0\\\"\", \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
-      "tool_version": "1.1.0",
+      "tool_state": "{\"__page__\": null, \"inputs\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"queries\": \"[{\\\"inputs2\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"__index__\\\": 0}]\"}",
+      "tool_version": "0.1.0",
       "type": "tool",
-      "uuid": "0e45fc7a-bb44-45bf-bb1b-3f1f042362e6",
+      "uuid": "88ee2651-48dc-4bb5-a52a-ad211f980422",
       "workflow_outputs": []
     },
-    "81": {
+    "83": {
+      "annotation": "X-set protein table---\nRelevant for for ENSP, genes, symbols",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_cat/0.1.0",
+      "errors": null,
+      "id": 83,
+      "input_connections": {
+        "inputs": {
+          "id": 65,
+          "output_name": "out_file1"
+        },
+        "queries_0|inputs2": {
+          "id": 77,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Concatenate datasets",
+          "name": "inputs"
+        }
+      ],
+      "label": null,
+      "name": "Concatenate datasets",
+      "outputs": [
+        {
+          "name": "out_file1",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 6207.533203125,
+        "top": 884.066650390625
+      },
+      "post_job_actions": {
+        "HideDatasetActionout_file1": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "out_file1"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_cat/0.1.0",
+      "tool_shed_repository": {
+        "changeset_revision": "4c752559b236",
+        "name": "text_processing",
+        "owner": "bgruening",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"__page__\": null, \"inputs\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"queries\": \"[{\\\"inputs2\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"__index__\\\": 0}]\"}",
+      "tool_version": "0.1.0",
+      "type": "tool",
+      "uuid": "487fa526-aa19-4524-a3ba-ca02f673a9f1",
+      "workflow_outputs": []
+    },
+    "84": {
       "annotation": "Merge protein table---\nENSP, uniprot acc, etc",
       "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspepprottable_merge/1.1",
       "errors": null,
-      "id": 81,
+      "id": 84,
       "input_connections": {
         "lookup": {
           "id": 37,
           "output_name": "lookupoutput"
         },
         "tables": {
-          "id": 76,
+          "id": 79,
           "output_name": "output"
         }
       },
@@ -4366,7 +4521,7 @@
         }
       ],
       "position": {
-        "left": 4868.35009765625,
+        "left": 4868.349853515625,
         "top": 1021.066650390625
       },
       "post_job_actions": {
@@ -4394,18 +4549,18 @@
       "uuid": "ac85e730-8fcc-48fc-9985-ba8047ea1b74",
       "workflow_outputs": []
     },
-    "82": {
+    "85": {
       "annotation": "Merge gene table---\nENSG, uniprot gene, etc",
       "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspepprottable_merge/1.1",
       "errors": null,
-      "id": 82,
+      "id": 85,
       "input_connections": {
         "lookup": {
           "id": 37,
           "output_name": "lookupoutput"
         },
         "tables": {
-          "id": 77,
+          "id": 80,
           "output_name": "output"
         }
       },
@@ -4432,7 +4587,7 @@
         }
       ],
       "position": {
-        "left": 4880.283447265625,
+        "left": 4880.283203125,
         "top": 1225
       },
       "post_job_actions": {
@@ -4460,18 +4615,18 @@
       "uuid": "340490a1-b558-4e4c-a198-13f57371671a",
       "workflow_outputs": []
     },
-    "83": {
+    "86": {
       "annotation": "Merge symbol table---\nOnly for ENSEMBL, symbols via biomart map",
       "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/msspepprottable_merge/1.1",
       "errors": null,
-      "id": 83,
+      "id": 86,
       "input_connections": {
         "lookup": {
           "id": 37,
           "output_name": "lookupoutput"
         },
         "tables": {
-          "id": 78,
+          "id": 81,
           "output_name": "output"
         }
       },
@@ -4498,7 +4653,7 @@
         }
       ],
       "position": {
-        "left": 4908.35009765625,
+        "left": 4908.349853515625,
         "top": 1433.066650390625
       },
       "post_job_actions": {
@@ -4526,120 +4681,14 @@
       "uuid": "74d5af49-3dcd-48a2-a31a-c504afa494a7",
       "workflow_outputs": []
     },
-    "84": {
-      "annotation": "X-set protein table---\nRelevant for for ENSP, genes, symbols",
-      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_cat/0.1.0",
-      "errors": null,
-      "id": 84,
-      "input_connections": {
-        "inputs": {
-          "id": 65,
-          "output_name": "out_file1"
-        },
-        "queries_0|inputs2": {
-          "id": 79,
-          "output_name": "output"
-        }
-      },
-      "inputs": [
-        {
-          "description": "runtime parameter for tool Concatenate datasets",
-          "name": "inputs"
-        }
-      ],
-      "label": null,
-      "name": "Concatenate datasets",
-      "outputs": [
-        {
-          "name": "out_file1",
-          "type": "input"
-        }
-      ],
-      "position": {
-        "left": 6210.60009765625,
-        "top": 739.0666351318359
-      },
-      "post_job_actions": {
-        "HideDatasetActionout_file1": {
-          "action_arguments": {},
-          "action_type": "HideDatasetAction",
-          "output_name": "out_file1"
-        }
-      },
-      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_cat/0.1.0",
-      "tool_shed_repository": {
-        "changeset_revision": "4c752559b236",
-        "name": "text_processing",
-        "owner": "bgruening",
-        "tool_shed": "toolshed.g2.bx.psu.edu"
-      },
-      "tool_state": "{\"__page__\": null, \"inputs\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"queries\": \"[{\\\"inputs2\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"__index__\\\": 0}]\"}",
-      "tool_version": "0.1.0",
-      "type": "tool",
-      "uuid": "88ee2651-48dc-4bb5-a52a-ad211f980422",
-      "workflow_outputs": []
-    },
-    "85": {
-      "annotation": "X-set protein table---\nRelevant for for ENSP, genes, symbols",
-      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_cat/0.1.0",
-      "errors": null,
-      "id": 85,
-      "input_connections": {
-        "inputs": {
-          "id": 65,
-          "output_name": "out_file1"
-        },
-        "queries_0|inputs2": {
-          "id": 80,
-          "output_name": "output"
-        }
-      },
-      "inputs": [
-        {
-          "description": "runtime parameter for tool Concatenate datasets",
-          "name": "inputs"
-        }
-      ],
-      "label": null,
-      "name": "Concatenate datasets",
-      "outputs": [
-        {
-          "name": "out_file1",
-          "type": "input"
-        }
-      ],
-      "position": {
-        "left": 6207.533447265625,
-        "top": 884.0666351318359
-      },
-      "post_job_actions": {
-        "HideDatasetActionout_file1": {
-          "action_arguments": {},
-          "action_type": "HideDatasetAction",
-          "output_name": "out_file1"
-        }
-      },
-      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_cat/0.1.0",
-      "tool_shed_repository": {
-        "changeset_revision": "4c752559b236",
-        "name": "text_processing",
-        "owner": "bgruening",
-        "tool_shed": "toolshed.g2.bx.psu.edu"
-      },
-      "tool_state": "{\"__page__\": null, \"inputs\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__rerun_remap_job_id__\": null, \"queries\": \"[{\\\"inputs2\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"__index__\\\": 0}]\"}",
-      "tool_version": "0.1.0",
-      "type": "tool",
-      "uuid": "487fa526-aa19-4524-a3ba-ca02f673a9f1",
-      "workflow_outputs": []
-    },
-    "86": {
+    "87": {
       "annotation": "FDR protein table---\nENSP, uniprot ID, other acc etc.",
       "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/protein_table_fdr/1.1",
       "errors": null,
-      "id": 86,
+      "id": 87,
       "input_connections": {
         "decoypeptable": {
-          "id": 85,
+          "id": 83,
           "output_name": "out_file1"
         },
         "decoyproteins": {
@@ -4647,7 +4696,7 @@
           "output_name": "output"
         },
         "targetpeptable": {
-          "id": 84,
+          "id": 82,
           "output_name": "out_file1"
         },
         "targetproteins": {
@@ -4682,7 +4731,7 @@
         }
       ],
       "position": {
-        "left": 5844.10009765625,
+        "left": 5844.099853515625,
         "top": 1025.066650390625
       },
       "post_job_actions": {
@@ -4705,14 +4754,14 @@
       "uuid": "bd43f593-f31b-40b3-9e42-4549e10dfea5",
       "workflow_outputs": []
     },
-    "87": {
+    "88": {
       "annotation": "FDR gene table---\nENSG, uniprot gene, etc",
       "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/protein_table_fdr/1.1",
       "errors": null,
-      "id": 87,
+      "id": 88,
       "input_connections": {
         "decoypeptable": {
-          "id": 85,
+          "id": 83,
           "output_name": "out_file1"
         },
         "decoyproteins": {
@@ -4728,7 +4777,7 @@
           "output_name": "output"
         },
         "targetpeptable": {
-          "id": 84,
+          "id": 82,
           "output_name": "out_file1"
         },
         "targetproteins": {
@@ -4771,7 +4820,7 @@
         }
       ],
       "position": {
-        "left": 5847.033447265625,
+        "left": 5847.033203125,
         "top": 1224
       },
       "post_job_actions": {
@@ -4794,14 +4843,14 @@
       "uuid": "d641a418-1d2b-4305-9e58-2f1fdab0ae14",
       "workflow_outputs": []
     },
-    "88": {
+    "89": {
       "annotation": "FDR symbol table---\nOnly for ENSEMBL, symbols via biomart map",
       "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/msstitch_test2/protein_table_fdr/1.1",
       "errors": null,
-      "id": 88,
+      "id": 89,
       "input_connections": {
         "decoypeptable": {
-          "id": 85,
+          "id": 83,
           "output_name": "out_file1"
         },
         "decoyproteins": {
@@ -4809,7 +4858,7 @@
           "output_name": "output"
         },
         "targetpeptable": {
-          "id": 84,
+          "id": 82,
           "output_name": "out_file1"
         },
         "targetproteins": {
@@ -4844,7 +4893,7 @@
         }
       ],
       "position": {
-        "left": 5860.033447265625,
+        "left": 5860.033203125,
         "top": 1472
       },
       "post_job_actions": {
@@ -4865,49 +4914,6 @@
       "tool_version": "1.1",
       "type": "tool",
       "uuid": "49762b76-3b54-4f88-a966-a58c1e040c51",
-      "workflow_outputs": []
-    },
-    "89": {
-      "annotation": "X-set protein table---\nENSP, uniprot ID etc",
-      "content_id": "Cut1",
-      "errors": null,
-      "id": 89,
-      "input_connections": {
-        "input": {
-          "id": 86,
-          "output_name": "output"
-        }
-      },
-      "inputs": [
-        {
-          "description": "runtime parameter for tool Cut",
-          "name": "input"
-        }
-      ],
-      "label": null,
-      "name": "Cut",
-      "outputs": [
-        {
-          "name": "out_file1",
-          "type": "tabular"
-        }
-      ],
-      "position": {
-        "left": 6090.283447265625,
-        "top": 1049.1832885742188
-      },
-      "post_job_actions": {
-        "HideDatasetActionout_file1": {
-          "action_arguments": {},
-          "action_type": "HideDatasetAction",
-          "output_name": "out_file1"
-        }
-      },
-      "tool_id": "Cut1",
-      "tool_state": "{\"columnList\": \"\\\"c3\\\"\", \"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"delimiter\": \"\\\"T\\\"\", \"__rerun_remap_job_id__\": null, \"__page__\": null}",
-      "tool_version": "1.0.2",
-      "type": "tool",
-      "uuid": "a37405d7-9cdc-4747-b6fd-edebaeb29370",
       "workflow_outputs": []
     },
     "9": {
@@ -4944,8 +4950,8 @@
         }
       ],
       "position": {
-        "left": 749.10009765625,
-        "top": 737.9999694824219
+        "left": 749.099853515625,
+        "top": 738
       },
       "post_job_actions": {
         "HideDatasetActionout_file1": {
@@ -4962,7 +4968,7 @@
       "workflow_outputs": []
     },
     "90": {
-      "annotation": "X-set gene table---\nENSG, uniprot gene, etc",
+      "annotation": "X-set protein table---\nENSP, uniprot ID etc",
       "content_id": "Cut1",
       "errors": null,
       "id": 90,
@@ -4987,8 +4993,8 @@
         }
       ],
       "position": {
-        "left": 6094.033447265625,
-        "top": 1246
+        "left": 6090.283203125,
+        "top": 1049.183349609375
       },
       "post_job_actions": {
         "HideDatasetActionout_file1": {
@@ -5001,11 +5007,11 @@
       "tool_state": "{\"columnList\": \"\\\"c3\\\"\", \"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"delimiter\": \"\\\"T\\\"\", \"__rerun_remap_job_id__\": null, \"__page__\": null}",
       "tool_version": "1.0.2",
       "type": "tool",
-      "uuid": "bb9a7ddd-f9a3-489b-8c69-e76aab62d9d7",
+      "uuid": "a37405d7-9cdc-4747-b6fd-edebaeb29370",
       "workflow_outputs": []
     },
     "91": {
-      "annotation": "X-set symbol table---\nOnly for ENSEMBL, symbols via biomart map",
+      "annotation": "X-set gene table---\nENSG, uniprot gene, etc",
       "content_id": "Cut1",
       "errors": null,
       "id": 91,
@@ -5030,7 +5036,50 @@
         }
       ],
       "position": {
-        "left": 6089.033447265625,
+        "left": 6094.033203125,
+        "top": 1246
+      },
+      "post_job_actions": {
+        "HideDatasetActionout_file1": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "out_file1"
+        }
+      },
+      "tool_id": "Cut1",
+      "tool_state": "{\"columnList\": \"\\\"c3\\\"\", \"input\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"delimiter\": \"\\\"T\\\"\", \"__rerun_remap_job_id__\": null, \"__page__\": null}",
+      "tool_version": "1.0.2",
+      "type": "tool",
+      "uuid": "bb9a7ddd-f9a3-489b-8c69-e76aab62d9d7",
+      "workflow_outputs": []
+    },
+    "92": {
+      "annotation": "X-set symbol table---\nOnly for ENSEMBL, symbols via biomart map",
+      "content_id": "Cut1",
+      "errors": null,
+      "id": 92,
+      "input_connections": {
+        "input": {
+          "id": 89,
+          "output_name": "output"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Cut",
+          "name": "input"
+        }
+      ],
+      "label": null,
+      "name": "Cut",
+      "outputs": [
+        {
+          "name": "out_file1",
+          "type": "tabular"
+        }
+      ],
+      "position": {
+        "left": 6089.033203125,
         "top": 1454.066650390625
       },
       "post_job_actions": {
@@ -5047,57 +5096,8 @@
       "uuid": "95ad12d9-898d-4838-87f5-2236c7e2717c",
       "workflow_outputs": []
     },
-    "92": {
-      "annotation": "X-set protein table---\nENSP, uniprot ID etc",
-      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
-      "errors": null,
-      "id": 92,
-      "input_connections": {
-        "infile": {
-          "id": 89,
-          "output_name": "out_file1"
-        }
-      },
-      "inputs": [
-        {
-          "description": "runtime parameter for tool Text transformation",
-          "name": "infile"
-        }
-      ],
-      "label": null,
-      "name": "Text transformation",
-      "outputs": [
-        {
-          "name": "output",
-          "type": "input"
-        }
-      ],
-      "position": {
-        "left": 6308.60009765625,
-        "top": 1061.066650390625
-      },
-      "post_job_actions": {
-        "HideDatasetActionoutput": {
-          "action_arguments": {},
-          "action_type": "HideDatasetAction",
-          "output_name": "output"
-        }
-      },
-      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
-      "tool_shed_repository": {
-        "changeset_revision": "4c752559b236",
-        "name": "text_processing",
-        "owner": "bgruening",
-        "tool_shed": "toolshed.g2.bx.psu.edu"
-      },
-      "tool_state": "{\"adv_opts\": \"{\\\"adv_opts_selector\\\": \\\"basic\\\", \\\"__current_case__\\\": 0}\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"code\": \"\\\"s/q-value/Cross-set q-value/\\\"\", \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
-      "tool_version": "1.1.0",
-      "type": "tool",
-      "uuid": "4a3da330-d159-439c-b154-3b69b0cc3b56",
-      "workflow_outputs": []
-    },
     "93": {
-      "annotation": "X-set gene table---\nENSG, uniprot gene, etc",
+      "annotation": "X-set protein table---\nENSP, uniprot ID etc",
       "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
       "errors": null,
       "id": 93,
@@ -5122,8 +5122,8 @@
         }
       ],
       "position": {
-        "left": 6285.60009765625,
-        "top": 1204
+        "left": 6308.599853515625,
+        "top": 1061.066650390625
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -5142,11 +5142,11 @@
       "tool_state": "{\"adv_opts\": \"{\\\"adv_opts_selector\\\": \\\"basic\\\", \\\"__current_case__\\\": 0}\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"code\": \"\\\"s/q-value/Cross-set q-value/\\\"\", \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
       "tool_version": "1.1.0",
       "type": "tool",
-      "uuid": "7edc9b1b-eec6-4e22-9fc0-dd46e91ddd1c",
+      "uuid": "4a3da330-d159-439c-b154-3b69b0cc3b56",
       "workflow_outputs": []
     },
     "94": {
-      "annotation": "X-set symbol table---\nOnly for ENSEMBL, symbols via biomart map",
+      "annotation": "X-set gene table---\nENSG, uniprot gene, etc",
       "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
       "errors": null,
       "id": 94,
@@ -5171,7 +5171,56 @@
         }
       ],
       "position": {
-        "left": 6317.533447265625,
+        "left": 6285.599853515625,
+        "top": 1204
+      },
+      "post_job_actions": {
+        "HideDatasetActionoutput": {
+          "action_arguments": {},
+          "action_type": "HideDatasetAction",
+          "output_name": "output"
+        }
+      },
+      "tool_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
+      "tool_shed_repository": {
+        "changeset_revision": "4c752559b236",
+        "name": "text_processing",
+        "owner": "bgruening",
+        "tool_shed": "toolshed.g2.bx.psu.edu"
+      },
+      "tool_state": "{\"adv_opts\": \"{\\\"adv_opts_selector\\\": \\\"basic\\\", \\\"__current_case__\\\": 0}\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"code\": \"\\\"s/q-value/Cross-set q-value/\\\"\", \"infile\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
+      "tool_version": "1.1.0",
+      "type": "tool",
+      "uuid": "7edc9b1b-eec6-4e22-9fc0-dd46e91ddd1c",
+      "workflow_outputs": []
+    },
+    "95": {
+      "annotation": "X-set symbol table---\nOnly for ENSEMBL, symbols via biomart map",
+      "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_sed_tool/1.1.0",
+      "errors": null,
+      "id": 95,
+      "input_connections": {
+        "infile": {
+          "id": 92,
+          "output_name": "out_file1"
+        }
+      },
+      "inputs": [
+        {
+          "description": "runtime parameter for tool Text transformation",
+          "name": "infile"
+        }
+      ],
+      "label": null,
+      "name": "Text transformation",
+      "outputs": [
+        {
+          "name": "output",
+          "type": "input"
+        }
+      ],
+      "position": {
+        "left": 6317.533203125,
         "top": 1339.066650390625
       },
       "post_job_actions": {
@@ -5194,18 +5243,18 @@
       "uuid": "aac75f8f-3831-42a3-b296-d958578857b8",
       "workflow_outputs": []
     },
-    "95": {
+    "96": {
       "annotation": "X-set protein table---\nENSP, uniprot ID, etc",
       "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_easyjoin_tool/1.1.1",
       "errors": null,
-      "id": 95,
+      "id": 96,
       "input_connections": {
         "infile1": {
-          "id": 81,
+          "id": 84,
           "output_name": "mergedout"
         },
         "infile2": {
-          "id": 92,
+          "id": 93,
           "output_name": "output"
         }
       },
@@ -5258,18 +5307,18 @@
       "uuid": "9e8cb8d1-8f38-421f-a8c6-69741a052667",
       "workflow_outputs": []
     },
-    "96": {
+    "97": {
       "annotation": "X-set gene table---\nENSG, uniprot gene, etc",
       "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_easyjoin_tool/1.1.1",
       "errors": null,
-      "id": 96,
+      "id": 97,
       "input_connections": {
         "infile1": {
-          "id": 82,
+          "id": 85,
           "output_name": "mergedout"
         },
         "infile2": {
-          "id": 93,
+          "id": 94,
           "output_name": "output"
         }
       },
@@ -5322,18 +5371,18 @@
       "uuid": "7c062cca-a01c-48b3-ab3e-e4c83af92d17",
       "workflow_outputs": []
     },
-    "97": {
+    "98": {
       "annotation": "X-set symbol table---\nENSEMBL only, symbols via biomart",
       "content_id": "toolshed.g2.bx.psu.edu/repos/bgruening/text_processing/tp_easyjoin_tool/1.1.1",
       "errors": null,
-      "id": 97,
+      "id": 98,
       "input_connections": {
         "infile1": {
-          "id": 83,
+          "id": 86,
           "output_name": "mergedout"
         },
         "infile2": {
-          "id": 94,
+          "id": 95,
           "output_name": "output"
         }
       },
@@ -5356,7 +5405,7 @@
         }
       ],
       "position": {
-        "left": 6778.033447265625,
+        "left": 6778.033203125,
         "top": 1370.13330078125
       },
       "post_job_actions": {
@@ -5386,14 +5435,14 @@
       "uuid": "2d153de9-3d39-46db-8980-52f30c79f9b2",
       "workflow_outputs": []
     },
-    "98": {
+    "99": {
       "annotation": "",
       "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_input_output/msstitch_qc/0.15",
       "errors": null,
-      "id": 98,
+      "id": 99,
       "input_connections": {
         "genes": {
-          "id": 96,
+          "id": 97,
           "output_name": "output"
         },
         "lookup": {
@@ -5401,19 +5450,19 @@
           "output_name": "output"
         },
         "peptides": {
-          "id": 75,
+          "id": 78,
           "output_name": "mergedout"
         },
         "proteins": {
-          "id": 95,
+          "id": 96,
           "output_name": "output"
         },
         "psmtable": {
-          "id": 61,
+          "id": 64,
           "output_name": "output"
         },
         "symbols": {
-          "id": 97,
+          "id": 98,
           "output_name": "output"
         }
       },
@@ -5464,8 +5513,8 @@
         }
       ],
       "position": {
-        "left": 7052.000244140625,
-        "top": 895.4999694824219
+        "left": 7052,
+        "top": 895.5
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -5495,5 +5544,5 @@
       "workflow_outputs": []
     }
   },
-  "uuid": "2144b512-d3cc-416c-9cca-adfa3317fc89"
+  "uuid": "b658dfd7-0ea7-4398-a7df-7d3e46cb9be2"
 }
