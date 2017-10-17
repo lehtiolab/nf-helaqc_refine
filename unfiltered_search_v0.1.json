@@ -20,7 +20,7 @@
       "name": "Input dataset collection",
       "outputs": [],
       "position": {
-        "left": 269.099853515625,
+        "left": 269.10009765625,
         "top": 1114
       },
       "tool_id": null,
@@ -52,8 +52,8 @@
       "name": "Input dataset",
       "outputs": [],
       "position": {
-        "left": 269.349853515625,
-        "top": 920.066650390625
+        "left": 269.35009765625,
+        "top": 920.0666656494141
       },
       "tool_id": null,
       "tool_state": "{\"name\": \"quant lookup\"}",
@@ -102,7 +102,7 @@
         }
       ],
       "position": {
-        "left": 700.099853515625,
+        "left": 700.10009765625,
         "top": 928
       },
       "post_job_actions": {
@@ -173,7 +173,7 @@
         }
       ],
       "position": {
-        "left": 713.599853515625,
+        "left": 713.60009765625,
         "top": 1109
       },
       "post_job_actions": {
@@ -388,7 +388,7 @@
         }
       ],
       "position": {
-        "left": 1297.6665649414062,
+        "left": 1297.66650390625,
         "top": 1638.75
       },
       "post_job_actions": {
@@ -455,7 +455,7 @@
         }
       ],
       "position": {
-        "left": 1338.6665649414062,
+        "left": 1338.66650390625,
         "top": 1965.683349609375
       },
       "post_job_actions": {
@@ -526,7 +526,7 @@
         }
       ],
       "position": {
-        "left": 1024.849853515625,
+        "left": 1024.85009765625,
         "top": 1193.433349609375
       },
       "post_job_actions": {
@@ -593,7 +593,7 @@
         }
       ],
       "position": {
-        "left": 1334.5999145507812,
+        "left": 1334.60009765625,
         "top": 1797.683349609375
       },
       "post_job_actions": {
@@ -660,7 +660,7 @@
         }
       ],
       "position": {
-        "left": 1300.6665649414062,
+        "left": 1300.66650390625,
         "top": 2151.683349609375
       },
       "post_job_actions": {
@@ -723,7 +723,7 @@
         }
       ],
       "position": {
-        "left": 1256.599853515625,
+        "left": 1256.60009765625,
         "top": 1130.183349609375
       },
       "post_job_actions": {
@@ -763,7 +763,7 @@
       "outputs": [],
       "position": {
         "left": 276.533203125,
-        "top": 1014.816650390625
+        "top": 1014.8166656494141
       },
       "tool_id": null,
       "tool_state": "{\"name\": \"knownpep predpi tabular\"}",
@@ -804,7 +804,7 @@
         }
       ],
       "position": {
-        "left": 2658.9165649414062,
+        "left": 2658.916748046875,
         "top": 1660.433349609375
       },
       "post_job_actions": {
@@ -847,7 +847,7 @@
         }
       ],
       "position": {
-        "left": 2641.9165649414062,
+        "left": 2641.916748046875,
         "top": 1802.433349609375
       },
       "post_job_actions": {
@@ -890,7 +890,7 @@
         }
       ],
       "position": {
-        "left": 1607.0999145507812,
+        "left": 1607.10009765625,
         "top": 1129.25
       },
       "post_job_actions": {
@@ -947,7 +947,7 @@
         }
       ],
       "position": {
-        "left": 1869.8499145507812,
+        "left": 1869.85009765625,
         "top": 1272.75
       },
       "post_job_actions": {
@@ -1014,8 +1014,8 @@
         }
       ],
       "position": {
-        "left": 2110.599899291992,
-        "top": 1095.13330078125
+        "left": 2110.60009765625,
+        "top": 1095.1333312988281
       },
       "post_job_actions": {
         "HideDatasetActionbatched_fractions_mzid": {
@@ -1081,7 +1081,7 @@
         }
       ],
       "position": {
-        "left": 2113.533233642578,
+        "left": 2113.533447265625,
         "top": 1347.183349609375
       },
       "post_job_actions": {
@@ -1140,7 +1140,7 @@
         }
       ],
       "position": {
-        "left": 2343.2332305908203,
+        "left": 2343.2333984375,
         "top": 1116.316650390625
       },
       "post_job_actions": {
@@ -1189,7 +1189,7 @@
         }
       ],
       "position": {
-        "left": 2327.2332305908203,
+        "left": 2327.2333984375,
         "top": 1391.38330078125
       },
       "post_job_actions": {
@@ -1238,7 +1238,7 @@
         }
       ],
       "position": {
-        "left": 2536.783233642578,
+        "left": 2536.783447265625,
         "top": 1168.316650390625
       },
       "post_job_actions": {
@@ -1287,7 +1287,7 @@
         }
       ],
       "position": {
-        "left": 2518.783233642578,
+        "left": 2518.783447265625,
         "top": 1335.316650390625
       },
       "post_job_actions": {
@@ -1327,7 +1327,7 @@
       "outputs": [],
       "position": {
         "left": 298.533203125,
-        "top": 1226.38330078125
+        "top": 1226.3833312988281
       },
       "tool_id": null,
       "tool_state": "{\"name\": \"target db\"}",
@@ -1380,7 +1380,7 @@
         }
       ],
       "position": {
-        "left": 2791.4165649414062,
+        "left": 2791.416748046875,
         "top": 1301.75
       },
       "post_job_actions": {
@@ -1446,7 +1446,7 @@
         }
       ],
       "position": {
-        "left": 3004.3499145507812,
+        "left": 3004.35009765625,
         "top": 1298.75
       },
       "post_job_actions": {
@@ -1512,7 +1512,7 @@
         }
       ],
       "position": {
-        "left": 3207.1665649414062,
+        "left": 3207.166748046875,
         "top": 1136.183349609375
       },
       "post_job_actions": {
@@ -1578,7 +1578,7 @@
         }
       ],
       "position": {
-        "left": 3224.0999145507812,
+        "left": 3224.10009765625,
         "top": 1365.183349609375
       },
       "post_job_actions": {
@@ -1632,7 +1632,7 @@
         }
       ],
       "position": {
-        "left": 3422.91650390625,
+        "left": 3422.916748046875,
         "top": 1249.433349609375
       },
       "post_job_actions": {
@@ -1675,7 +1675,7 @@
         }
       ],
       "position": {
-        "left": 3436.849853515625,
+        "left": 3436.85009765625,
         "top": 1373.433349609375
       },
       "post_job_actions": {
@@ -1718,7 +1718,7 @@
         }
       ],
       "position": {
-        "left": 3453.783203125,
+        "left": 3453.783447265625,
         "top": 1072.933349609375
       },
       "post_job_actions": {
@@ -1737,7 +1737,7 @@
       },
       "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_input_output/package_collection/0.11",
       "tool_shed_repository": {
-        "changeset_revision": "85a8cf9edb19",
+        "changeset_revision": "291515461a26",
         "name": "lehtio_input_output",
         "owner": "jorritb",
         "tool_shed": "testtoolshed.g2.bx.psu.edu"
@@ -1778,7 +1778,15 @@
       "inputs": [
         {
           "description": "runtime parameter for tool Process PSM table",
+          "name": "fastadelim"
+        },
+        {
+          "description": "runtime parameter for tool Process PSM table",
           "name": "mapfn"
+        },
+        {
+          "description": "runtime parameter for tool Process PSM table",
+          "name": "genefield"
         },
         {
           "description": "runtime parameter for tool Process PSM table",
@@ -1806,7 +1814,7 @@
         }
       ],
       "position": {
-        "left": 3644.783203125,
+        "left": 3644.783447265625,
         "top": 1157.683349609375
       },
       "post_job_actions": {
@@ -1842,7 +1850,7 @@
         "owner": "jorritb",
         "tool_shed": "testtoolshed.g2.bx.psu.edu"
       },
-      "tool_state": "{\"__page__\": null, \"isobaric\": \"{\\\"ratios\\\": {\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}, \\\"yesno\\\": \\\"true\\\", \\\"__current_case__\\\": 0}\", \"mapfn\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"dbase\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"decoy\": \"\\\"false\\\"\", \"__rerun_remap_job_id__\": null, \"genes\": \"\\\"true\\\"\", \"genefield\": \"\\\"\\\"\", \"speccol\": \"\\\"1\\\"\", \"filter\": \"{\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}\", \"lookup\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"fastadelim\": \"null\", \"precursorquant\": \"\\\"true\\\"\", \"proteingroup\": \"\\\"true\\\"\", \"psms\": \"{\\\"psmtables\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"multiple\\\": \\\"true\\\", \\\"__current_case__\\\": 0, \\\"percolator\\\": {\\\"filterpeptide\\\": \\\"\\\", \\\"filterpsm\\\": \\\"\\\", \\\"yesno\\\": \\\"true\\\", \\\"__current_case__\\\": 0, \\\"mzidentmls\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}}}\"}",
+      "tool_state": "{\"__page__\": null, \"isobaric\": \"{\\\"ratios\\\": {\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}, \\\"yesno\\\": \\\"true\\\", \\\"__current_case__\\\": 0}\", \"mapfn\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"dbase\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"decoy\": \"\\\"false\\\"\", \"__rerun_remap_job_id__\": null, \"genes\": \"\\\"true\\\"\", \"genefield\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"speccol\": \"\\\"1\\\"\", \"filter\": \"{\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}\", \"lookup\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"fastadelim\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"precursorquant\": \"\\\"true\\\"\", \"proteingroup\": \"\\\"true\\\"\", \"psms\": \"{\\\"psmtables\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"multiple\\\": \\\"true\\\", \\\"__current_case__\\\": 0, \\\"percolator\\\": {\\\"filterpeptide\\\": \\\"\\\", \\\"filterpsm\\\": \\\"\\\", \\\"yesno\\\": \\\"true\\\", \\\"__current_case__\\\": 0, \\\"mzidentmls\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}}}\"}",
       "tool_version": "1.1",
       "type": "tool",
       "uuid": "2c8c21e6-4421-425f-9a88-dec0295cbd84",
@@ -1874,7 +1882,7 @@
         }
       ],
       "position": {
-        "left": 3447.849853515625,
+        "left": 3447.85009765625,
         "top": 1636.933349609375
       },
       "post_job_actions": {
@@ -1893,7 +1901,7 @@
       },
       "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_input_output/package_collection/0.11",
       "tool_shed_repository": {
-        "changeset_revision": "85a8cf9edb19",
+        "changeset_revision": "291515461a26",
         "name": "lehtio_input_output",
         "owner": "jorritb",
         "tool_shed": "testtoolshed.g2.bx.psu.edu"
@@ -1934,7 +1942,15 @@
       "inputs": [
         {
           "description": "runtime parameter for tool Process PSM table",
+          "name": "fastadelim"
+        },
+        {
+          "description": "runtime parameter for tool Process PSM table",
           "name": "mapfn"
+        },
+        {
+          "description": "runtime parameter for tool Process PSM table",
+          "name": "genefield"
         },
         {
           "description": "runtime parameter for tool Process PSM table",
@@ -1962,7 +1978,7 @@
         }
       ],
       "position": {
-        "left": 3626.783203125,
+        "left": 3626.783447265625,
         "top": 1459.683349609375
       },
       "post_job_actions": {
@@ -1991,7 +2007,7 @@
         "owner": "jorritb",
         "tool_shed": "testtoolshed.g2.bx.psu.edu"
       },
-      "tool_state": "{\"__page__\": null, \"isobaric\": \"{\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}\", \"mapfn\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"dbase\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"decoy\": \"\\\"true\\\"\", \"__rerun_remap_job_id__\": null, \"genes\": \"\\\"true\\\"\", \"genefield\": \"\\\"\\\"\", \"speccol\": \"\\\"1\\\"\", \"filter\": \"{\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}\", \"lookup\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"fastadelim\": \"null\", \"precursorquant\": \"\\\"false\\\"\", \"proteingroup\": \"\\\"true\\\"\", \"psms\": \"{\\\"psmtables\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"multiple\\\": \\\"true\\\", \\\"__current_case__\\\": 0, \\\"percolator\\\": {\\\"filterpeptide\\\": \\\"\\\", \\\"filterpsm\\\": \\\"\\\", \\\"yesno\\\": \\\"true\\\", \\\"__current_case__\\\": 0, \\\"mzidentmls\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}}}\"}",
+      "tool_state": "{\"__page__\": null, \"isobaric\": \"{\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}\", \"mapfn\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"dbase\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"decoy\": \"\\\"true\\\"\", \"__rerun_remap_job_id__\": null, \"genes\": \"\\\"true\\\"\", \"genefield\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"speccol\": \"\\\"1\\\"\", \"filter\": \"{\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}\", \"lookup\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"fastadelim\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"precursorquant\": \"\\\"false\\\"\", \"proteingroup\": \"\\\"true\\\"\", \"psms\": \"{\\\"psmtables\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"multiple\\\": \\\"true\\\", \\\"__current_case__\\\": 0, \\\"percolator\\\": {\\\"filterpeptide\\\": \\\"\\\", \\\"filterpsm\\\": \\\"\\\", \\\"yesno\\\": \\\"true\\\", \\\"__current_case__\\\": 0, \\\"mzidentmls\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}}}\"}",
       "tool_version": "1.1",
       "type": "tool",
       "uuid": "f7c4f017-ba90-4051-883c-f7ae3a04671b",
@@ -2056,7 +2072,7 @@
       ],
       "position": {
         "left": 2683.64990234375,
-        "top": 806.316650390625
+        "top": 806.3166656494141
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -2104,8 +2120,8 @@
         }
       ],
       "position": {
-        "left": 5453.533203125,
-        "top": 292.49998474121094
+        "left": 5453.5333251953125,
+        "top": 292.5
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -2153,7 +2169,7 @@
         }
       ],
       "position": {
-        "left": 3925.349853515625,
+        "left": 3925.3499755859375,
         "top": 1501.066650390625
       },
       "post_job_actions": {
@@ -2202,8 +2218,8 @@
         }
       ],
       "position": {
-        "left": 5860.599853515625,
-        "top": 556.9999847412109
+        "left": 5860.600006103516,
+        "top": 557
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -2251,8 +2267,8 @@
         }
       ],
       "position": {
-        "left": 2940.6665649414062,
-        "top": 820.5999755859375
+        "left": 2940.666748046875,
+        "top": 820.6000061035156
       },
       "post_job_actions": {
         "HideDatasetActionout_file1": {
@@ -2294,8 +2310,8 @@
         }
       ],
       "position": {
-        "left": 5715.349853515625,
-        "top": 302.1833190917969
+        "left": 5715.350006103516,
+        "top": 302.183349609375
       },
       "post_job_actions": {
         "HideDatasetActionout_file1": {
@@ -2337,7 +2353,7 @@
         }
       ],
       "position": {
-        "left": 4161.099853515625,
+        "left": 4161.0999755859375,
         "top": 1429.816650390625
       },
       "post_job_actions": {
@@ -2386,7 +2402,7 @@
         }
       ],
       "position": {
-        "left": 4167.66650390625,
+        "left": 4167.6666259765625,
         "top": 1547.75
       },
       "post_job_actions": {
@@ -2435,7 +2451,7 @@
         }
       ],
       "position": {
-        "left": 4157.66650390625,
+        "left": 4157.6666259765625,
         "top": 1653.75
       },
       "post_job_actions": {
@@ -2484,7 +2500,7 @@
         }
       ],
       "position": {
-        "left": 4156.599853515625,
+        "left": 4156.5999755859375,
         "top": 1769.75
       },
       "post_job_actions": {
@@ -2523,7 +2539,7 @@
       "name": "Input dataset",
       "outputs": [],
       "position": {
-        "left": 270.599853515625,
+        "left": 270.60009765625,
         "top": 1389
       },
       "tool_id": null,
@@ -2565,7 +2581,7 @@
         }
       ],
       "position": {
-        "left": 5483.533203125,
+        "left": 5483.5333251953125,
         "top": 1105.066650390625
       },
       "post_job_actions": {
@@ -2614,7 +2630,7 @@
         }
       ],
       "position": {
-        "left": 5488.533203125,
+        "left": 5488.5333251953125,
         "top": 1337
       },
       "post_job_actions": {
@@ -2663,7 +2679,7 @@
         }
       ],
       "position": {
-        "left": 5485.599853515625,
+        "left": 5485.600006103516,
         "top": 1606.066650390625
       },
       "post_job_actions": {
@@ -2712,8 +2728,8 @@
         }
       ],
       "position": {
-        "left": 6354.099853515625,
-        "top": 602.9999847412109
+        "left": 6354.100006103516,
+        "top": 603
       },
       "post_job_actions": {
         "HideDatasetActionoutfile": {
@@ -2765,8 +2781,8 @@
         }
       ],
       "position": {
-        "left": 3136.533203125,
-        "top": 814.88330078125
+        "left": 3136.533447265625,
+        "top": 814.8833312988281
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -2814,8 +2830,8 @@
         }
       ],
       "position": {
-        "left": 5489.533203125,
-        "top": 972.566650390625
+        "left": 5489.5333251953125,
+        "top": 972.5666656494141
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -2863,7 +2879,7 @@
         }
       ],
       "position": {
-        "left": 5483.533203125,
+        "left": 5483.5333251953125,
         "top": 1241
       },
       "post_job_actions": {
@@ -2912,7 +2928,7 @@
         }
       ],
       "position": {
-        "left": 5487.533203125,
+        "left": 5487.5333251953125,
         "top": 1509.066650390625
       },
       "post_job_actions": {
@@ -2961,8 +2977,8 @@
         }
       ],
       "position": {
-        "left": 6175.033203125,
-        "top": 345.99998474121094
+        "left": 6175.0333251953125,
+        "top": 346
       },
       "post_job_actions": {
         "HideDatasetActionoutfile": {
@@ -3010,8 +3026,8 @@
         }
       ],
       "position": {
-        "left": 6343.099853515625,
-        "top": 466.49998474121094
+        "left": 6343.100006103516,
+        "top": 466.5
       },
       "post_job_actions": {
         "HideDatasetActionoutfile": {
@@ -3059,7 +3075,7 @@
         }
       ],
       "position": {
-        "left": 298.099853515625,
+        "left": 298.10009765625,
         "top": 739
       },
       "post_job_actions": {
@@ -3102,8 +3118,8 @@
         }
       ],
       "position": {
-        "left": 6587.033203125,
-        "top": 596.066650390625
+        "left": 6587.0333251953125,
+        "top": 596.0666656494141
       },
       "post_job_actions": {
         "HideDatasetActionout_file1": {
@@ -3153,8 +3169,8 @@
         }
       ],
       "position": {
-        "left": 3370.4832763671875,
-        "top": 806.88330078125
+        "left": 3370.4833984375,
+        "top": 806.8833312988281
       },
       "post_job_actions": {
         "HideDatasetActionout_file1": {
@@ -3196,8 +3212,8 @@
         }
       ],
       "position": {
-        "left": 6416.033203125,
-        "top": 338.99998474121094
+        "left": 6416.0333251953125,
+        "top": 339
       },
       "post_job_actions": {
         "HideDatasetActionout_file1": {
@@ -3239,7 +3255,7 @@
         }
       ],
       "position": {
-        "left": 6572.033203125,
+        "left": 6572.0333251953125,
         "top": 453.566650390625
       },
       "post_job_actions": {
@@ -3290,7 +3306,7 @@
         }
       ],
       "position": {
-        "left": 3620.9998779296875,
+        "left": 3621,
         "top": 789.5
       },
       "post_job_actions": {
@@ -3346,8 +3362,8 @@
         }
       ],
       "position": {
-        "left": 6632.033203125,
-        "top": 346.99998474121094
+        "left": 6632.0333251953125,
+        "top": 347
       },
       "post_job_actions": {
         "HideDatasetActionout_file1": {
@@ -3393,8 +3409,8 @@
         }
       ],
       "position": {
-        "left": 6863.533203125,
-        "top": 522.9999847412109
+        "left": 6863.5333251953125,
+        "top": 523
       },
       "post_job_actions": {
         "HideDatasetActionout_file1": {
@@ -3442,7 +3458,7 @@
         }
       ],
       "position": {
-        "left": 3927.4998779296875,
+        "left": 3927.5,
         "top": 779.5
       },
       "post_job_actions": {
@@ -3491,8 +3507,8 @@
         }
       ],
       "position": {
-        "left": 5400.599853515625,
-        "top": 678.566650390625
+        "left": 5400.600006103516,
+        "top": 678.5666656494141
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -3540,7 +3556,7 @@
         }
       ],
       "position": {
-        "left": 3896.849853515625,
+        "left": 3896.8499755859375,
         "top": 998.5
       },
       "post_job_actions": {
@@ -3589,7 +3605,7 @@
         }
       ],
       "position": {
-        "left": 487.099853515625,
+        "left": 487.10009765625,
         "top": 732
       },
       "post_job_actions": {
@@ -3601,7 +3617,7 @@
       },
       "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_input_output/write_element_ids/0.1",
       "tool_shed_repository": {
-        "changeset_revision": "85a8cf9edb19",
+        "changeset_revision": "291515461a26",
         "name": "lehtio_input_output",
         "owner": "jorritb",
         "tool_shed": "testtoolshed.g2.bx.psu.edu"
@@ -3638,8 +3654,8 @@
         }
       ],
       "position": {
-        "left": 5748.099853515625,
-        "top": 755.566650390625
+        "left": 5748.100006103516,
+        "top": 755.5666656494141
       },
       "post_job_actions": {
         "HideDatasetActionoutfile": {
@@ -3687,8 +3703,8 @@
         }
       ],
       "position": {
-        "left": 5754.099853515625,
-        "top": 880.566650390625
+        "left": 5754.100006103516,
+        "top": 880.5666656494141
       },
       "post_job_actions": {
         "HideDatasetActionoutfile": {
@@ -3740,8 +3756,8 @@
         }
       ],
       "position": {
-        "left": 4180.16650390625,
-        "top": 779.816650390625
+        "left": 4180.1666259765625,
+        "top": 779.8166656494141
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -3793,7 +3809,7 @@
         }
       ],
       "position": {
-        "left": 4178.66650390625,
+        "left": 4178.6666259765625,
         "top": 940.75
       },
       "post_job_actions": {
@@ -3846,7 +3862,7 @@
         }
       ],
       "position": {
-        "left": 4178.66650390625,
+        "left": 4178.6666259765625,
         "top": 1085.75
       },
       "post_job_actions": {
@@ -3899,7 +3915,7 @@
         }
       ],
       "position": {
-        "left": 4182.66650390625,
+        "left": 4182.6666259765625,
         "top": 1244.75
       },
       "post_job_actions": {
@@ -3948,7 +3964,7 @@
         }
       ],
       "position": {
-        "left": 5958.099853515625,
+        "left": 5958.100006103516,
         "top": 754.5
       },
       "post_job_actions": {
@@ -3997,8 +4013,8 @@
         }
       ],
       "position": {
-        "left": 5956.099853515625,
-        "top": 875.566650390625
+        "left": 5956.100006103516,
+        "top": 875.5666656494141
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -4058,8 +4074,8 @@
         }
       ],
       "position": {
-        "left": 4849.349853515625,
-        "top": 795.066650390625
+        "left": 4849.3499755859375,
+        "top": 795.0666656494141
       },
       "post_job_actions": {
         "HideDatasetActionlookupoutput": {
@@ -4143,8 +4159,8 @@
         }
       ],
       "position": {
-        "left": 4487.349853515625,
-        "top": 995.13330078125
+        "left": 4487.3499755859375,
+        "top": 995.1333312988281
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -4192,7 +4208,7 @@
         }
       ],
       "position": {
-        "left": 516.099853515625,
+        "left": 516.10009765625,
         "top": 859
       },
       "post_job_actions": {
@@ -4281,8 +4297,8 @@
         }
       ],
       "position": {
-        "left": 4518.349853515625,
-        "top": 1204.13330078125
+        "left": 4518.3499755859375,
+        "top": 1204.1333312988281
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -4354,7 +4370,7 @@
         }
       ],
       "position": {
-        "left": 4499.349853515625,
+        "left": 4499.3499755859375,
         "top": 1493.13330078125
       },
       "post_job_actions": {
@@ -4407,8 +4423,8 @@
         }
       ],
       "position": {
-        "left": 6210.599853515625,
-        "top": 739.066650390625
+        "left": 6210.600006103516,
+        "top": 739.0666656494141
       },
       "post_job_actions": {
         "HideDatasetActionout_file1": {
@@ -4460,8 +4476,8 @@
         }
       ],
       "position": {
-        "left": 6207.533203125,
-        "top": 884.066650390625
+        "left": 6207.5333251953125,
+        "top": 884.0666656494141
       },
       "post_job_actions": {
         "HideDatasetActionout_file1": {
@@ -4521,8 +4537,8 @@
         }
       ],
       "position": {
-        "left": 4868.349853515625,
-        "top": 1021.066650390625
+        "left": 4868.3499755859375,
+        "top": 1021.0666656494141
       },
       "post_job_actions": {
         "HideDatasetActionlookupoutput": {
@@ -4587,7 +4603,7 @@
         }
       ],
       "position": {
-        "left": 4880.283203125,
+        "left": 4880.2833251953125,
         "top": 1225
       },
       "post_job_actions": {
@@ -4653,7 +4669,7 @@
         }
       ],
       "position": {
-        "left": 4908.349853515625,
+        "left": 4908.3499755859375,
         "top": 1433.066650390625
       },
       "post_job_actions": {
@@ -4731,8 +4747,8 @@
         }
       ],
       "position": {
-        "left": 5844.099853515625,
-        "top": 1025.066650390625
+        "left": 5844.100006103516,
+        "top": 1025.066665649414
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -4820,7 +4836,7 @@
         }
       ],
       "position": {
-        "left": 5847.033203125,
+        "left": 5847.033340454102,
         "top": 1224
       },
       "post_job_actions": {
@@ -4893,7 +4909,7 @@
         }
       ],
       "position": {
-        "left": 5860.033203125,
+        "left": 5860.033340454102,
         "top": 1472
       },
       "post_job_actions": {
@@ -4950,7 +4966,7 @@
         }
       ],
       "position": {
-        "left": 749.099853515625,
+        "left": 749.10009765625,
         "top": 738
       },
       "post_job_actions": {
@@ -4993,8 +5009,8 @@
         }
       ],
       "position": {
-        "left": 6090.283203125,
-        "top": 1049.183349609375
+        "left": 6090.283340454102,
+        "top": 1049.183334350586
       },
       "post_job_actions": {
         "HideDatasetActionout_file1": {
@@ -5036,7 +5052,7 @@
         }
       ],
       "position": {
-        "left": 6094.033203125,
+        "left": 6094.033340454102,
         "top": 1246
       },
       "post_job_actions": {
@@ -5079,7 +5095,7 @@
         }
       ],
       "position": {
-        "left": 6089.033203125,
+        "left": 6089.033340454102,
         "top": 1454.066650390625
       },
       "post_job_actions": {
@@ -5122,8 +5138,8 @@
         }
       ],
       "position": {
-        "left": 6308.599853515625,
-        "top": 1061.066650390625
+        "left": 6308.600006103516,
+        "top": 1061.066665649414
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -5171,7 +5187,7 @@
         }
       ],
       "position": {
-        "left": 6285.599853515625,
+        "left": 6285.600006103516,
         "top": 1204
       },
       "post_job_actions": {
@@ -5220,7 +5236,7 @@
         }
       ],
       "position": {
-        "left": 6317.533203125,
+        "left": 6317.5333251953125,
         "top": 1339.066650390625
       },
       "post_job_actions": {
@@ -5277,8 +5293,8 @@
         }
       ],
       "position": {
-        "left": 6760.10009765625,
-        "top": 985.066650390625
+        "left": 6760.0999755859375,
+        "top": 985.0666656494141
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -5341,7 +5357,7 @@
         }
       ],
       "position": {
-        "left": 6769.10009765625,
+        "left": 6769.0999755859375,
         "top": 1186.066650390625
       },
       "post_job_actions": {
@@ -5405,7 +5421,7 @@
         }
       ],
       "position": {
-        "left": 6778.033203125,
+        "left": 6778.0333251953125,
         "top": 1370.13330078125
       },
       "post_job_actions": {
@@ -5437,7 +5453,7 @@
     },
     "99": {
       "annotation": "",
-      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_input_output/msstitch_qc/0.15",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_qc/msstitch_qc/0.16",
       "errors": null,
       "id": 99,
       "input_connections": {
@@ -5513,8 +5529,8 @@
         }
       ],
       "position": {
-        "left": 7052,
-        "top": 895.5
+        "left": 7043,
+        "top": 1088.5
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -5530,19 +5546,19 @@
           "output_name": "output"
         }
       },
-      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_input_output/msstitch_qc/0.15",
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_qc/msstitch_qc/0.16",
       "tool_shed_repository": {
-        "changeset_revision": "85a8cf9edb19",
-        "name": "lehtio_input_output",
+        "changeset_revision": "b23fbd236812",
+        "name": "lehtio_qc",
         "owner": "jorritb",
         "tool_shed": "testtoolshed.g2.bx.psu.edu"
       },
       "tool_state": "{\"platepatterns\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"isobaric\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"genes\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"proteins\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"symbols\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"setnames\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"peptides\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"lookup\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"psmtable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
-      "tool_version": "0.15",
+      "tool_version": "0.16",
       "type": "tool",
-      "uuid": "c0d4a76e-f742-4224-bf91-ed5ebece17e2",
+      "uuid": "6be76061-83d5-423e-aa90-03be39ce2d27",
       "workflow_outputs": []
     }
   },
-  "uuid": "b658dfd7-0ea7-4398-a7df-7d3e46cb9be2"
+  "uuid": "f0be81c0-33b8-4d99-9205-d5ac7050285f"
 }

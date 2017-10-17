@@ -15,7 +15,7 @@
       "name": "Input dataset",
       "outputs": [],
       "position": {
-        "left": 665.033203125,
+        "left": 665.033447265625,
         "top": 355.1166687011719
       },
       "tool_id": null,
@@ -42,7 +42,7 @@
       "name": "Input dataset",
       "outputs": [],
       "position": {
-        "left": 688.91650390625,
+        "left": 688.916748046875,
         "top": 570.2666625976562
       },
       "tool_id": null,
@@ -84,7 +84,7 @@
         }
       ],
       "position": {
-        "left": 900.783203125,
+        "left": 900.783447265625,
         "top": 390.51666259765625
       },
       "post_job_actions": {
@@ -133,8 +133,8 @@
         }
       ],
       "position": {
-        "left": 2747.7832641601562,
-        "top": 1156.4333190917969
+        "left": 2747.7833251953125,
+        "top": 1156.433349609375
       },
       "post_job_actions": {
         "HideDatasetActionsplitpsms": {
@@ -183,7 +183,7 @@
       ],
       "position": {
         "left": 200,
-        "top": 882.1999816894531
+        "top": 882.1999969482422
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -225,7 +225,7 @@
         }
       ],
       "position": {
-        "left": 1152.3665771484375,
+        "left": 1152.36669921875,
         "top": 393.03334045410156
       },
       "post_job_actions": {
@@ -274,8 +274,8 @@
         }
       ],
       "position": {
-        "left": 935.283203125,
-        "top": 544.8166809082031
+        "left": 935.283447265625,
+        "top": 544.8166656494141
       },
       "post_job_actions": {
         "HideDatasetActionout_file1": {
@@ -317,8 +317,8 @@
         }
       ],
       "position": {
-        "left": 3092.4165954589844,
-        "top": 1165.4999694824219
+        "left": 3092.4166259765625,
+        "top": 1165.5
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -367,7 +367,7 @@
       ],
       "position": {
         "left": 367,
-        "top": 820.4333190917969
+        "top": 820.4333343505859
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -378,7 +378,7 @@
       },
       "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_input_output/write_element_ids/0.1",
       "tool_shed_repository": {
-        "changeset_revision": "85a8cf9edb19",
+        "changeset_revision": "291515461a26",
         "name": "lehtio_input_output",
         "owner": "jorritb",
         "tool_shed": "testtoolshed.g2.bx.psu.edu"
@@ -419,8 +419,8 @@
         }
       ],
       "position": {
-        "left": 1147.6666259765625,
-        "top": 286.6999969482422
+        "left": 1147.666748046875,
+        "top": 286.70001220703125
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -469,7 +469,7 @@
       ],
       "position": {
         "left": 372,
-        "top": 998.4333190917969
+        "top": 998.433349609375
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -525,7 +525,7 @@
         }
       ],
       "position": {
-        "left": 1387.8499755859375,
+        "left": 1387.85009765625,
         "top": 260.25
       },
       "post_job_actions": {
@@ -559,7 +559,7 @@
       "outputs": [],
       "position": {
         "left": 693.716552734375,
-        "top": 1316.8166198730469
+        "top": 1316.816650390625
       },
       "tool_id": null,
       "tool_state": "{\"collection_type\": \"list\", \"name\": \"spectra\"}",
@@ -609,7 +609,7 @@
       ],
       "position": {
         "left": 600,
-        "top": 827.4333190917969
+        "top": 827.4333343505859
       },
       "post_job_actions": {
         "HideDatasetActionout_file1": {
@@ -705,7 +705,7 @@
       ],
       "position": {
         "left": 600,
-        "top": 962.4333190917969
+        "top": 962.433349609375
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -747,7 +747,7 @@
         }
       ],
       "position": {
-        "left": 1772.3499755859375,
+        "left": 1772.35009765625,
         "top": 239.25
       },
       "post_job_actions": {
@@ -796,7 +796,7 @@
         }
       ],
       "position": {
-        "left": 661.033203125,
+        "left": 661.033447265625,
         "top": 674.6166687011719
       },
       "post_job_actions": {
@@ -808,7 +808,7 @@
       },
       "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_input_output/write_element_ids/0.1",
       "tool_shed_repository": {
-        "changeset_revision": "85a8cf9edb19",
+        "changeset_revision": "291515461a26",
         "name": "lehtio_input_output",
         "owner": "jorritb",
         "tool_shed": "testtoolshed.g2.bx.psu.edu"
@@ -845,8 +845,8 @@
         }
       ],
       "position": {
-        "left": 2008.1666259765625,
-        "top": 228.06666564941406
+        "left": 2008.166748046875,
+        "top": 228.066650390625
       },
       "post_job_actions": {
         "HideDatasetActionsplitpsms": {
@@ -898,8 +898,8 @@
         }
       ],
       "position": {
-        "left": 945.9166259765625,
-        "top": 677.8166809082031
+        "left": 945.916748046875,
+        "top": 677.8166656494141
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -951,8 +951,8 @@
         }
       ],
       "position": {
-        "left": 946.8499755859375,
-        "top": 808.5666809082031
+        "left": 946.85009765625,
+        "top": 808.5666656494141
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -1000,7 +1000,7 @@
         }
       ],
       "position": {
-        "left": 2235.5499267578125,
+        "left": 2235.550048828125,
         "top": 220.63333129882812
       },
       "post_job_actions": {
@@ -1084,8 +1084,8 @@
       "name": "Input dataset",
       "outputs": [],
       "position": {
-        "left": 705.033203125,
-        "top": 1107.8166809082031
+        "left": 705.033447265625,
+        "top": 1107.816650390625
       },
       "tool_id": null,
       "tool_state": "{\"name\": \"quant lookup\"}",
@@ -1138,8 +1138,8 @@
         }
       ],
       "position": {
-        "left": 1765.1666259765625,
-        "top": 622.0666809082031
+        "left": 1765.166748046875,
+        "top": 622.0666656494141
       },
       "post_job_actions": {
         "HideDatasetActiondecoy_pi_db": {
@@ -1200,7 +1200,7 @@
         }
       ],
       "position": {
-        "left": 1243.1666259765625,
+        "left": 1243.166748046875,
         "top": 726.8666687011719
       },
       "post_job_actions": {
@@ -1243,7 +1243,7 @@
         }
       ],
       "position": {
-        "left": 1388.6666259765625,
+        "left": 1388.666748046875,
         "top": 417.43333435058594
       },
       "post_job_actions": {
@@ -1286,7 +1286,7 @@
         }
       ],
       "position": {
-        "left": 2467.4165954589844,
+        "left": 2467.4166259765625,
         "top": 200
       },
       "post_job_actions": {
@@ -1388,8 +1388,8 @@
         }
       ],
       "position": {
-        "left": 1479.8499755859375,
-        "top": 702.5666809082031
+        "left": 1479.85009765625,
+        "top": 702.5666656494141
       },
       "post_job_actions": {
         "HideDatasetActionout_file1": {
@@ -1431,8 +1431,8 @@
         }
       ],
       "position": {
-        "left": 1634.783203125,
-        "top": 362.31666564941406
+        "left": 1634.783447265625,
+        "top": 362.316650390625
       },
       "post_job_actions": {
         "HideDatasetActionsplitpsms": {
@@ -1480,7 +1480,7 @@
         }
       ],
       "position": {
-        "left": 1645.3499755859375,
+        "left": 1645.35009765625,
         "top": 492.3833312988281
       },
       "post_job_actions": {
@@ -1529,7 +1529,7 @@
         }
       ],
       "position": {
-        "left": 1918.7999267578125,
+        "left": 1918.800048828125,
         "top": 367.51666259765625
       },
       "post_job_actions": {
@@ -1572,7 +1572,7 @@
         }
       ],
       "position": {
-        "left": 2147.1666259765625,
+        "left": 2147.166748046875,
         "top": 380.6333312988281
       },
       "post_job_actions": {
@@ -1600,8 +1600,8 @@
       "name": "Input dataset",
       "outputs": [],
       "position": {
-        "left": 716.783203125,
-        "top": 1391.1332702636719
+        "left": 716.783447265625,
+        "top": 1391.13330078125
       },
       "tool_id": null,
       "tool_state": "{}",
@@ -1642,8 +1642,8 @@
         }
       ],
       "position": {
-        "left": 2364.6165771484375,
-        "top": 353.56666564941406
+        "left": 2364.61669921875,
+        "top": 353.566650390625
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -1702,7 +1702,7 @@
       ],
       "position": {
         "left": 2145.88330078125,
-        "top": 549.6666564941406
+        "top": 549.6666717529297
       },
       "post_job_actions": {
         "HideDatasetActionaligned_db": {
@@ -1767,7 +1767,7 @@
       ],
       "position": {
         "left": 2156.88330078125,
-        "top": 726.6666564941406
+        "top": 726.6666717529297
       },
       "post_job_actions": {
         "HideDatasetActionaligned_db": {
@@ -1815,8 +1815,8 @@
         }
       ],
       "position": {
-        "left": 2466.383270263672,
-        "top": 537.6666564941406
+        "left": 2466.38330078125,
+        "top": 537.6666717529297
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -1858,8 +1858,8 @@
         }
       ],
       "position": {
-        "left": 2450.383270263672,
-        "top": 712.6666564941406
+        "left": 2450.38330078125,
+        "top": 712.6666717529297
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -1909,8 +1909,8 @@
         }
       ],
       "position": {
-        "left": 2732.466598510742,
-        "top": 526.6833190917969
+        "left": 2732.4666748046875,
+        "top": 526.6833343505859
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -1960,7 +1960,7 @@
         }
       ],
       "position": {
-        "left": 2700.466598510742,
+        "left": 2700.4666748046875,
         "top": 680.6166687011719
       },
       "post_job_actions": {
@@ -2003,7 +2003,7 @@
         }
       ],
       "position": {
-        "left": 2968.3666076660156,
+        "left": 2968.36669921875,
         "top": 553.25
       },
       "post_job_actions": {
@@ -2046,8 +2046,8 @@
         }
       ],
       "position": {
-        "left": 2967.4165954589844,
-        "top": 701.2499694824219
+        "left": 2967.4166259765625,
+        "top": 701.25
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -2089,7 +2089,7 @@
       ],
       "position": {
         "left": 971.716552734375,
-        "top": 951.2666931152344
+        "top": 951.2666625976562
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -2127,8 +2127,8 @@
       "name": "Input dataset",
       "outputs": [],
       "position": {
-        "left": 701.16650390625,
-        "top": 1217.6833190917969
+        "left": 701.166748046875,
+        "top": 1217.683349609375
       },
       "tool_id": null,
       "tool_state": "{\"name\": \"knownpep predpi tabular\"}",
@@ -2169,7 +2169,7 @@
       ],
       "position": {
         "left": 1020.716552734375,
-        "top": 1279.2666931152344
+        "top": 1279.2666625976562
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -2225,8 +2225,8 @@
         }
       ],
       "position": {
-        "left": 1061.533203125,
-        "top": 1115.2666931152344
+        "left": 1061.533447265625,
+        "top": 1115.2666625976562
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -2276,8 +2276,8 @@
         }
       ],
       "position": {
-        "left": 1073.4166259765625,
-        "top": 1417.2666931152344
+        "left": 1073.416748046875,
+        "top": 1417.2666625976562
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -2339,8 +2339,8 @@
         }
       ],
       "position": {
-        "left": 1306.033203125,
-        "top": 1083.2666931152344
+        "left": 1306.033447265625,
+        "top": 1083.2666625976562
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -2413,8 +2413,8 @@
         }
       ],
       "position": {
-        "left": 1306.033203125,
-        "top": 1372.2666931152344
+        "left": 1306.033447265625,
+        "top": 1372.2666625976562
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -2479,8 +2479,8 @@
         }
       ],
       "position": {
-        "left": 1631.4166259765625,
-        "top": 1302.4333190917969
+        "left": 1631.416748046875,
+        "top": 1302.433349609375
       },
       "post_job_actions": {
         "HideDatasetActionbatched_fractions_mzid": {
@@ -2546,8 +2546,8 @@
         }
       ],
       "position": {
-        "left": 1723.3499755859375,
-        "top": 1841.2000427246094
+        "left": 1723.35009765625,
+        "top": 1841.199951171875
       },
       "post_job_actions": {
         "HideDatasetActionbatched_fractions_mzid": {
@@ -2614,7 +2614,7 @@
       ],
       "position": {
         "left": 1764.216552734375,
-        "top": 2167.816619873047
+        "top": 2167.816650390625
       },
       "post_job_actions": {
         "HideDatasetActionbatched_fractions_mzid": {
@@ -2684,8 +2684,8 @@
         }
       ],
       "position": {
-        "left": 1683.5999755859375,
-        "top": 1488.2499694824219
+        "left": 1683.60009765625,
+        "top": 1488.25
       },
       "post_job_actions": {
         "HideDatasetActionbatched_fractions_mzid": {
@@ -2752,7 +2752,7 @@
       ],
       "position": {
         "left": 1760.216552734375,
-        "top": 2000.0666198730469
+        "top": 2000.066650390625
       },
       "post_job_actions": {
         "HideDatasetActionbatched_fractions_mzid": {
@@ -2795,8 +2795,8 @@
       "name": "Input dataset",
       "outputs": [],
       "position": {
-        "left": 720.283203125,
-        "top": 1462.4333190917969
+        "left": 720.283447265625,
+        "top": 1462.433349609375
       },
       "tool_id": null,
       "tool_state": "{}",
@@ -2845,8 +2845,8 @@
         }
       ],
       "position": {
-        "left": 1726.1666259765625,
-        "top": 2354.499969482422
+        "left": 1726.166748046875,
+        "top": 2354.5
       },
       "post_job_actions": {
         "HideDatasetActionbatched_fractions_mzid": {
@@ -2909,7 +2909,7 @@
       ],
       "position": {
         "left": 1830.216552734375,
-        "top": 1311.1833190917969
+        "top": 1311.183349609375
       },
       "post_job_actions": {
         "HideDatasetActionpinout": {
@@ -2957,8 +2957,8 @@
         }
       ],
       "position": {
-        "left": 3084.4165954589844,
-        "top": 1863.0666198730469
+        "left": 3084.4166259765625,
+        "top": 1863.066650390625
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -3000,8 +3000,8 @@
         }
       ],
       "position": {
-        "left": 3067.4165954589844,
-        "top": 2004.7666931152344
+        "left": 3067.4166259765625,
+        "top": 2004.7666015625
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -3043,8 +3043,8 @@
         }
       ],
       "position": {
-        "left": 2108.4666137695312,
-        "top": 1325.2000427246094
+        "left": 2108.466552734375,
+        "top": 1325.2000122070312
       },
       "post_job_actions": {
         "HideDatasetActionpercoout": {
@@ -3100,8 +3100,8 @@
         }
       ],
       "position": {
-        "left": 2244.2999267578125,
-        "top": 1457.4999694824219
+        "left": 2244.300048828125,
+        "top": 1457.5
       },
       "post_job_actions": {
         "HideDatasetActiondecoyout": {
@@ -3183,8 +3183,8 @@
         }
       ],
       "position": {
-        "left": 2332.9166259765625,
-        "top": 1165.8166809082031
+        "left": 2332.916748046875,
+        "top": 1165.816650390625
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -3232,8 +3232,8 @@
         }
       ],
       "position": {
-        "left": 2365.5499267578125,
-        "top": 1645.1332702636719
+        "left": 2365.550048828125,
+        "top": 1645.13330078125
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -3289,8 +3289,8 @@
         }
       ],
       "position": {
-        "left": 2624.5332641601562,
-        "top": 1293.0666198730469
+        "left": 2624.5333251953125,
+        "top": 1293.066650390625
       },
       "post_job_actions": {
         "HideDatasetActionbatched_fractions_mzid": {
@@ -3356,8 +3356,8 @@
         }
       ],
       "position": {
-        "left": 2596.5332641601562,
-        "top": 1515.9500427246094
+        "left": 2596.5333251953125,
+        "top": 1515.9500122070312
       },
       "post_job_actions": {
         "HideDatasetActionbatched_fractions_mzid": {
@@ -3400,8 +3400,8 @@
       "name": "Input dataset",
       "outputs": [],
       "position": {
-        "left": 720.783203125,
-        "top": 1548.1332702636719
+        "left": 720.783447265625,
+        "top": 1548.13330078125
       },
       "tool_id": null,
       "tool_state": "{}",
@@ -3442,8 +3442,8 @@
         }
       ],
       "position": {
-        "left": 2872.9165954589844,
-        "top": 1349.1332702636719
+        "left": 2872.9166259765625,
+        "top": 1349.13330078125
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -3491,8 +3491,8 @@
         }
       ],
       "position": {
-        "left": 2866.9165954589844,
-        "top": 1550.9500427246094
+        "left": 2866.9166259765625,
+        "top": 1550.9500122070312
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -3540,8 +3540,8 @@
         }
       ],
       "position": {
-        "left": 3098.4999389648438,
-        "top": 1346.2000427246094
+        "left": 3098.5,
+        "top": 1346.2000122070312
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -3589,8 +3589,8 @@
         }
       ],
       "position": {
-        "left": 3054.4999389648438,
-        "top": 1608.2000427246094
+        "left": 3054.5,
+        "top": 1608.2000122070312
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -3650,8 +3650,8 @@
         }
       ],
       "position": {
-        "left": 3294.8499145507812,
-        "top": 1519.5666198730469
+        "left": 3294.8499755859375,
+        "top": 1519.566650390625
       },
       "post_job_actions": {
         "HideDatasetActiondecoyoutput": {
@@ -3716,8 +3716,8 @@
         }
       ],
       "position": {
-        "left": 3498.6165771484375,
-        "top": 1465.6332702636719
+        "left": 3498.61669921875,
+        "top": 1465.63330078125
       },
       "post_job_actions": {
         "HideDatasetActiondecoyoutput": {
@@ -3782,8 +3782,8 @@
         }
       ],
       "position": {
-        "left": 3665.2832641601562,
-        "top": 1278.0666198730469
+        "left": 3665.2833251953125,
+        "top": 1278.066650390625
       },
       "post_job_actions": {
         "HideDatasetActionoutput_multi": {
@@ -3848,8 +3848,8 @@
         }
       ],
       "position": {
-        "left": 3678.0999145507812,
-        "top": 1603.8166198730469
+        "left": 3678.0999755859375,
+        "top": 1603.816650390625
       },
       "post_job_actions": {
         "HideDatasetActionoutput_multi": {
@@ -3902,8 +3902,8 @@
         }
       ],
       "position": {
-        "left": 3876.0499267578125,
-        "top": 1450.3166198730469
+        "left": 3876.0499877929688,
+        "top": 1450.316650390625
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -3945,8 +3945,8 @@
         }
       ],
       "position": {
-        "left": 3883.8665771484375,
-        "top": 1569.0666198730469
+        "left": 3883.86669921875,
+        "top": 1569.066650390625
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -3973,8 +3973,8 @@
       "name": "Input dataset",
       "outputs": [],
       "position": {
-        "left": 725.783203125,
-        "top": 1633.8832702636719
+        "left": 725.783447265625,
+        "top": 1633.88330078125
       },
       "tool_id": null,
       "tool_state": "{}",
@@ -4015,8 +4015,8 @@
         }
       ],
       "position": {
-        "left": 3903.2332763671875,
-        "top": 1226.6833190917969
+        "left": 3903.2333374023438,
+        "top": 1226.683349609375
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -4034,7 +4034,7 @@
       },
       "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_input_output/package_collection/0.11",
       "tool_shed_repository": {
-        "changeset_revision": "85a8cf9edb19",
+        "changeset_revision": "291515461a26",
         "name": "lehtio_input_output",
         "owner": "jorritb",
         "tool_shed": "testtoolshed.g2.bx.psu.edu"
@@ -4079,8 +4079,8 @@
         }
       ],
       "position": {
-        "left": 4177.2666015625,
-        "top": 1415.7166442871094
+        "left": 4177.266662597656,
+        "top": 1415.7166748046875
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -4128,8 +4128,8 @@
         }
       ],
       "position": {
-        "left": 3895.1165771484375,
-        "top": 1793.0666198730469
+        "left": 3895.11669921875,
+        "top": 1793.066650390625
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -4147,7 +4147,7 @@
       },
       "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_input_output/package_collection/0.11",
       "tool_shed_repository": {
-        "changeset_revision": "85a8cf9edb19",
+        "changeset_revision": "291515461a26",
         "name": "lehtio_input_output",
         "owner": "jorritb",
         "tool_shed": "testtoolshed.g2.bx.psu.edu"
@@ -4192,8 +4192,8 @@
         }
       ],
       "position": {
-        "left": 4165.2666015625,
-        "top": 1608.7166442871094
+        "left": 4165.266662597656,
+        "top": 1608.7166748046875
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -4233,7 +4233,15 @@
       "inputs": [
         {
           "description": "runtime parameter for tool Process PSM table",
+          "name": "fastadelim"
+        },
+        {
+          "description": "runtime parameter for tool Process PSM table",
           "name": "mapfn"
+        },
+        {
+          "description": "runtime parameter for tool Process PSM table",
+          "name": "genefield"
         },
         {
           "description": "runtime parameter for tool Process PSM table",
@@ -4261,8 +4269,8 @@
         }
       ],
       "position": {
-        "left": 4531.4832763671875,
-        "top": 1333.7000427246094
+        "left": 4531.483337402344,
+        "top": 1333.7000122070312
       },
       "post_job_actions": {
         "ChangeDatatypeActionlookupoutput": {
@@ -4297,7 +4305,7 @@
         "owner": "jorritb",
         "tool_shed": "testtoolshed.g2.bx.psu.edu"
       },
-      "tool_state": "{\"__page__\": null, \"isobaric\": \"{\\\"ratios\\\": {\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}, \\\"yesno\\\": \\\"true\\\", \\\"__current_case__\\\": 0}\", \"mapfn\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"dbase\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"decoy\": \"\\\"false\\\"\", \"__rerun_remap_job_id__\": null, \"genes\": \"\\\"false\\\"\", \"genefield\": \"\\\"\\\"\", \"speccol\": \"\\\"1\\\"\", \"filter\": \"{\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}\", \"lookup\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"fastadelim\": \"null\", \"precursorquant\": \"\\\"true\\\"\", \"proteingroup\": \"\\\"false\\\"\", \"psms\": \"{\\\"psmtables\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"multiple\\\": \\\"true\\\", \\\"__current_case__\\\": 0, \\\"percolator\\\": {\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}}\"}",
+      "tool_state": "{\"__page__\": null, \"isobaric\": \"{\\\"ratios\\\": {\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}, \\\"yesno\\\": \\\"true\\\", \\\"__current_case__\\\": 0}\", \"mapfn\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"dbase\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"decoy\": \"\\\"false\\\"\", \"__rerun_remap_job_id__\": null, \"genes\": \"\\\"false\\\"\", \"genefield\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"speccol\": \"\\\"1\\\"\", \"filter\": \"{\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}\", \"lookup\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"fastadelim\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"precursorquant\": \"\\\"true\\\"\", \"proteingroup\": \"\\\"false\\\"\", \"psms\": \"{\\\"psmtables\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"multiple\\\": \\\"true\\\", \\\"__current_case__\\\": 0, \\\"percolator\\\": {\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}}\"}",
       "tool_version": "1.1",
       "type": "tool",
       "uuid": "2c8c21e6-4421-425f-9a88-dec0295cbd84",
@@ -4321,7 +4329,15 @@
       "inputs": [
         {
           "description": "runtime parameter for tool Process PSM table",
+          "name": "fastadelim"
+        },
+        {
+          "description": "runtime parameter for tool Process PSM table",
           "name": "mapfn"
+        },
+        {
+          "description": "runtime parameter for tool Process PSM table",
+          "name": "genefield"
         },
         {
           "description": "runtime parameter for tool Process PSM table",
@@ -4349,8 +4365,8 @@
         }
       ],
       "position": {
-        "left": 4542.4832763671875,
-        "top": 1616.2499694824219
+        "left": 4542.483337402344,
+        "top": 1616.25
       },
       "post_job_actions": {
         "HideDatasetActionlookupoutput": {
@@ -4378,7 +4394,7 @@
         "owner": "jorritb",
         "tool_shed": "testtoolshed.g2.bx.psu.edu"
       },
-      "tool_state": "{\"__page__\": null, \"isobaric\": \"{\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}\", \"mapfn\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"dbase\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"decoy\": \"\\\"true\\\"\", \"__rerun_remap_job_id__\": null, \"genes\": \"\\\"false\\\"\", \"genefield\": \"\\\"\\\"\", \"speccol\": \"\\\"1\\\"\", \"filter\": \"{\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}\", \"lookup\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"fastadelim\": \"null\", \"precursorquant\": \"\\\"false\\\"\", \"proteingroup\": \"\\\"false\\\"\", \"psms\": \"{\\\"psmtables\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"multiple\\\": \\\"true\\\", \\\"__current_case__\\\": 0, \\\"percolator\\\": {\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}}\"}",
+      "tool_state": "{\"__page__\": null, \"isobaric\": \"{\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}\", \"mapfn\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"dbase\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"decoy\": \"\\\"true\\\"\", \"__rerun_remap_job_id__\": null, \"genes\": \"\\\"false\\\"\", \"genefield\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"speccol\": \"\\\"1\\\"\", \"filter\": \"{\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}\", \"lookup\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"fastadelim\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"precursorquant\": \"\\\"false\\\"\", \"proteingroup\": \"\\\"false\\\"\", \"psms\": \"{\\\"psmtables\\\": {\\\"__class__\\\": \\\"RuntimeValue\\\"}, \\\"multiple\\\": \\\"true\\\", \\\"__current_case__\\\": 0, \\\"percolator\\\": {\\\"yesno\\\": \\\"false\\\", \\\"__current_case__\\\": 1}}\"}",
       "tool_version": "1.1",
       "type": "tool",
       "uuid": "f7c4f017-ba90-4051-883c-f7ae3a04671b",
@@ -4410,8 +4426,8 @@
         }
       ],
       "position": {
-        "left": 3104.4999389648438,
-        "top": 1026.2166442871094
+        "left": 3104.5,
+        "top": 1026.2166748046875
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -4459,8 +4475,8 @@
         }
       ],
       "position": {
-        "left": 3355.4832763671875,
-        "top": 1011.0166931152344
+        "left": 3355.4833984375,
+        "top": 1011.0166625976562
       },
       "post_job_actions": {
         "HideDatasetActionout_file1": {
@@ -4506,7 +4522,7 @@
         }
       ],
       "position": {
-        "left": 3561.7332763671875,
+        "left": 3561.7333374023438,
         "top": 1016.8833312988281
       },
       "post_job_actions": {
@@ -4563,8 +4579,8 @@
         }
       ],
       "position": {
-        "left": 3813.5999145507812,
-        "top": 1008.0666809082031
+        "left": 3813.5999755859375,
+        "top": 1008.066650390625
       },
       "post_job_actions": {
         "HideDatasetActionout_file1": {
@@ -4606,8 +4622,8 @@
         }
       ],
       "position": {
-        "left": 921.033203125,
-        "top": 269.6999969482422
+        "left": 921.033447265625,
+        "top": 269.70001220703125
       },
       "post_job_actions": {
         "HideDatasetActionoutfile": {
@@ -4663,8 +4679,8 @@
         }
       ],
       "position": {
-        "left": 4037.9832763671875,
-        "top": 983.9166564941406
+        "left": 4037.9833374023438,
+        "top": 983.9166870117188
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -4719,8 +4735,8 @@
         }
       ],
       "position": {
-        "left": 4346.4832763671875,
-        "top": 996.4999694824219
+        "left": 4346.483337402344,
+        "top": 996.5
       },
       "post_job_actions": {
         "HideDatasetActionsplitpsms": {
@@ -4772,8 +4788,8 @@
         }
       ],
       "position": {
-        "left": 4604.6165771484375,
-        "top": 981.8166809082031
+        "left": 4604.616668701172,
+        "top": 981.816650390625
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -4833,7 +4849,7 @@
         }
       ],
       "position": {
-        "left": 5271.800048828125,
+        "left": 5271.799987792969,
         "top": 1012.1333312988281
       },
       "post_job_actions": {
@@ -4870,7 +4886,7 @@
     },
     "94": {
       "annotation": "",
-      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_input_output/msstitch_qc/0.15",
+      "content_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_qc/msstitch_qc/0.16",
       "errors": null,
       "id": 94,
       "input_connections": {
@@ -4934,8 +4950,8 @@
         }
       ],
       "position": {
-        "left": 5641.16650390625,
-        "top": 1024.4333190917969
+        "left": 5740,
+        "top": 801.5
       },
       "post_job_actions": {
         "HideDatasetActionoutput": {
@@ -4951,19 +4967,19 @@
           "output_name": "output"
         }
       },
-      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_input_output/msstitch_qc/0.15",
+      "tool_id": "testtoolshed.g2.bx.psu.edu/repos/jorritb/lehtio_qc/msstitch_qc/0.16",
       "tool_shed_repository": {
-        "changeset_revision": "85a8cf9edb19",
-        "name": "lehtio_input_output",
+        "changeset_revision": "b23fbd236812",
+        "name": "lehtio_qc",
         "owner": "jorritb",
         "tool_shed": "testtoolshed.g2.bx.psu.edu"
       },
       "tool_state": "{\"platepatterns\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"isobaric\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"__page__\": null, \"__rerun_remap_job_id__\": null, \"genes\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"proteins\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"symbols\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"setnames\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"peptides\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"lookup\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\", \"psmtable\": \"{\\\"__class__\\\": \\\"RuntimeValue\\\"}\"}",
-      "tool_version": "0.15",
+      "tool_version": "0.16",
       "type": "tool",
-      "uuid": "f99b7167-a85b-4323-9f03-51c8d8245528",
+      "uuid": "2bf3040a-c4e9-400a-90f8-72fa8b3b40fd",
       "workflow_outputs": []
     }
   },
-  "uuid": "e47b2bb3-55c3-4e2d-974c-cb2af94c40de"
+  "uuid": "2ebb25cd-cd25-43af-8713-d9d7ecc124fe"
 }
