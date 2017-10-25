@@ -3396,7 +3396,7 @@
       "id": 7,
       "input_connections": {},
       "inputs": [],
-      "label": "knownpep tryp lookup",
+      "label": "knownpep allpep lookup",
       "name": "Input dataset",
       "outputs": [],
       "position": {
@@ -3969,7 +3969,7 @@
       "id": 8,
       "input_connections": {},
       "inputs": [],
-      "label": "knownpep allpep lookup",
+      "label": "knownpep tryp lookup",
       "name": "Input dataset",
       "outputs": [],
       "position": {
