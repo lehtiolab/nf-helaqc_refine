@@ -137,7 +137,7 @@ process createPSMPeptideTable {
 
   container 'quay.io/biocontainers/msstitch:2.5--py36_0'
   
-  publishDir "${params.outdir}", mode: 'copy', overwrite: true, saveAs: { it == "tpsms" ? "psmtable.txt" : null }
+  publishDir "${params.outdir}", mode: 'copy', overwrite: true, saveAs: { it == "tpsmtable" ? "psmtable.txt" : null }
 
   input:
   set file('tpsms'), file('dpsms') from tdpsms
@@ -176,6 +176,8 @@ process cutPasteReplacePeptideProteinTable{
 
   container 'ubuntu:latest'
 
+  publishDir "${params.outdir}", mode: 'copy', overwrite: true, saveAs: { it == "tpep" ? "peptable.txt" : null }
+
   input:
   set file('tprepep'), file('dprepep') from prepeptable
   set file('tpsm'), file('dpsm') from psm2prottable 
@@ -200,6 +202,8 @@ process createProteinTable {
   
   container 'quay.io/biocontainers/msstitch:2.5--py36_0'
 
+  publishDir "${params.outdir}", mode: 'copy', overwrite: true
+
   input:
   set file('tproteins'), file('dproteins') from proteinlist
   set file('tpsms'), file('dpsms') from psmprotquant
@@ -214,6 +218,7 @@ process createProteinTable {
   msspeptable modelqvals -i dpeptides -o dlinmodpep --scorecolpattern 'MSGFScore' --fdrcolpattern '^q-value'
   mssprottable bestpeptide -i ms1quant -o tbestpep --peptable tlinmodpep --scorecolpattern 'linear model' --logscore --protcolpattern 'Master' 
   mssprottable bestpeptide -i dproteins -o dbestpep --peptable dlinmodpep --scorecolpattern 'linear model' --logscore --protcolpattern 'Master'
-  mssprottable pickedfdr --picktype result -i tbestpep --decoyfn dbestpep -o prottable.txt
+  mssprottable pickedfdr --picktype result -i tbestpep --decoyfn dbestpep -o fdrprots
+  msspsmtable conffilt -i fdrprots -o prottable.txt --confidence-better lower --confidence-lvl 0.01 --confcolpattern 'q-value'
   """
 }
