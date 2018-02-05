@@ -79,6 +79,7 @@ process makeDDB {
 process createSpectraLookup {
 
   container 'quay.io/biocontainers/msstitch:2.5--py36_0'
+  publishDir "${params.outdir}", mode: 'copy', overwrite: true
 
   input:
   file mzml
@@ -135,6 +136,8 @@ process determineTDPSMS {
 process createPSMPeptideTable {
 
   container 'quay.io/biocontainers/msstitch:2.5--py36_0'
+  
+  publishDir "${params.outdir}", mode: 'copy', overwrite: true, saveAs: { it == "tpsms" ? "psmtable.txt" : null }
 
   input:
   set file('tpsms'), file('dpsms') from tdpsms
@@ -193,9 +196,6 @@ process cutPasteReplacePeptideProteinTable{
   """
 }
 
-peptable
-  .set { protpeptable }
-
 process createProteinTable {
   
   container 'quay.io/biocontainers/msstitch:2.5--py36_0'
@@ -203,7 +203,7 @@ process createProteinTable {
   input:
   set file('tproteins'), file('dproteins') from proteinlist
   set file('tpsms'), file('dpsms') from psmprotquant
-  set file('tpeptides'), file('dpeptides') from protpeptable
+  set file('tpeptides'), file('dpeptides') from peptable
 
   output:
   file 'prottable.txt' into proteins
