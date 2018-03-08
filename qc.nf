@@ -155,8 +155,8 @@ process createPSMPeptideTable {
   msslookup psms -i dfiltpep --dbfile dpsmlookup --spectracol 1 --fasta $ddb
   msspsmtable specdata -i tfiltpep --dbfile tpsmlookup -o trtpsms
   msspsmtable quant -i trtpsms -o tquant --dbfile tpsmlookup --precursor
-  msslookup proteingroup -i tquant --dbfile tpsmlookup
-  msslookup proteingroup -i dfiltpep --dbfile dpsmlookup
+  msslookup proteingroup -i tquant --dbfile tpsmlookup || exit 3
+  msslookup proteingroup -i dfiltpep --dbfile dpsmlookup || exit 3
   msspsmtable proteingroup -i tquant -o tpsmtable --dbfile tpsmlookup
   msspsmtable proteingroup -i dfiltpep -o dpsmtable --dbfile dpsmlookup
   msspeptable psm2pep -i tpsmtable -o tpeptides --scorecolpattern MSGFScore --spectracol 1 --ms1quantcolpattern area
