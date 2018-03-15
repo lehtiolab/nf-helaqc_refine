@@ -107,7 +107,7 @@ process msgfPlus {
   
   """
   msgf_plus -Xmx16G -d $db -s "$mzml" -o "${mzml}.mzid" -thread ${task.cpus * 2} -mod $mods -tda 1 -t 10.0ppm -ti -1,2 -m 0 -inst $instrument -e 1 -protocol 5 -ntt 2 -minLength 7 -maxLength 50 -minCharge 2 -maxCharge 6 -n 1 -addFeatures 1
-  msgf_plus -Xmx3500M edu.ucsd.msjava.ui.MzIDToTsv -i "${mzml}.mzid" -o out.mzid.tsv -showDecoy 1
+  msgf_plus -Xmx8G edu.ucsd.msjava.ui.MzIDToTsv -i "${mzml}.mzid" -o out.mzid.tsv -showDecoy 1
   """
 }
 
