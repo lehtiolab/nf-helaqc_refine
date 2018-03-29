@@ -344,15 +344,17 @@ tmzidtsv_perco
 process createPSMTable {
 
   container 'quay.io/biocontainers/msstitch:2.5--py36_0'
+  
+  publishDir "${params.outdir}", mode: 'copy', overwrite: true, saveAs: {["target_psmlookup.sql", "target_psmtable.txt", "decoy_psmtable.txt"].contains(it) ? it : null}
 
   input:
   set val(setnames), val(td), file('psms?'), file('lookup') from prepsm
   set file(tdb), file(ddb), file(mmap) from Channel.value([tdb, ddb, martmap])
 
   output:
-  set val(td), file("${td}_psmtable.txt") into psmtables
+  file("${td}_psmtable.txt")
   set val(td), file({setnames.collect() { it + '.tsv' }}) into setpsmtables
-  set val(td), file('psmlookup') into psmlookup
+  set val(td), file("${td}_psmlookup.sql") into psmlookup
 
   script:
   """
@@ -369,6 +371,7 @@ process createPSMTable {
   msspsmtable proteingroup -i gpsms -o pgpsms --dbfile psmlookup
   msspsmtable split -i pgpsms --bioset
   mv pgpsms ${td}_psmtable.txt
+  mv psmlookup ${td}_psmlookup.sql
   """
 }
 
@@ -497,7 +500,6 @@ if (params.genes && params.symbols) {
 
 pgstables
   .join(pepslinmod_prot, by: [0,1])
-  .view()
   .set { prepgs_in }
 
 process prepProteinGeneSymbolTable {
@@ -568,18 +570,18 @@ psmlookup
 process proteinPeptideSetMerge {
 
   container 'quay.io/biocontainers/msstitch:2.5--py36_0'
+  
+  publishDir "${params.outdir}", mode: 'copy', overwrite: true, saveAs: { it == "proteintable" ? "${outname}_table.txt": null}
 
   input:
   set val(setnames), val(acctype), file(tables) from ptables_to_merge
   file(lookup) from tlookup
+  
+  output:
+  file('proteintable')
 
-//  #msslookup proteins --protcol 1 --genecentric genes
-//  #msslookup proteins --protcol 1 --genecentric assoc
-//  mssprottable build --genecentric genes
-//  mssprottable build --genecentric assoc
-//  msspeptable build
-//  msspeptable build --genecentric
-//  msspeptable build --noncentric 
+  script:
+  outname = (acctype == 'assoc') ? 'symbols' : acctype
   """
   cp $lookup db.sqlite
   msslookup ${acctype == 'peptides' ? 'peptides --fdrcolpattern \'^q-value\' --peptidecol' : 'proteins --fdrcolpattern \'q-value\' --protcol'} 1 --dbfile db.sqlite -i ${tables.join(' ')} --setnames ${setnames.join(' ')} --ms1quantcolpattern area ${params.isobaric ? '--psmnrcolpattern quanted --isobquantcolpattern plex' : ''} ${acctype in ['genes', 'assoc'] ? "--genecentric ${acctype}" : ''}
