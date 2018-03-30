@@ -330,6 +330,7 @@ with open('tmzidperco', 'w') as tfp, open('dmzidperco', 'w') as dfp:
                 dfp.write('\\n')
                 dfp.write('\\t'.join([str(outpsm[k]) for k in header]))
             else:
+                outpsm['Protein'] = ';'.join([x for x in outpsm['Protein'].split(';') if 'decoy_' not in x])
                 tfp.write('\\n')
                 tfp.write('\\t'.join([str(outpsm[k]) for k in header]))
   """
