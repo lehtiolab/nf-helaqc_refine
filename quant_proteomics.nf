@@ -382,6 +382,7 @@ setnames_psm
   .set { setlist_psm }
 
 setpsmtables
+  .map { it -> [it[0], it[1] instanceof java.util.List ? it[1] : [it[1]] ] }
   .map{ it -> [it[0], it[1].sort { a, b -> a.baseName.tokenize('.')[0] <=> b.baseName.tokenize('.')[0] }] } // names are setnames, sort on them then merge with sorted setnames
   .merge(setlist_psm)
   .transpose()
