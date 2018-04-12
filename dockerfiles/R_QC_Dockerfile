@@ -1,0 +1,6 @@
+FROM r-base
+
+RUN Rscript -e "install.packages(c('ggplot2', 'reshape2', 'grid', 'knitr'))"
+RUN apt-get update
+RUN apt-get install -y python python-pip
+RUN pip install Jinja2 lxml
