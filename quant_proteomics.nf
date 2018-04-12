@@ -8,8 +8,8 @@ Jorrit Boekel @glormph
 Usage:
 
 textfile:
-/abspath/to/filefr01.mzML\tsetname\tfrnr
-/abspath/to/filefr02.mzML\tsetname\tfrnr
+/abspath/to/filefr01.mzML\tsetname\tplateid\tfrnr
+/abspath/to/filefr02.mzML\tsetname\tplateid\tfrnr
 
 */
 
@@ -34,6 +34,10 @@ mods = file(params.mods)
 tdb = file(params.tdb)
 ddb = file(params.ddb)
 martmap = file(params.martmap)
+qcknitrpsms = file('qc/knitr_psms.Rhtml')
+qcknitrplatepsms = file('qc/knitr_psms_perplate.Rhtml')
+qcknitrprot = file('qc/knitr_prot.Rhtml')
+qctemplater = file('qc/collect.py')
 
 accolmap = [peptides: 11, proteins: 13, genes: 16, assoc: 17]
 
@@ -68,8 +72,8 @@ Channel
 
 mzml_in
   .tap { sets }
-  .map { it -> [file(it[0]), it[1]]}
-  .map { it -> [it[1], it[0].baseName.replaceFirst(/.*\/(\S+)\.mzML/, "\$1"), it[0]] }
+  .map { it -> [file(it[0]), it[1], it[2] ? "${it[1]}_${it[2]}" : it[1], it[3] ? it[3] : 'NA' ]} // create file, set plate to setname, and fraction to NA if there is none
+  .map { it -> [it[1], it[0].baseName.replaceFirst(/.*\/(\S+)\.mzML/, "\$1"), it[0], it[2], it[3]] }
   .tap{ mzmlfiles; mzml_isobaric; mzml_hklor; mzml_msgf }
   .count()
   .set{ amount_mzml }
@@ -77,10 +81,10 @@ mzml_in
 sets
   .map{ it -> it[1] }
   .unique()
-  .tap { setnames_psm }
+  .tap { setnames_psm } 
   .collect()
-  .subscribe { println "Detected setnames: ${it.join(', ')}" }
-
+  .map { it -> [it] }
+  .into { setnames_featqc; setnames_psmqc }
 
 
 process IsobaricQuant {
@@ -90,7 +94,7 @@ process IsobaricQuant {
   when: params.isobaric
 
   input:
-  set val(setname), val(sample), file(infile) from mzml_isobaric
+  set val(setname), val(sample), file(infile), val(platename), val(fraction)from mzml_isobaric
 
   output:
   set val(sample), file("${infile}.consensusXML") into isobaricxml
@@ -105,7 +109,7 @@ process hardklor {
   container 'quay.io/biocontainers/hardklor:2.3.0--0'
 
   input:
-  set val(setname), val(sample), file(infile) from mzml_hklor
+  set val(setname), val(sample), file(infile), val(platename), val(fraction) from mzml_hklor
   file hkconf
 
   output:
@@ -137,30 +141,54 @@ process kronik {
 mzmlfiles
   .buffer(size: amount_mzml.value)
   .map { it.sort( {a, b -> a[1] <=> b[1]}) } // sort on sample for consistent .sh script in -resume
-  .map { it -> [it.collect() { it[0] }, it.collect() { it[2] }] } // lists: [sets], [mzmlfiles]
+  .map { it -> [it.collect() { it[0] }, it.collect() { it[2] }, it.collect() { it[3] } ] } // lists: [sets], [mzmlfiles], [plates]
   .set{ mzmlfiles_all }
 
-/*
-// This is not sorted which makes -resume problematic due to chagning bash command.sh script
-mzml_lookup
-  .reduce([sets:[], files:[]]) { a, b -> a.sets.add(b[3]); a.files.add(b[2]); return a }
-  .map { it -> [it.files, it.sets]}
-  .set { mzmlfns_sets }
-*/
 
 process createSpectraLookup {
 
   container 'quay.io/biocontainers/msstitch:2.5--py36_0'
 
   input:
-  set val(setnames), file(mzmlfiles) from mzmlfiles_all
+  set val(setnames), file(mzmlfiles), val(platenames) from mzmlfiles_all
 
   output:
   file 'mslookup_db.sqlite' into spec_lookup
+  set val(platenames), file(mzmlfiles), file('amount_spectra_files') into specfilems2
 
   script:
   """
   msslookup spectra -i ${mzmlfiles.join(' ')} --setnames ${setnames.join(' ')}
+  sqlite3 mslookup_db.sqlite "SELECT mzmlfilename, COUNT(*) FROM mzml JOIN mzmlfiles USING(mzmlfile_id) JOIN biosets USING(set_id) GROUP BY mzmlfilename" > amount_spectra_files
+  """
+}
+
+
+process countMS2sPerPlate {
+
+  container 'biopython/biopython:latest'
+  
+  publishDir "${params.outdir}", mode: 'copy', overwrite: true 
+
+  input:
+  set val(platenames), file(mzmlfiles), file('nr_spec_per_file') from specfilems2
+
+  output:
+  set file('scans_per_plate'), val(platenames) into scans_result
+
+  script:
+  """
+  #!/usr/bin/env python
+  plates = [\"${platenames.join('", "')}\"]
+  platescans = {p: 0 for p in plates}
+  fileplates = {fn: p for fn, p in zip([\"${mzmlfiles.join('", "')}\"], plates)}
+  with open('nr_spec_per_file') as fp:
+      for line in fp:
+          fn, scans = line.strip('\\n').split('|')
+          platescans[fileplates[fn]] += int(scans)
+  with open('scans_per_plate', 'w') as fp:
+      for plate, scans in platescans.items():
+          fp.write('{}\\t{}\\n'.format(plate, scans))
   """
 }
 
@@ -231,15 +259,13 @@ process msgfPlus {
   container 'quay.io/biocontainers/msgf_plus:2017.07.21--py27_0'
 
   input:
-  set val(setname), val(sample), file(x) from mzml_msgf
+  set val(setname), val(sample), file(x), val(platename), val(fraction) from mzml_msgf
   file(db) from concatdb
   file mods
 
   output:
   set val(setname), val(sample), file("${sample}.mzid") into mzids
-  set val(setname), file("${sample}.mzid"), file('out.mzid.tsv') into mzidtsvs
-  //set val(setname), val(sample), file("${sample}.mzid"), val(td) into mzids
-  //set val("${setname}_${td}"), val(sample), file('out.mzid.tsv') into mzidtsvs
+  set val(setname), file("${sample}.mzid"), file('out.mzid.tsv'), val(platename), val(fraction) into mzidtsvs
   
   """
   msgf_plus -Xmx16G -d $db -s $x -o "${sample}.mzid" -thread 12 -mod $mods -tda 0 -t 10.0ppm -ti -1,2 -m 0 -inst 3 -e 1 -protocol ${msgfprotocol} -ntt 2 -minLength 7 -maxLength 50 -minCharge 2 -maxCharge 6 -n 1 -addFeatures 1
@@ -283,7 +309,7 @@ process svmToTSV {
   container 'quay.io/biocontainers/msstitch:2.5--py36_0'
 
   input:
-  set val(setname), file('mzident?'), file('mzidtsv?'), file(perco) from mzperco 
+  set val(setname), file('mzident????'), file('mzidtsv????'), val(platenames), val(fractions), file(perco) from mzperco 
 
   output:
   set val(setname), val('target'), file('tmzidperco') into tmzidtsv_perco
@@ -292,9 +318,23 @@ process svmToTSV {
   script:
   """
 #!/usr/bin/env python
+import re
+def count_missed_cleavage(full_pepseq, count=0):
+    '''Regex .*[KR][^P] matches until the end and checks if there is a final
+    charachter so this will not match the tryptic residue'''
+    pepseq = re.sub('[\\+\\-]\\d*.\\d*', '', full_pepseq)
+    match = re.match('.*[KR][^P]', pepseq)
+    if match:
+        count += 1
+        return count_missed_cleavage(match.group()[:-1], count)
+    else:
+        return count
+
 from glob import glob
 mzidtsvfns = sorted(glob('mzidtsv*'))
 mzidfns = sorted(glob('mzident*'))
+fractions = [\"${fractions.join('", "')}\"]
+plates = [\"${platenames.join('", "')}\"]
 from app.readers import pycolator, xml, tsv, mzidplus
 import os
 ns = xml.get_namespace_from_top('$perco', None) 
@@ -309,7 +349,7 @@ for svm, pep in sorted([(float(x.find('{%s}svm_score' % ns['xmlns']).text), x) f
     decoys[pep.attrib['{%s}decoy' % ns['xmlns']]] += 1
     [psms[pid.text].update({'pepqval': decoys['true']/decoys['false']}) for pid in pep.find('{%s}psm_ids' % ns['xmlns'])]
 oldheader = tsv.get_tsv_header(mzidtsvfns[0])
-header = oldheader + ['percolator svm-score', 'PSM q-value', 'peptide q-value']
+header = oldheader + ['percolator svm-score', 'PSM q-value', 'peptide q-value', 'plateID', 'Fraction', 'missed_cleavage']
 with open('tmzidperco', 'w') as tfp, open('dmzidperco', 'w') as dfp:
     tfp.write('\\t'.join(header))
     dfp.write('\\t'.join(header))
@@ -325,7 +365,7 @@ with open('tmzidperco', 'w') as tfp, open('dmzidperco', 'w') as dfp:
                 percopsm = psms['{fn}_SII_{sc}_{rk}_{sc}_{ch}_{rk}'.format(fn=spfile, sc=scan, rk=rank, ch=psm['Charge'])]
             except KeyError:
                 continue
-            outpsm.update({'percolator svm-score': percopsm['svm'], 'PSM q-value': percopsm['qval'], 'peptide q-value': percopsm['pepqval']})
+            outpsm.update({'percolator svm-score': percopsm['svm'], 'PSM q-value': percopsm['qval'], 'peptide q-value': percopsm['pepqval'], 'plateID': plates[fnix], 'Fraction': fractions[fnix], 'missed_cleavage': count_missed_cleavage(outpsm['Peptide'])})
             if percopsm['decoy']:
                 dfp.write('\\n')
                 dfp.write('\\t'.join([str(outpsm[k]) for k in header]))
@@ -353,7 +393,7 @@ process createPSMTable {
   set file(tdb), file(ddb), file(mmap) from Channel.value([tdb, ddb, martmap])
 
   output:
-  file("${td}_psmtable.txt")
+  set val(td), file("${td}_psmtable.txt") into psm_result
   set val(td), file({setnames.collect() { it + '.tsv' }}) into setpsmtables
   set val(td), file("${td}_psmlookup.sql") into psmlookup
 
@@ -411,7 +451,7 @@ process shuffleHeaderPeptidesMakeProttables {
   set val(td), val(setname), file(psms), file('peptides') from prepep
 
   output:
-  set val(setname), val(td), file(psms), file('peptide_table.txt'), file('proteins') into peptides
+  set val(setname), val(td), file(psms), file('peptide_table.txt') into peptides
   set val(setname), val(td), file(psms), file('proteins'), val('proteins') into proteins
   set val(setname), val(td), file(psms), file('genes'), val('genes') into genes
   set val(setname), val(td), file(psms), file('symbols'), val('assoc') into symbols
@@ -467,7 +507,7 @@ process postprodPeptideTable {
   container 'quay.io/biocontainers/msstitch:2.5--py36_0'
 
   input:
-  set val(setname), val(td), file('psms'), file('peptides'), file('proteins'), file(pratios) from peptable_quant
+  set val(setname), val(td), file('psms'), file('peptides'), file(pratios) from peptable_quant
 
   output:
   set val(setname), val(td), file("${setname}_linmod"), file(pratios) into pepslinmod
@@ -523,7 +563,7 @@ process prepProteinGeneSymbolTable {
   """
   else
   """
-  ${td == 'target' ? 'mssprottable ms1quant -i proteins -o proteintable --psmtable psms --protcol ${accolmap[acctype]}' : 'mv proteins proteintable'}
+  ${td == 'target' ? "mssprottable ms1quant -i proteins -o proteintable --psmtable psms --protcol ${accolmap[acctype]}" : 'mv proteins proteintable'}
   mssprottable bestpeptide -i proteintable -o bestpeptides --peptable peplinmod --scorecolpattern ${acctype == 'proteins' ? '\'^q-value\'' : '\'linear model\''} --logscore --protcol ${accolmap[acctype] + 1}
   """
 }
@@ -580,15 +620,77 @@ process proteinPeptideSetMerge {
   file(lookup) from tlookup
   
   output:
-  file('proteintable')
+  set val(acctype), file('proteintable') into featuretables
 
   script:
   outname = (acctype == 'assoc') ? 'symbols' : acctype
   """
   cp $lookup db.sqlite
   msslookup ${acctype == 'peptides' ? 'peptides --fdrcolpattern \'^q-value\' --peptidecol' : 'proteins --fdrcolpattern \'q-value\' --protcol'} 1 --dbfile db.sqlite -i ${tables.join(' ')} --setnames ${setnames.join(' ')} --ms1quantcolpattern area ${params.isobaric ? '--psmnrcolpattern quanted --isobquantcolpattern plex' : ''} ${acctype in ['genes', 'assoc'] ? "--genecentric ${acctype}" : ''}
-              
   ${acctype == 'peptides' ? 'msspeptable build' : 'mssprottable build --mergecutoff 0.01'} --dbfile db.sqlite -o proteintable ${params.isobaric ? '--isobaric' : ''} --precursor --fdr ${acctype in ['genes', 'assoc'] ? "--genecentric ${acctype}" : ''}
+  sed -i 's/\\#/Amount/g' proteintable
+  """
+}
 
+psm_result
+  .filter { it[0] == 'target' }
+  .merge(scans_result)
+  .set { targetpsm_result }
+
+
+process psmQC {
+  container 'r_qc_ggplot'
+  input:
+  set val(td), file('feats'), file('scans'), val(plates) from targetpsm_result
+  val(setnames) from setnames_psmqc
+  file(qcknitrplatepsms)
+  file(qcknitrpsms)
+  output:
+  set val('psms'), file('knitr.html') into psmqccollect
+  file('*_psms.html') into platepsmscoll
+  // TODO no proteins == no coverage for pep centric
+  script:
+  """
+  Rscript -e 'library(ggplot2); library(reshape2); library(knitr); nrsets=${setnames.size()}; feats = read.table("feats", header=T, sep="\\t", comment.char = "", quote = ""); amount_ms2 = read.table("scans"); knitr::knit2html("$qcknitrpsms", output="knitr.html"); ${plates.collect() { "plateid=\"${it}\"; knitr::knit2html(\"$qcknitrplatepsms\", output=\"${it}_psms.html\")"}.join('; ')}'
+  rm knitr_psms.html
+  """
+}
+
+featuretables.merge(setnames_featqc).set { featqcinput }
+
+process featQC {
+  container 'r_qc_ggplot'
+  input:
+  set val(acctype), file('feats'), val(setnames) from featqcinput
+  file(qcknitrprot)
+  output:
+  set val(acctype), file('knitr.html') into qccollect
+
+  script:
+  """
+  Rscript -e 'library(ggplot2); library(grid); library(reshape2); library(knitr); nrsets=${setnames.size()}; feats = read.table("feats", header=T, sep="\\t", comment.char = "", quote = ""); feattype="$acctype"; knitr::knit2html("$qcknitrprot", output="knitr.html");'
+  """
+}
+
+qccollect
+  .concat(psmqccollect)
+  .toList()
+  .map { it -> [it.collect() { it[0] }, it.collect() { it[1] }] }
+  .view()
+  .set { collected_feats_qc }
+
+
+process collectQC {
+  container 'r_qc_ggplot'
+  publishDir "${params.outdir}", mode: 'copy', overwrite: true
+  input:
+  set val(acctypes), file('feat?'), file('table?') from collected_feats_qc
+  file(ppsms) from platepsmscoll
+  file(qctemplater)
+  output:
+  file('qc.html')
+  """
+  count=1; for ac in ${acctypes.join(' ')}; do mv feat\$count \$ac.html; ((count++)); done
+  python $qctemplater ${ppsms.join(' ')}
   """
 }
