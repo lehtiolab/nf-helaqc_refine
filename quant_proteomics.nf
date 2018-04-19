@@ -1,6 +1,6 @@
 /*
 ==============================
-IPAW: HiRIEF II varDB pipeline
+QUANTITATIVE PROTEOMICS PIPELINE
 ==============================
 @Authors
 Jorrit Boekel @glormph
@@ -39,6 +39,9 @@ qcknitrplatepsms = file('qc/knitr_psms_perplate.Rhtml')
 qcknitrprot = file('qc/knitr_prot.Rhtml')
 qctemplater = file('qc/collect.py')
 
+piannotscript = file('scripts/peptide_pi_annotator.py')
+trainingpep = file(params.pipep)
+
 accolmap = [peptides: 11, proteins: 13, genes: 16, assoc: 17]
 
 setdenoms = [:]
@@ -72,7 +75,8 @@ Channel
 
 mzml_in
   .tap { sets }
-  .map { it -> [file(it[0]), it[1], it[2] ? "${it[1]}_${it[2]}" : it[1], it[3] ? it[3] : 'NA' ]} // create file, set plate to setname, and fraction to NA if there is none
+  .map { it -> [file(it[0]), it[1], it[2] ? it[2] : it[1], it[3] ? it[3] : 'NA' ]} // create file, set plate to setname, and fraction to NA if there is none
+  .tap { strips }
   .map { it -> [it[1], it[0].baseName.replaceFirst(/.*\/(\S+)\.mzML/, "\$1"), it[0], it[2], it[3]] }
   .tap{ mzmlfiles; mzml_isobaric; mzml_hklor; mzml_msgf }
   .count()
@@ -85,6 +89,12 @@ sets
   .collect()
   .map { it -> [it] }
   .into { setnames_featqc; setnames_psmqc }
+
+strips
+  .map { it -> it[2] }
+  .unique()
+  .toList()
+  .set { strips_for_deltapi }
 
 
 process IsobaricQuant {
@@ -154,7 +164,7 @@ process createSpectraLookup {
 
   output:
   file 'mslookup_db.sqlite' into spec_lookup
-  set val(platenames), file(mzmlfiles), file('amount_spectra_files') into specfilems2
+  set val(setnames), val(platenames), file(mzmlfiles), file('amount_spectra_files') into specfilems2
 
   script:
   """
@@ -171,17 +181,18 @@ process countMS2sPerPlate {
   publishDir "${params.outdir}", mode: 'copy', overwrite: true 
 
   input:
-  set val(platenames), file(mzmlfiles), file('nr_spec_per_file') from specfilems2
+  set val(setnames), val(platenames), file(mzmlfiles), file('nr_spec_per_file') from specfilems2
 
   output:
-  set file('scans_per_plate'), val(platenames) into scans_result
+  set file('scans_per_plate'), val(splates) into scans_result
 
   script:
+  splates = [setnames, platenames].transpose().collect() { "${it[0]}_${it[1]}" }
   """
   #!/usr/bin/env python
-  plates = [\"${platenames.join('", "')}\"]
-  platescans = {p: 0 for p in plates}
-  fileplates = {fn: p for fn, p in zip([\"${mzmlfiles.join('", "')}\"], plates)}
+  platesets = [\"${splates.join('", "')}\"]
+  platescans = {p: 0 for p in platesets}
+  fileplates = {fn: p for fn, p in zip([\"${mzmlfiles.join('", "')}\"], platesets)}
   with open('nr_spec_per_file') as fp:
       for line in fp:
           fn, scans = line.strip('\\n').split('|')
@@ -255,7 +266,6 @@ process concatTDFasta {
 
 
 process msgfPlus {
-  // FIXME add plate and fr to mzidtsv in this process, get them from input channel!
   container 'quay.io/biocontainers/msgf_plus:2017.07.21--py27_0'
 
   input:
@@ -349,7 +359,7 @@ for svm, pep in sorted([(float(x.find('{%s}svm_score' % ns['xmlns']).text), x) f
     decoys[pep.attrib['{%s}decoy' % ns['xmlns']]] += 1
     [psms[pid.text].update({'pepqval': decoys['true']/decoys['false']}) for pid in pep.find('{%s}psm_ids' % ns['xmlns'])]
 oldheader = tsv.get_tsv_header(mzidtsvfns[0])
-header = oldheader + ['percolator svm-score', 'PSM q-value', 'peptide q-value', 'plateID', 'Fraction', 'missed_cleavage']
+header = oldheader + ['percolator svm-score', 'PSM q-value', 'peptide q-value', 'Strip', 'Fraction', 'missed_cleavage']
 with open('tmzidperco', 'w') as tfp, open('dmzidperco', 'w') as dfp:
     tfp.write('\\t'.join(header))
     dfp.write('\\t'.join(header))
@@ -365,7 +375,7 @@ with open('tmzidperco', 'w') as tfp, open('dmzidperco', 'w') as dfp:
                 percopsm = psms['{fn}_SII_{sc}_{rk}_{sc}_{ch}_{rk}'.format(fn=spfile, sc=scan, rk=rank, ch=psm['Charge'])]
             except KeyError:
                 continue
-            outpsm.update({'percolator svm-score': percopsm['svm'], 'PSM q-value': percopsm['qval'], 'peptide q-value': percopsm['pepqval'], 'plateID': plates[fnix], 'Fraction': fractions[fnix], 'missed_cleavage': count_missed_cleavage(outpsm['Peptide'])})
+            outpsm.update({'percolator svm-score': percopsm['svm'], 'PSM q-value': percopsm['qval'], 'peptide q-value': percopsm['pepqval'], 'Strip': plates[fnix], 'Fraction': fractions[fnix], 'missed_cleavage': count_missed_cleavage(outpsm['Peptide'])})
             if percopsm['decoy']:
                 dfp.write('\\n')
                 dfp.write('\\t'.join([str(outpsm[k]) for k in header]))
@@ -382,6 +392,10 @@ tmzidtsv_perco
   .combine(quant_lookup)
   .set { prepsm }
 
+strips_for_deltapi
+  .map { it -> [it, trainingpep, piannotscript]}
+  .set { stripannot }
+
 process createPSMTable {
 
   container 'quay.io/biocontainers/msstitch:2.5--py36_0'
@@ -391,6 +405,7 @@ process createPSMTable {
   input:
   set val(setnames), val(td), file('psms?'), file('lookup') from prepsm
   set file(tdb), file(ddb), file(mmap) from Channel.value([tdb, ddb, martmap])
+  set val(allstrips), file(trainingpep), file(piannotscript) from stripannot
 
   output:
   set val(td), file("${td}_psmtable.txt") into psm_result
@@ -410,8 +425,9 @@ process createPSMTable {
   msspsmtable genes -i qpsms.txt -o gpsms --dbfile psmlookup
   msslookup proteingroup -i qpsms.txt --dbfile psmlookup
   msspsmtable proteingroup -i gpsms -o pgpsms --dbfile psmlookup
-  msspsmtable split -i pgpsms --bioset
-  mv pgpsms ${td}_psmtable.txt
+  ${trainingpep ? "python $piannotscript -i $trainingpep -p pgpsms --o dppsms --stripcolpattern Strip --pepcolpattern Peptide --fraccolpattern Fraction --strippatterns ${allstrips.join(' ')} --intercepts ${allstrips.collect() { params.strips[it].intercept}.join(' ')} --widths ${allstrips.collect() { params.strips[it].fr_width}.join(' ')} --ignoremods \'*\'" : ''}
+  msspsmtable split -i dppsms --bioset
+  mv dppsms ${td}_psmtable.txt
   mv psmlookup ${td}_psmlookup.sql
   """
 }
@@ -641,7 +657,7 @@ psm_result
 process psmQC {
   container 'r_qc_ggplot'
   input:
-  set val(td), file('feats'), file('scans'), val(plates) from targetpsm_result
+  set val(td), file('psms'), file('scans'), val(plates) from targetpsm_result
   val(setnames) from setnames_psmqc
   file(qcknitrplatepsms)
   file(qcknitrpsms)
@@ -651,6 +667,11 @@ process psmQC {
   // TODO no proteins == no coverage for pep centric
   script:
   """
+  setcol=`python -c 'with open("psms") as fp: h=next(fp).strip().split("\\t");print(h.index("Biological set")+1)'`
+  stripcol=`python -c 'with open("psms") as fp: h=next(fp).strip().split("\\t");print(h.index("Strip")+1)'`
+  paste -d _ <(cut -f \$setcol psms) <( cut -f \$stripcol psms) | sed 's/Biological set_Strip/plateID/' > platecol
+  paste psms platecol > feats
+  
   Rscript -e 'library(ggplot2); library(reshape2); library(knitr); nrsets=${setnames.size()}; feats = read.table("feats", header=T, sep="\\t", comment.char = "", quote = ""); amount_ms2 = read.table("scans"); knitr::knit2html("$qcknitrpsms", output="knitr.html"); ${plates.collect() { "plateid=\"${it}\"; knitr::knit2html(\"$qcknitrplatepsms\", output=\"${it}_psms.html\")"}.join('; ')}'
   rm knitr_psms.html
   """
