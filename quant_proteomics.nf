@@ -705,7 +705,7 @@ process collectQC {
   container 'r_qc_ggplot'
   publishDir "${params.outdir}", mode: 'copy', overwrite: true
   input:
-  set val(acctypes), file('feat?'), file('table?') from collected_feats_qc
+  set val(acctypes), file('feat?') from collected_feats_qc
   file(ppsms) from platepsmscoll
   file(qctemplater)
   output:
