@@ -651,6 +651,7 @@ process proteinPeptideSetMerge {
 psm_result
   .filter { it[0] == 'target' }
   .merge(scans_result)
+  .map { it -> [it[0], it[1], it[2], it[3].unique()] }
   .set { targetpsm_result }
 
 
