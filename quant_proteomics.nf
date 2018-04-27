@@ -29,6 +29,8 @@ params.genes = false
 params.symbols = false
 params.fastadelim = false
 params.genefield = false
+params.speclookup = false
+params.quantlookup = false
 
 mods = file(params.mods)
 tdb = file(params.tdb)
@@ -101,7 +103,7 @@ process IsobaricQuant {
 
   container 'quay.io/biocontainers/openms:2.2.0--py27_boost1.64_0'
 
-  when: params.isobaric
+  when: params.isobaric && !params.quantlookup
 
   input:
   set val(setname), val(sample), file(infile), val(platename), val(fraction)from mzml_isobaric
@@ -117,6 +119,7 @@ process IsobaricQuant {
 
 process hardklor {
   container 'quay.io/biocontainers/hardklor:2.3.0--0'
+  when: !params.quantlookup
 
   input:
   set val(setname), val(sample), file(infile), val(platename), val(fraction) from mzml_hklor
@@ -136,6 +139,7 @@ process hardklor {
 process kronik {
 
   container 'quay.io/biocontainers/kronik:2.20--0'
+  when: !params.quantlookup
 
   input:
   set val(sample), file('hardklor.out'), file(mzml) from hk_out 
@@ -161,6 +165,7 @@ process createSpectraLookup {
 
   input:
   set val(setnames), file(mzmlfiles), val(platenames) from mzmlfiles_all
+  when: !params.speclookup && !params.quantlookup
 
   output:
   file 'mslookup_db.sqlite' into spec_lookup
@@ -219,10 +224,14 @@ kronik_out
   .map { it -> [it.collect() { it[0] }, it.collect() { it[1] }, it.collect() { it[2] }] } // samples, kronikout, mzml
   .set { krfiles_sets }
 
+if (params.speclookup && !params.quantlookup) {
+  Channel.fromPath(params.speclookup).set { spec_lookup }
+}
 
 process quantLookup {
 
   container 'quay.io/biocontainers/msstitch:2.5--py36_0'
+  when: !params.quantlookup
 
   input:
   file lookup from spec_lookup
@@ -246,6 +255,10 @@ process quantLookup {
   """
 }
 
+
+if (params.quantlookup) {
+  Channel.fromPath(params.quantlookup).set { quant_lookup }
+}
 
 process concatTDFasta {
  
