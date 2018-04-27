@@ -627,7 +627,7 @@ psmlookup
 
 process proteinPeptideSetMerge {
 
-  container 'quay.io/biocontainers/msstitch:2.5--py36_0'
+  container 'quay.io/biocontainers/msstitch:2.7--py36_0'
   
   publishDir "${params.outdir}", mode: 'copy', overwrite: true, saveAs: { it == "proteintable" ? "${outname}_table.txt": null}
 
