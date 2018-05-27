@@ -39,6 +39,7 @@ martmap = file(params.martmap)
 qcknitrpsms = file('qc/knitr_psms.Rhtml')
 qcknitrplatepsms = file('qc/knitr_psms_perplate.Rhtml')
 qcknitrprot = file('qc/knitr_prot.Rhtml')
+qcknitrnormfac = file('qc/knitr_iso_norm.Rhtml')
 qctemplater = file('qc/collect.py')
 
 piannotscript = file('scripts/peptide_pi_annotator.py')
@@ -156,25 +157,114 @@ mzmlfiles
   .buffer(size: amount_mzml.value)
   .map { it.sort( {a, b -> a[1] <=> b[1]}) } // sort on sample for consistent .sh script in -resume
   .map { it -> [it.collect() { it[0] }, it.collect() { it[2] }, it.collect() { it[3] } ] } // lists: [sets], [mzmlfiles], [plates]
-  .set{ mzmlfiles_all }
+  .into { mzmlfiles_all; mzmlfiles_all_count }
+
+
+if (params.speclookup && !params.quantlookup) {
+  Channel
+    .fromPath(params.speclookup)
+    .into{ spec_lookup; countlookup }
+} 
+if (!params.speclookup && params.quantlookup) {
+  Channel
+    .fromPath(params.quantlookup)
+    .into { spec_lookup; quant_lookup; countlookup }
+} 
 
 
 process createSpectraLookup {
 
   container 'quay.io/biocontainers/msstitch:2.5--py36_0'
 
+  when: !(params.speclookup || params.quantlookup)
+
   input:
   set val(setnames), file(mzmlfiles), val(platenames) from mzmlfiles_all
-  when: !params.speclookup && !params.quantlookup
 
   output:
-  file 'mslookup_db.sqlite' into spec_lookup
-  set val(setnames), val(platenames), file(mzmlfiles), file('amount_spectra_files') into specfilems2
+  file 'mslookup_db.sqlite' into newspeclookup 
 
   script:
   """
   msslookup spectra -i ${mzmlfiles.join(' ')} --setnames ${setnames.join(' ')}
-  sqlite3 mslookup_db.sqlite "SELECT mzmlfilename, COUNT(*) FROM mzml JOIN mzmlfiles USING(mzmlfile_id) JOIN biosets USING(set_id) GROUP BY mzmlfilename" > amount_spectra_files
+  """
+}
+
+isoquant_amount = params.isobaric ? amount_mzml.value : 1
+isobaricxml
+  .ifEmpty(['NA', 'NA', 'NA'])
+  .buffer(size: isoquant_amount)
+  .map { it.sort({a, b -> a[0] <=> b[0]}) }
+  .map { it -> [it.collect() { it[0] }, it.collect() { it[1] }] } // samples, isoxml
+  .set { isofiles_sets }
+
+kronik_out
+  .ifEmpty(['NA', 'NA'])
+  .buffer(size: amount_mzml.value)
+  .map { it.sort({a, b -> a[0] <=> b[0]}) }
+  .map { it -> [it.collect() { it[0] }, it.collect() { it[1] }, it.collect() { it[2] }] } // samples, kronikout, mzml
+  .set { krfiles_sets }
+
+
+if (!(params.speclookup || params.quantlookup)) {
+  newspeclookup
+    .into { spec_lookup; countlookup }
+}
+
+process quantLookup {
+
+  container 'quay.io/biocontainers/msstitch:2.5--py36_0'
+  
+  when: !params.quantlookup
+
+  input:
+  file lookup from spec_lookup
+  set val(isosamples), file(isofns) from isofiles_sets
+  set val(krsamples), file(krfns), file(mzmls) from krfiles_sets
+
+  output:
+  file 'db.sqlite' into newquantlookup
+
+  script:
+  if (params.isobaric)
+  """
+  cp $lookup db.sqlite
+  msslookup ms1quant --dbfile db.sqlite -i ${krfns.join(' ')} --spectra ${mzmls.join(' ')} --quanttype kronik --mztol 20.0 --mztoltype ppm --rttol 5.0 
+  msslookup isoquant --dbfile db.sqlite -i ${isofns.join(' ')} --spectra ${isosamples.collect{ x -> x + '.mzML' }.join(' ')}
+  """
+  else
+  """
+  cp $lookup db.sqlite
+  msslookup ms1quant --dbfile db.sqlite -i ${krfns.join(' ')} --spectra ${mzmls.join(' ')} --quanttype kronik --mztol 20.0 --mztoltype ppm --rttol 5.0 
+  """
+}
+
+
+if (!params.quantlookup) {
+  newquantlookup
+    .into { quant_lookup }
+}
+
+mzmlfiles_all_count
+  .merge(countlookup)
+  .set { specfilein }
+
+
+process countMS2perFile {
+
+  container 'quay.io/biocontainers/msstitch:2.5--py36_0'
+
+  when: params.speclookup || params.quantlookup
+
+  input:
+  set val(setnames), file(mzmlfiles), val(platenames), file(speclookup) from specfilein
+
+  output:
+  set val(setnames), file(mzmlfiles), val(platenames), file('amount_spectra_files') into specfilems2
+
+  script:
+  """
+  sqlite3 $speclookup "SELECT mzmlfilename, COUNT(*) FROM mzml JOIN mzmlfiles USING(mzmlfile_id) JOIN biosets USING(set_id) GROUP BY mzmlfilename" > amount_spectra_files
   """
 }
 
@@ -186,7 +276,7 @@ process countMS2sPerPlate {
   publishDir "${params.outdir}", mode: 'copy', overwrite: true 
 
   input:
-  set val(setnames), val(platenames), file(mzmlfiles), file('nr_spec_per_file') from specfilems2
+  set val(setnames), file(mzmlfiles), val(platenames), file('nr_spec_per_file') from specfilems2
 
   output:
   set file('scans_per_plate'), val(splates) into scans_result
@@ -208,57 +298,6 @@ process countMS2sPerPlate {
   """
 }
 
-
-isoquant_amount = params.isobaric ? amount_mzml.value : 1
-isobaricxml
-  .ifEmpty(['NA', 'NA', 'NA'])
-  .buffer(size: isoquant_amount)
-  .map { it.sort({a, b -> a[0] <=> b[0]}) }
-  .map { it -> [it.collect() { it[0] }, it.collect() { it[1] }] } // samples, isoxml
-  .set { isofiles_sets }
-
-kronik_out
-  .ifEmpty(['NA', 'NA'])
-  .buffer(size: amount_mzml.value)
-  .map { it.sort({a, b -> a[0] <=> b[0]}) }
-  .map { it -> [it.collect() { it[0] }, it.collect() { it[1] }, it.collect() { it[2] }] } // samples, kronikout, mzml
-  .set { krfiles_sets }
-
-if (params.speclookup && !params.quantlookup) {
-  Channel.fromPath(params.speclookup).set { spec_lookup }
-}
-
-process quantLookup {
-
-  container 'quay.io/biocontainers/msstitch:2.5--py36_0'
-  when: !params.quantlookup
-
-  input:
-  file lookup from spec_lookup
-  set val(isosamples), file(isofns) from isofiles_sets
-  set val(krsamples), file(krfns), file(mzmls) from krfiles_sets
-
-  output:
-  file 'db.sqlite' into quant_lookup
-
-  script:
-  if (params.isobaric)
-  """
-  cp $lookup db.sqlite
-  msslookup ms1quant --dbfile db.sqlite -i ${krfns.join(' ')} --spectra ${mzmls.join(' ')} --quanttype kronik --mztol 20.0 --mztoltype ppm --rttol 5.0 
-  msslookup isoquant --dbfile db.sqlite -i ${isofns.join(' ')} --spectra ${isosamples.collect{ x -> x + '.mzML' }.join(' ')}
-  """
-  else
-  """
-  cp $lookup db.sqlite
-  msslookup ms1quant --dbfile db.sqlite -i ${krfns.join(' ')} --spectra ${mzmls.join(' ')} --quanttype kronik --mztol 20.0 --mztoltype ppm --rttol 5.0 
-  """
-}
-
-
-if (params.quantlookup) {
-  Channel.fromPath(params.quantlookup).set { quant_lookup }
-}
 
 process concatTDFasta {
  
@@ -534,18 +573,19 @@ if (normalize) {
 process postprodPeptideTable {
 
   container 'quay.io/biocontainers/msstitch:2.5--py36_0'
-
+  
   input:
   set val(setname), val(td), file('psms'), file('peptides'), file(pratios) from peptable_quant
 
   output:
   set val(setname), val(td), file("${setname}_linmod"), file(pratios) into pepslinmod
   set val(setname), val('peptides'), val(td), file("${setname}_linmod") into peptides_out
+  set val(setname), file('normratiosused') optional true into normratios
 
   script:
   if (params.isobaric && td=='target')
   """
-  msspsmtable isoratio -i psms -o pepisoquant --targettable peptides --protcol ${accolmap.peptides} --isobquantcolpattern plex --minint 0.1 --denompatterns ${setdenoms[setname].join(' ')} ${normalize ? "--normalize median --norm-ratios $pratios" : ''}
+  msspsmtable isoratio -i psms -o pepisoquant --targettable peptides --protcol ${accolmap.peptides} --isobquantcolpattern plex --minint 0.1 --denompatterns ${setdenoms[setname].join(' ')} ${normalize ? "--normalize median --norm-ratios $pratios" : ''} > normratiosused
   mv pepisoquant peptide_table.txt
   msspeptable modelqvals -i peptide_table.txt -o ${setname}_linmod --scorecolpattern svm --fdrcolpattern '^q-value'
   """
@@ -691,19 +731,44 @@ process psmQC {
   """
 }
 
-featuretables.merge(setnames_featqc).set { featqcinput }
+featuretables
+  .merge(setnames_featqc)
+  .set { featqcinput }
+
+normratios
+  .toList()
+  .map { it -> [it.collect() { it[0] }.sort(), it.collect() { it[1] }.sort()] }
+  .set{ allsetnormratios }
+
+
+process normRatioParse {
+  container 'ubuntu:latest'
+
+  input:
+  set val(setnames), file('norm?') from allsetnormratios
+
+  output:
+  file('normtable_sets') into normtable
+  """
+  count=1;for setn in ${setnames.join(' ')}; do echo "" >> norm"\$count" ; tail -n+2 norm"\$count" | sed \$'s/ - /\t'"\$setn"\$'\t/'; done >> normtable_sets
+  """
+}
+
 
 process featQC {
   container 'r_qc_ggplot'
   input:
   set val(acctype), file('feats'), val(setnames) from featqcinput
+  file('normtable') from normtable
   file(qcknitrprot)
+  file(qcknitrnormfac)
   output:
   set val(acctype), file('knitr.html') into qccollect
+  file('normalizefactors.html') optional true into normhtml
 
   script:
   """
-  Rscript -e 'library(ggplot2); library(grid); library(reshape2); library(knitr); nrsets=${setnames.size()}; feats = read.table("feats", header=T, sep="\\t", comment.char = "", quote = ""); feattype="$acctype"; knitr::knit2html("$qcknitrprot", output="knitr.html");'
+  Rscript -e 'library(ggplot2); library(grid); library(reshape2); library(knitr); nrsets=${setnames.size()}; feats = read.table("feats", header=T, sep="\\t", comment.char = "", quote = ""); feattype="$acctype"; knitr::knit2html("$qcknitrprot", output="knitr.html"); ${normalize ? "normtable=\"normtable\"; knitr::knit2html(\"$qcknitrnormfac\", output=\"normalizefactors.html\");": ''}'
   """
 }
 
@@ -711,19 +776,23 @@ qccollect
   .concat(psmqccollect)
   .toList()
   .map { it -> [it.collect() { it[0] }, it.collect() { it[1] }] }
-  .view()
   .set { collected_feats_qc }
 
-
 process collectQC {
+
   container 'r_qc_ggplot'
+
   publishDir "${params.outdir}", mode: 'copy', overwrite: true
+
   input:
   set val(acctypes), file('feat?') from collected_feats_qc
+  file('norm.html') from normhtml
   file(ppsms) from platepsmscoll
   file(qctemplater)
+
   output:
   file('qc.html')
+
   """
   count=1; for ac in ${acctypes.join(' ')}; do mv feat\$count \$ac.html; ((count++)); done
   python $qctemplater ${ppsms.join(' ')}

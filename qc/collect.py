@@ -19,10 +19,16 @@ main = Template("""<!DOCTYPE html>
   <div class="columns">
     {% for feat in features %}
     <div class="column">
-      <h5 class="title is-5">{{ featnames[feat] }}</h3>
+      <h5 class="title is-5">{{ featnames[feat] }}</h5>
       {{ features[feat][graphtype] }}
     </div>
     {% endfor %}
+    {% if graphtype == "isobaric" %}
+    <div class="column">
+      <h5 class="title is-5">Median centering</h5>
+        {{ norm }}
+    </div>
+    {% endif %}
   </div>
 <hr>
 {% endif %}
@@ -67,11 +73,11 @@ main = Template("""<!DOCTYPE html>
 # venn diagrams
 # isobaric if it is there
 titles = {'psm-scans': '# PSMs and scans', 'miscleav': 'Missed cleavages',
-          'missing-tmt': 'Isobaric missing values', 'fr-yield': 'Fraction yield', 
-          'retentiontime': 'Retention time', 'prec-error': 'Precursor error', 
-          'featyield': 'Identifications', 'isobaric': 'Isobaric intensities', 
-          'precursorarea': 'Precursor area intensity', 
-          'nrpsms': '# PSMs with isobaric quantitation per identification', 
+          'missing-tmt': 'Isobaric missing values', 'fr-yield': 'Fraction yield',
+          'retentiontime': 'Retention time', 'prec-error': 'Precursor error',
+          'featyield': 'Identifications', 'isobaric': 'Isobaric intensities',
+          'precursorarea': 'Precursor area intensity',
+          'nrpsms': '# PSMs with isobaric quantitation per identification',
           'coverage': 'Overall protein coverage',
 }
 featnames = {'assoc': 'Gene symbols', 'peptides': 'Peptides', 'proteins': 'Proteins', 'genes': 'Genes'}
@@ -91,6 +97,12 @@ for feat in ['peptides', 'proteins', 'genes', 'assoc']:
             graphs[feat] = {x.attrib['id']: tostring(x) for x in parse(fp).find('body').findall('div') if x.attrib['class'] == 'chunk'}
     except IOError as e:
         print(feat, e)
+try:
+    with open('norm.html') as fp:
+        normgraph = [tostring(x) for x in parse(fp).find('body').findall('div') if x.attrib['class'] == 'chunk'][0]
+except IOError as e:
+    print('No normalization file')
+    normgraph = False
 
 with open('qc.html', 'w') as fp:
-    fp.write(main.render(titles=titles, featnames=featnames, psms=psms, plates=ppsms.keys(), ppsms=ppsms, features=graphs))
+    fp.write(main.render(titles=titles, featnames=featnames, psms=psms, plates=ppsms.keys(), ppsms=ppsms, features=graphs, norm=normgraph))
