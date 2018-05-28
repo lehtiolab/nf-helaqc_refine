@@ -12,6 +12,9 @@ main = Template("""<!DOCTYPE html>
 </head>
 <body>
 <div class="container">
+  
+  <img src="logo_big.png"><h2 class="title is-2">QC for {{ searchname }}</h2>
+  <hr>
   <h3 class="title is-3">Protein/peptide level QC</h3>
 {% for graphtype in ["featyield", "precursorarea", "isobaric", "nrpsms"] %}
   {% if graphtype in features[features.keys()[0]] %}
@@ -50,10 +53,10 @@ main = Template("""<!DOCTYPE html>
     {% endfor %}
   </div>
 </div>
-{% for graph in ppsms[plates[0]] %}
+{% for graph in ppsms[firstplate] %}
 <div class="container">
   <h4 class="title is-4">{{ titles[graph] }}</h4>
-{% for plate in plates %}
+{% for plate, graphs in ppsms|dictsort %}
 <div class="container">
   <h5 class="title is-5">Plate: {{ plate }}</h5>
   {{ ppsms[plate][graph] }}
@@ -82,11 +85,12 @@ titles = {'psm-scans': '# PSMs and scans', 'miscleav': 'Missed cleavages',
 }
 featnames = {'assoc': 'Gene symbols', 'peptides': 'Peptides', 'proteins': 'Proteins', 'genes': 'Genes'}
 ppsms = {}
-for ppsm in sys.argv[1:]:
+searchname = sys.argv[1]
+for ppsm in sys.argv[2:]:
     plate = os.path.basename(ppsm).replace('_psms.html', '')
     with open(ppsm) as fp:
         ppsms[plate] = {x.attrib['id']: tostring(x) for x in parse(fp).find('body').findall('div') if x.attrib['class'] == 'chunk'}
-        
+
 with open('psms.html') as fp:
     psms = {x.attrib['id']: tostring(x) for x in parse(fp).find('body').findall('div') if x.attrib['class'] == 'chunk'}
 
@@ -105,4 +109,4 @@ except IOError as e:
     normgraph = False
 
 with open('qc.html', 'w') as fp:
-    fp.write(main.render(titles=titles, featnames=featnames, psms=psms, plates=ppsms.keys(), ppsms=ppsms, features=graphs, norm=normgraph))
+    fp.write(main.render(searchname=searchname, titles=titles, featnames=featnames, psms=psms, firstplate=sorted(ppsms.keys())[0], ppsms=ppsms, features=graphs, norm=normgraph))

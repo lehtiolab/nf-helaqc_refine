@@ -768,7 +768,7 @@ process featQC {
 
   script:
   """
-  Rscript -e 'library(ggplot2); library(grid); library(reshape2); library(knitr); nrsets=${setnames.size()}; feats = read.table("feats", header=T, sep="\\t", comment.char = "", quote = ""); feattype="$acctype"; knitr::knit2html("$qcknitrprot", output="knitr.html"); ${normalize ? "normtable=\"normtable\"; knitr::knit2html(\"$qcknitrnormfac\", output=\"normalizefactors.html\");": ''}'
+  Rscript -e 'library(ggplot2); library(forcats); library(grid); library(reshape2); library(knitr); nrsets=${setnames.size()}; feats = read.table("feats", header=T, sep="\\t", comment.char = "", quote = ""); feattype="$acctype"; knitr::knit2html("$qcknitrprot", output="knitr.html"); ${normalize ? "normtable=\"normtable\"; knitr::knit2html(\"$qcknitrnormfac\", output=\"normalizefactors.html\");": ''}'
   """
 }
 
@@ -795,6 +795,6 @@ process collectQC {
 
   """
   count=1; for ac in ${acctypes.join(' ')}; do mv feat\$count \$ac.html; ((count++)); done
-  python $qctemplater ${ppsms.join(' ')}
+  python $qctemplater $params.searchname ${ppsms.join(' ')}
   """
 }

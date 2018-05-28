@@ -19,27 +19,27 @@ if (feattype == 'peptides') {
   pepprotnr = aggregate(nrprots ~ Set, subset(am_prots, nrprots == 1), length)
   am_prots = aggregate(Peptide.sequence ~ Set, am_prots, length)
   am_prots = merge(am_prots, pepprotnr)
-  names(am_prots) = c('Set', 'All', 'Non-shared')
+  names(am_prots) = c('Set', 'All', 'Non-shared (unique)')
   am_prots = melt(am_prots)
   colnames(am_prots)[3] = 'accession'
   ggplot(am_prots) +
     coord_flip() + ylab('# identified') + theme_bw() + theme(axis.title=element_text(size=30), axis.text=element_text(size=20), axis.title.y=element_blank(), legend.text=element_text(size=20), legend.title=element_blank(), legend.position='top', plot.title=element_text(size=30)) +
-    geom_bar(aes(Set, y=accession, fill=variable), stat='identity', position='dodge') +
-    geom_text(data=subset(am_prots, variable=='All'), aes(Set, accession/2, label=accession), colour="white", size=7, nudge_x=-0.25) + ggtitle(paste('Overlap for all sets: ', overlap, '\nTotal identified: ', dim(feats)[1]))
+    geom_bar(aes(fct_rev(Set), y=accession, fill=variable), stat='identity', position='dodge') +
+    geom_text(data=subset(am_prots, variable=='All'), aes(fct_rev(Set), accession/2, label=accession), colour="white", size=7, nudge_x=-0.25) + ggtitle(paste('Overlap for all sets: ', overlap, '\nTotal identified: ', dim(feats)[1]))
 } else {
   am_prots = aggregate(Protein.accession ~ Set, am_prots, length)
   colnames(am_prots)[2] = 'accession'
   ggplot(am_prots) +
     coord_flip() + ylab('# identified') + theme_bw() + theme(axis.title=element_text(size=30), axis.text=element_text(size=20), axis.title.y=element_blank(), plot.title=element_text(size=30)) +
-    geom_bar(aes(Set, y=accession), stat='identity') +
-    geom_text(aes(Set, accession/2, label=accession), colour="white", size=10) + ggtitle(paste('Overlap for all sets: ', overlap, '\nTotal identified: ', dim(feats)[1]))
+    geom_bar(aes(fct_rev(Set), y=accession), stat='identity') +
+    geom_text(aes(fct_rev(Set), accession/2, label=accession), colour="white", size=10) + ggtitle(paste('Overlap for all sets: ', overlap, '\nTotal identified: ', dim(feats)[1]))
 }
 end.rcode-->
 
 <!--begin.rcode precursorarea, fig.height=nrsets+1, echo=FALSE, message=FALSE, results='hide', warning=FALSE
 parea = melt(feats, id.vars=featcol, measure.vars = colnames(feats)[grep('area', colnames(feats))])
 parea$Set = sub('_MS1.*', '', parea$variable)
-ggplot(parea, aes(Set, value)) +
+ggplot(parea, aes(fct_rev(Set), value)) +
   geom_boxplot() + scale_y_log10() + coord_flip() + ylab("Intenstity") + theme_bw() + theme(axis.title=element_text(size=30), axis.text=element_text(size=20), axis.title.y=element_blank())
 end.rcode-->
 
@@ -50,14 +50,18 @@ end.rcode-->
 
 <!--begin.rcode isobaric, fig.height=3*nrsets+1, echo=FALSE, message=FALSE, results='hide', warning=FALSE
 if (length(grep('plex', names(feats)))) {
+  qcols = colnames(feats)[grep('_q.value', colnames(feats))]
   tmtcols = colnames(feats)[intersect(grep('quanted', colnames(feats), invert=T), grep('plex', colnames(feats)))]
+  overlap = na.exclude(feats[c(tmtcols, qcols)])
+  overlap = dim(overlap[apply(overlap[qcols], 1, function(x) any(x<0.01)),])[1]
   tmt = melt(feats, id.vars=featcol, measure.vars = tmtcols)
   tmt$Set = sub('_[a-z0-9]*plex.*', '', tmt$variable)
   tmt$variable = sub('.*_[a-z].*[0-9]*plex_', '', tmt$variable)
-  ggplot(na.exclude(tmt)) + geom_boxplot(aes(Set, value, fill=variable), position=position_dodge(width=1)) +
+  ggplot(na.exclude(tmt)) + geom_boxplot(aes(fct_rev(Set), value, fill=variable), position=position_dodge(width=1)) +
     scale_y_log10() + coord_flip() + ylab('Fold change') + xlab('Channels') + theme_bw() + 
-    theme(axis.title=element_text(size=30), axis.text=element_text(size=20)) + 
-    theme(legend.text=element_text(size=20), legend.position="top", legend.title=element_blank())
+    theme(axis.title=element_text(size=30), axis.text=element_text(size=20), plot.title=element_text(size=30) ) + 
+    theme(legend.text=element_text(size=20), legend.position="top", legend.title=element_blank()) +
+    ggtitle(paste('Overlap with values in \nall ', length(tmtcols), 'channels: ', overlap))
 }
 end.rcode-->
 
@@ -76,6 +80,7 @@ if (length(grep('plex', names(feats)))) {
   ggplot(nrpsms, aes(y=value, x=setrank)) +
     geom_step(aes(color=Set), size=2) + scale_y_log10() + xlab('Rank') + ylab('# PSMs quanted') +
     theme_bw() + 
-    theme(axis.title=element_text(size=30), axis.text=element_text(size=20), legend.position="top", legend.text=element_text(size=20), legend.title=element_blank())
+    theme(axis.title=element_text(size=30), axis.text=element_text(size=20), legend.position="top", legend.text=element_text(size=20), legend.title=element_blank()) +
+    scale_x_reverse()
 }
 end.rcode-->
