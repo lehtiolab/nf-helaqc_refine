@@ -84,3 +84,30 @@ if (length(grep('plex', names(feats)))) {
     scale_x_reverse()
 }
 end.rcode-->
+
+<!--begin.rcode nrpsmsoverlapping, echo=FALSE, message=FALSE, results='hide', warning=FALSE
+if (length(grep('plex', names(feats)))) {
+  nrpsmscols = colnames(feats)[intersect(grep('quanted', colnames(feats)), grep('plex', colnames(feats)))]
+  qcols = colnames(feats)[grep('_q.value', colnames(feats))]
+  tmtcols = colnames(feats)[intersect(grep('quanted', colnames(feats), invert=T), grep('plex', colnames(feats)))]
+  print(qcols)
+  print(tmtcols)
+  overlap = na.exclude(feats[c(featcol, tmtcols, qcols, nrpsmscols)])
+  print(dim(overlap))
+  overlap = overlap[apply(overlap[qcols], 1, function(x) any(x<0.01)),]
+  print(dim(overlap))
+  nrpsms = melt(overlap, id.vars=featcol, measure.vars = nrpsmscols)
+  nrpsms$Set = sub('_[a-z0-9]*plex.*', '', nrpsms$variable)
+  if (feattype == 'peptides') {
+    nrpsms = aggregate(value~Peptide.sequence+Set, nrpsms, max)
+  } else {
+    nrpsms = aggregate(value~Protein.accession+Set, nrpsms, max)
+  }
+  nrpsms = transform(nrpsms, setrank=ave(value, Set, FUN = function(x) rank(x, ties.method = "random")))
+  ggplot(nrpsms, aes(y=value, x=setrank)) +
+    geom_step(aes(color=Set), size=2) + scale_y_log10() + xlab('Rank') + ylab('# PSMs quanted') +
+    theme_bw() + 
+    theme(axis.title=element_text(size=30), axis.text=element_text(size=20), legend.position="top", legend.text=element_text(size=20), legend.title=element_blank()) +
+    scale_x_reverse()
+}
+end.rcode-->
