@@ -13,10 +13,10 @@ main = Template("""<!DOCTYPE html>
 <body>
 <div class="container">
   
-  <img src="logo_big.png"><h2 class="title is-2">QC for {{ searchname }}</h2>
+  <img src="logo_big.png" width="500px"><h2 class="title is-2">QC for {{ searchname }}</h2>
   <hr>
   <h3 class="title is-3">Protein/peptide level QC</h3>
-{% for graphtype in ["featyield", "precursorarea", "isobaric", "nrpsms", "nrpsmsoverlapping"] %}
+{% for graphtype in ["featyield", "precursorarea", "isobaric", "nrpsms", "nrpsmsoverlapping", "percentage_onepsm"] %}
   {% if graphtype in features[features.keys()[0]] %}
   <h4 class="title is-4">{{ titles[graphtype] }}</h4>
   <div class="columns">
@@ -80,8 +80,9 @@ titles = {'psm-scans': '# PSMs and scans', 'miscleav': 'Missed cleavages',
           'retentiontime': 'Retention time', 'prec-error': 'Precursor error',
           'featyield': 'Identifications', 'isobaric': 'Isobaric intensities',
           'precursorarea': 'Precursor area intensity',
-          'nrpsms': '# PSMs with isobaric quantitation per identification',
-          'nrpsmsoverlapping': '# PSMs with isobaric quantitation per identification for only complete overlapping set',
+          'nrpsms': '# PSMs used for isobaric quantitation per identification',
+          'nrpsmsoverlapping': '# PSMs used for isobaric quantitation per identification for only complete overlapping set',
+          'percentage_onepsm': 'Percentage of identifications with >1 quantifying PSM in the complete overlapping set',
           'coverage': 'Overall protein coverage',
 }
 featnames = {'assoc': 'Gene symbols', 'peptides': 'Peptides', 'proteins': 'Proteins', 'genes': 'Genes'}

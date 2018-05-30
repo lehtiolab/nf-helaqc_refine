@@ -57,7 +57,7 @@ if (length(grep('plex', names(feats)))) {
   tmt = melt(feats, id.vars=featcol, measure.vars = tmtcols)
   tmt$Set = sub('_[a-z0-9]*plex.*', '', tmt$variable)
   tmt$variable = sub('.*_[a-z].*[0-9]*plex_', '', tmt$variable)
-  ggplot(na.exclude(tmt)) + geom_boxplot(aes(fct_rev(Set), value, fill=variable), position=position_dodge(width=1)) +
+  ggplot(na.exclude(tmt)) + geom_boxplot(aes(fct_rev(Set), value, fill=fct_rev(variable)), position=position_dodge(width=1)) +
     scale_y_log10() + coord_flip() + ylab('Fold change') + xlab('Channels') + theme_bw() + 
     theme(axis.title=element_text(size=30), axis.text=element_text(size=20), plot.title=element_text(size=30) ) + 
     theme(legend.text=element_text(size=20), legend.position="top", legend.title=element_blank()) +
@@ -90,12 +90,8 @@ if (length(grep('plex', names(feats)))) {
   nrpsmscols = colnames(feats)[intersect(grep('quanted', colnames(feats)), grep('plex', colnames(feats)))]
   qcols = colnames(feats)[grep('_q.value', colnames(feats))]
   tmtcols = colnames(feats)[intersect(grep('quanted', colnames(feats), invert=T), grep('plex', colnames(feats)))]
-  print(qcols)
-  print(tmtcols)
   overlap = na.exclude(feats[c(featcol, tmtcols, qcols, nrpsmscols)])
-  print(dim(overlap))
   overlap = overlap[apply(overlap[qcols], 1, function(x) any(x<0.01)),]
-  print(dim(overlap))
   nrpsms = melt(overlap, id.vars=featcol, measure.vars = nrpsmscols)
   nrpsms$Set = sub('_[a-z0-9]*plex.*', '', nrpsms$variable)
   if (feattype == 'peptides') {
@@ -109,5 +105,23 @@ if (length(grep('plex', names(feats)))) {
     theme_bw() + 
     theme(axis.title=element_text(size=30), axis.text=element_text(size=20), legend.position="top", legend.text=element_text(size=20), legend.title=element_blank()) +
     scale_x_reverse()
+}
+end.rcode-->
+
+
+<!--begin.rcode percentage_onepsm, echo=FALSE, message=FALSE, results='hide', warning=FALSE
+if (length(grep('plex', names(feats)))) {
+  nrpsmscols = colnames(feats)[intersect(grep('quanted', colnames(feats)), grep('plex', colnames(feats)))]
+  qcols = colnames(feats)[grep('_q.value', colnames(feats))]
+  tmtcols = colnames(feats)[intersect(grep('quanted', colnames(feats), invert=T), grep('plex', colnames(feats)))]
+  overlap = na.exclude(feats[c(featcol, tmtcols, qcols, nrpsmscols)])
+  overlap = overlap[apply(overlap[qcols], 1, function(x) any(x<0.01)),]
+  nrpsms = melt(overlap, id.vars=featcol, measure.vars = nrpsmscols)
+  nrpsms$Set = sub('_[a-z0-9]*plex.*', '', nrpsms$variable)
+  feats_in_set = aggregate(value~Set, data=nrpsms, length) 
+  feats_in_set$percent_single = aggregate(value~Set, data=nrpsms, function(x) length(grep('[^01]', x)))$value / feats_in_set$value * 100
+  ggplot(feats_in_set, aes(Set, percent_single)) +
+    geom_col(aes(fill=Set)) + theme_bw() + ylab('% of identifications') +
+    theme(axis.title=element_text(size=30), axis.text=element_text(size=20), legend.position="top", legend.text=element_text(size=20), legend.title=element_blank()) 
 }
 end.rcode-->

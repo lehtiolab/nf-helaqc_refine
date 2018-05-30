@@ -2,7 +2,7 @@
 feats$Fraction = as.factor(feats$Fraction)
 end.rcode-->
 
-<!--begin.rcode psm-scans, fig.height=2*nrsets+2, echo=FALSE, message=FALSE, results='hide', warning=FALSE
+<!--begin.rcode psm-scans, fig.height=3*nrsets+2, echo=FALSE, message=FALSE, results='hide', warning=FALSE
 amount_psms = aggregate(SpecID~plateID, feats, length)
 idcols = c('plateID', 'amount')
 names(amount_ms2) = idcols
@@ -20,7 +20,7 @@ ggplot(amount_id) +
   geom_text(data=subset(amount_id, count=='PSMs IDed'), aes(plateID, amount*1.5, label=paste(100*round(procents$p, 2), '%')), nudge_x=.25, colour="black", size=8)
 end.rcode-->
 
-<!--begin.rcode missing-tmt, fig.height=2*nrsets+1, echo=FALSE, message=FALSE, results='hide', warning=FALSE
+<!--begin.rcode missing-tmt, fig.height=3*nrsets+2, echo=FALSE, message=FALSE, results='hide', warning=FALSE
 if (length(grep('plex', names(feats)))) {
   channels = names(feats)[grepl('plex', names(feats))]
   psm_empty = melt(feats[c("plateID", channels)], id.vars="plateID")
@@ -34,7 +34,7 @@ if (length(grep('plex', names(feats)))) {
 }
 end.rcode-->
 
-<!--begin.rcode miscleav, fig.height=2*nrsets+2, echo=FALSE, message=FALSE, results='hide', warning=FALSE
+<!--begin.rcode miscleav, fig.height=3*nrsets+2, echo=FALSE, message=FALSE, results='hide', warning=FALSE
 mcl = aggregate(SpecID ~ plateID + missed_cleavage, feats, length)
 procents = subset(mcl, missed_cleavage == 1)$SpecID /subset(mcl, missed_cleavage==0)$SpecID
 mcl$missed_cleavage = as.factor(mcl$missed_cleavage)
