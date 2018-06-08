@@ -254,8 +254,6 @@ process countMS2perFile {
 
   container 'quay.io/biocontainers/msstitch:2.5--py36_0'
 
-  when: params.speclookup || params.quantlookup
-
   input:
   set val(setnames), file(mzmlfiles), val(platenames), file(speclookup) from specfilein
 
