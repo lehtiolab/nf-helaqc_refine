@@ -106,8 +106,11 @@ for feat in ['peptides', 'proteins', 'genes', 'assoc']:
 try:
     with open('norm.html') as fp:
         normgraph = [tostring(x) for x in parse(fp).find('body').findall('div') if x.attrib['class'] == 'chunk'][0]
-except IOError as e:
+except IOError:
     print('No normalization file')
+    normgraph = False
+except AssertionError:
+    print('Normalization file not XML, assuming no normalizing done')
     normgraph = False
 
 with open('qc.html', 'w') as fp:

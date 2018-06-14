@@ -31,6 +31,7 @@ params.fastadelim = false
 params.genefield = false
 params.speclookup = false
 params.quantlookup = false
+params.hirief = false
 
 mods = file(params.mods)
 tdb = file(params.tdb)
@@ -442,9 +443,17 @@ tmzidtsv_perco
   .combine(quant_lookup)
   .set { prepsm }
 
-strips_for_deltapi
-  .map { it -> [it, trainingpep, piannotscript]}
-  .set { stripannot }
+if (params.hirief) {
+  strips_for_deltapi
+    .map { it -> [it, trainingpep, piannotscript]}
+    .view()
+    .set { stripannot }
+} else {
+  strips_for_deltapi
+    .map { it -> [it, trainingpep, piannotscript]}
+    .view()
+    .set { stripannot }
+}
 
 process createPSMTable {
 
@@ -475,9 +484,9 @@ process createPSMTable {
   msspsmtable genes -i qpsms.txt -o gpsms --dbfile psmlookup
   msslookup proteingroup -i qpsms.txt --dbfile psmlookup
   msspsmtable proteingroup -i gpsms -o pgpsms --dbfile psmlookup
-  ${trainingpep ? "python $piannotscript -i $trainingpep -p pgpsms --o dppsms --stripcolpattern Strip --pepcolpattern Peptide --fraccolpattern Fraction --strippatterns ${allstrips.join(' ')} --intercepts ${allstrips.collect() { params.strips[it].intercept}.join(' ')} --widths ${allstrips.collect() { params.strips[it].fr_width}.join(' ')} --ignoremods \'*\'" : ''}
-  msspsmtable split -i dppsms --bioset
-  mv dppsms ${td}_psmtable.txt
+  ${params.hirief ? "python $piannotscript -i $trainingpep -p pgpsms --o dppsms --stripcolpattern Strip --pepcolpattern Peptide --fraccolpattern Fraction --strippatterns ${allstrips.join(' ')} --intercepts ${allstrips.collect() { params.strips[it].intercept}.join(' ')} --widths ${allstrips.collect() { params.strips[it].fr_width}.join(' ')} --ignoremods \'*\'" : ''}
+  msspsmtable split -i ${params.hirief ? 'dppsms' : 'pgpsms'} --bioset
+  mv ${params.hirief ? 'dppsms' : 'pgpsms'} ${td}_psmtable.txt
   mv psmlookup ${td}_psmlookup.sql
   """
 }
@@ -766,6 +775,7 @@ process featQC {
 
   script:
   """
+  touch normalizefactors.html
   Rscript -e 'library(ggplot2); library(forcats); library(grid); library(reshape2); library(knitr); nrsets=${setnames.size()}; feats = read.table("feats", header=T, sep="\\t", comment.char = "", quote = ""); feattype="$acctype"; knitr::knit2html("$qcknitrprot", output="knitr.html"); ${normalize ? "normtable=\"normtable\"; knitr::knit2html(\"$qcknitrnormfac\", output=\"normalizefactors.html\");": ''}'
   """
 }
