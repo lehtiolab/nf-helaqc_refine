@@ -46,7 +46,8 @@ qctemplater = file('qc/collect.py')
 piannotscript = file('scripts/peptide_pi_annotator.py')
 trainingpep = file(params.pipep)
 
-accolmap = [peptides: 11, proteins: 13, genes: 16, assoc: 17]
+
+accolmap = [peptides: 12, proteins: 14, genes: 17, assoc: 18]
 
 setdenoms = [:]
 if (params.isobaric) {
@@ -177,7 +178,7 @@ if (!params.speclookup && params.quantlookup) {
 
 process createSpectraLookup {
 
-  container 'quay.io/biocontainers/msstitch:2.5--py36_0'
+  container 'quay.io/biocontainers/msstitch:2.7--py36_0'
 
   when: !(params.speclookup || params.quantlookup)
 
@@ -216,7 +217,7 @@ if (!(params.speclookup || params.quantlookup)) {
 
 process quantLookup {
 
-  container 'quay.io/biocontainers/msstitch:2.5--py36_0'
+  container 'quay.io/biocontainers/msstitch:2.7--py36_0'
   
   when: !params.quantlookup
 
@@ -255,7 +256,7 @@ mzmlfiles_all_count
 
 process countMS2perFile {
 
-  container 'quay.io/biocontainers/msstitch:2.5--py36_0'
+  container 'quay.io/biocontainers/msstitch:2.7--py36_0'
 
   input:
   set val(setnames), file(mzmlfiles), val(platenames), file(speclookup) from specfilein
@@ -369,7 +370,7 @@ mzidtsvs
 
 process svmToTSV {
 
-  container 'quay.io/biocontainers/msstitch:2.5--py36_0'
+  container 'quay.io/biocontainers/msstitch:2.7--py36_0'
 
   input:
   set val(setname), file('mzident????'), file('mzidtsv????'), val(platenames), val(fractions), file(perco) from mzperco 
@@ -459,7 +460,7 @@ if (params.hirief) {
 
 process createPSMTable {
 
-  container 'quay.io/biocontainers/msstitch:2.5--py36_0'
+  container 'quay.io/biocontainers/msstitch:2.7--py36_0'
   
   publishDir "${params.outdir}", mode: 'copy', overwrite: true, saveAs: {["target_psmlookup.sql", "target_psmtable.txt", "decoy_psmtable.txt"].contains(it) ? it : null}
 
@@ -507,7 +508,7 @@ setpsmtables
 
 
 process psm2Peptides {
-  container 'quay.io/biocontainers/msstitch:2.5--py36_0'
+  container 'quay.io/biocontainers/msstitch:2.7--py36_0'
 
   input:
   set val(td), file('psms'), val(setname) from psm_pep
@@ -551,7 +552,7 @@ proteins
   .set { tprot_norm }
 
 process ratioNormalizeProteins {
-  container 'quay.io/biocontainers/msstitch:2.5--py36_0'
+  container 'quay.io/biocontainers/msstitch:2.7--py36_0'
 
   when: normalize
 
@@ -581,7 +582,7 @@ if (normalize) {
 
 process postprodPeptideTable {
 
-  container 'quay.io/biocontainers/msstitch:2.5--py36_0'
+  container 'quay.io/biocontainers/msstitch:2.7--py36_0'
   
   input:
   set val(setname), val(td), file('psms'), file('peptides'), file(pratios) from peptable_quant
@@ -624,7 +625,7 @@ pgstables
 
 process prepProteinGeneSymbolTable {
 
-  container 'quay.io/biocontainers/msstitch:2.5--py36_0'
+  container 'quay.io/biocontainers/msstitch:2.7--py36_0'
 
   input:
   set val(setname), val(td), file('psms'), file('proteins'), val(acctype), file('peplinmod'), file('pratios') from prepgs_in
@@ -655,7 +656,7 @@ bestpep
 
 
 process proteinFDR {
-  container 'quay.io/biocontainers/msstitch:2.5--py36_0'
+  container 'quay.io/biocontainers/msstitch:2.7--py36_0'
   input:
   set val(setname), val(acctype), val(td), file('tbestpep') from tbestpep
   set val(setname), val(acctype), val(td), file('dbestpep') from dbestpep
