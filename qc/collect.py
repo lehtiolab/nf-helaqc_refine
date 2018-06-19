@@ -44,6 +44,7 @@ main = Template("""<!DOCTYPE html>
 <hr>
 <div class="container">
   <h3 class="title is-3">PSM level QC</h3>
+  {% if hirief == 'hirief' %}
   <div class="columns">
     {% for graph in psms %}
     <div class="column">
@@ -52,6 +53,7 @@ main = Template("""<!DOCTYPE html>
     </div>
     {% endfor %}
   </div>
+  {% endif %}
 </div>
 {% for graph in ppsms[firstplate] %}
 <div class="container">
@@ -72,11 +74,27 @@ main = Template("""<!DOCTYPE html>
 # FIXME
 # PSMs
 # coverage if protein
-# feat yield if multiple sets
 # venn diagrams
-# isobaric if it is there
+ppsms = {}
+searchname = sys.argv[1]
+frac = sys.argv[2]
+if frac == 'hirief':
+    fryield = 'Fraction yield'
+    for ppsm in sys.argv[3:]:
+        plate = os.path.basename(ppsm).replace('_psms.html', '')
+        with open(ppsm) as fp:
+            ppsms[plate] = {x.attrib['id']: tostring(x) for x in parse(fp).find('body').findall('div') if x.attrib['class'] == 'chunk'}
+    
+    with open('psms.html') as fp:
+        psms = {x.attrib['id']: tostring(x) for x in parse(fp).find('body').findall('div') if x.attrib['class'] == 'chunk'}
+else:
+    fryield = 'Yield'
+    psms = {}
+    with open('psms.html') as fp:
+        ppsms['No plate'] = {x.attrib['id']: tostring(x) for x in parse(fp).find('body').findall('div') if x.attrib['class'] == 'chunk'}
+    
 titles = {'psm-scans': '# PSMs and scans', 'miscleav': 'Missed cleavages',
-          'missing-tmt': 'Isobaric missing values', 'fr-yield': 'Fraction yield',
+          'missing-tmt': 'Isobaric missing values', 'fr-yield': fryield,
           'retentiontime': 'Retention time', 'prec-error': 'Precursor error',
           'featyield': 'Identifications', 'isobaric': 'Isobaric intensities',
           'precursorarea': 'Precursor area intensity',
@@ -86,15 +104,6 @@ titles = {'psm-scans': '# PSMs and scans', 'miscleav': 'Missed cleavages',
           'coverage': 'Overall protein coverage',
 }
 featnames = {'assoc': 'Gene symbols', 'peptides': 'Peptides', 'proteins': 'Proteins', 'genes': 'Genes'}
-ppsms = {}
-searchname = sys.argv[1]
-for ppsm in sys.argv[2:]:
-    plate = os.path.basename(ppsm).replace('_psms.html', '')
-    with open(ppsm) as fp:
-        ppsms[plate] = {x.attrib['id']: tostring(x) for x in parse(fp).find('body').findall('div') if x.attrib['class'] == 'chunk'}
-
-with open('psms.html') as fp:
-    psms = {x.attrib['id']: tostring(x) for x in parse(fp).find('body').findall('div') if x.attrib['class'] == 'chunk'}
 
 graphs = OrderedDict()
 for feat in ['peptides', 'proteins', 'genes', 'assoc']:
@@ -114,4 +123,4 @@ except AssertionError:
     normgraph = False
 
 with open('qc.html', 'w') as fp:
-    fp.write(main.render(searchname=searchname, titles=titles, featnames=featnames, psms=psms, firstplate=sorted(ppsms.keys())[0], ppsms=ppsms, features=graphs, norm=normgraph))
+    fp.write(main.render(hirief=frac, searchname=searchname, titles=titles, featnames=featnames, psms=psms, firstplate=sorted(ppsms.keys())[0], ppsms=ppsms, features=graphs, norm=normgraph))

@@ -39,6 +39,7 @@ ddb = file(params.ddb)
 martmap = file(params.martmap)
 qcknitrpsms = file('qc/knitr_psms.Rhtml')
 qcknitrplatepsms = file('qc/knitr_psms_perplate.Rhtml')
+qcknitrnofrpsms = file('qc/knitr_psms_nofr.Rhtml')
 qcknitrprot = file('qc/knitr_prot.Rhtml')
 qcknitrnormfac = file('qc/knitr_iso_norm.Rhtml')
 qctemplater = file('qc/collect.py')
@@ -271,17 +272,27 @@ process countMS2perFile {
 }
 
 
+if (params.hirief) {
+  specfilems2.set { scans_platecount }
+} else {
+  specfilems2
+    .map { it -> [it[3], ['noplates']] }
+    .into { scans_platecount; scans_result }
+}
+
+
 process countMS2sPerPlate {
 
   container 'biopython/biopython:latest'
   
   publishDir "${params.outdir}", mode: 'copy', overwrite: true 
+  when: params.hirief
 
   input:
-  set val(setnames), file(mzmlfiles), val(platenames), file('nr_spec_per_file') from specfilems2
+  set val(setnames), file(mzmlfiles), val(platenames), file('nr_spec_per_file') from scans_platecount
 
   output:
-  set file('scans_per_plate'), val(splates) into scans_result
+  set file('scans_per_plate'), val(splates) into scans_perplate
 
   script:
   splates = [setnames, platenames].transpose().collect() { "${it[0]}_${it[1]}" }
@@ -300,6 +311,9 @@ process countMS2sPerPlate {
   """
 }
 
+if (params.hirief) {
+  scans_perplate.set { scans_result }
+}
 
 process concatTDFasta {
  
@@ -724,20 +738,25 @@ process psmQC {
   set val(td), file('psms'), file('scans'), val(plates) from targetpsm_result
   val(setnames) from setnames_psmqc
   file(qcknitrplatepsms)
+  file(qcknitrnofrpsms)
   file(qcknitrpsms)
   output:
   set val('psms'), file('knitr.html') into psmqccollect
-  file('*_psms.html') into platepsmscoll
+  file('*_psms.html') optional true into platepsmscoll
   // TODO no proteins == no coverage for pep centric
   script:
+  if (params.hirief)
   """
   setcol=`python -c 'with open("psms") as fp: h=next(fp).strip().split("\\t");print(h.index("Biological set")+1)'`
   stripcol=`python -c 'with open("psms") as fp: h=next(fp).strip().split("\\t");print(h.index("Strip")+1)'`
   paste -d _ <(cut -f \$setcol psms) <( cut -f \$stripcol psms) | sed 's/Biological set_Strip/plateID/' > platecol
   paste psms platecol > feats
-  
   Rscript -e 'library(ggplot2); library(reshape2); library(knitr); nrsets=${setnames.size()}; feats = read.table("feats", header=T, sep="\\t", comment.char = "", quote = ""); amount_ms2 = read.table("scans"); knitr::knit2html("$qcknitrpsms", output="knitr.html"); ${plates.collect() { "plateid=\"${it}\"; knitr::knit2html(\"$qcknitrplatepsms\", output=\"${it}_psms.html\")"}.join('; ')}'
   rm knitr_psms.html
+  """
+  else
+  """
+  Rscript -e 'library(ggplot2); library(reshape2); library(knitr); nrsets=${setnames.size()}; feats = read.table("psms", header=T, sep="\\t", comment.char = "", quote = ""); amount_ms2 = read.table("scans", sep="|", header=F); knitr::knit2html(\"$qcknitrnofrpsms\", output=\"knitr.html\")'
   """
 }
 
@@ -789,6 +808,9 @@ qccollect
   .map { it -> [it.collect() { it[0] }, it.collect() { it[1] }] }
   .set { collected_feats_qc }
 
+if (!params.hirief) {
+  Channel.from([1]).set { platepsmscoll }
+}
 process collectQC {
 
   container 'r_qc_ggplot'
@@ -804,8 +826,15 @@ process collectQC {
   output:
   file('qc.html')
 
+  script:
+  if (params.hirief)
   """
   count=1; for ac in ${acctypes.join(' ')}; do mv feat\$count \$ac.html; ((count++)); done
-  python $qctemplater $params.searchname ${ppsms.join(' ')}
+  python $qctemplater $params.searchname hirief ${ppsms.join(' ')}
+  """
+  else
+  """
+  count=1; for ac in ${acctypes.join(' ')}; do mv feat\$count \$ac.html; ((count++)); done
+  python $qctemplater $params.searchname nofrac
   """
 }
