@@ -1,0 +1,54 @@
+<!--begin.rcode psm-scans, fig.height=3*nrsets+2, fig.width=30, echo=FALSE, message=FALSE, results='hide', warning=FALSE
+amount_psms = aggregate(SpecID~SpectraFile, feats, length)
+idcols = c('SpectraFile', 'amount')
+names(amount_ms2) = idcols
+names(amount_psms) = idcols
+amount_ms2$count = 'MS2 scans'
+amount_psms$count = 'PSMs IDed'
+amount_id = rbind(amount_psms, amount_ms2)
+amount_id$count = as.factor(amount_id$count)
+amount_id$SpectraFile = as.factor(amount_id$SpectraFile)
+procents = dcast(amount_id, SpectraFile~count, value.var='amount')
+procents$p = procents$`PSMs IDed` / procents$`MS2 scans`
+ggplot(amount_id) +
+  geom_bar(aes(SpectraFile, amount, fill=count), stat='identity', position='dodge') + coord_flip() +
+    xlab('Plate') + theme_bw() + theme(axis.title=element_text(size=20), axis.text=element_text(size=15), legend.position="top", legend.text=element_text(size=15), legend.title=element_blank()) +
+  geom_text(data=subset(amount_id, count=='PSMs IDed'), aes(SpectraFile, amount*1.5, label=paste(100*round(procents$p, 2), '%')), nudge_x=.25, colour="black", size=8)
+end.rcode-->
+
+<!--begin.rcode missing-tmt, fig.height=3*nrsets+2, fig.width=30, echo=FALSE, message=FALSE, results='hide', warning=FALSE
+if (length(grep('plex', names(feats)))) {
+  channels = names(feats)[grepl('plex', names(feats))]
+  psm_empty = melt(feats[c("SpectraFile", channels)], id.vars="SpectraFile")
+  psm_empty = psm_empty[psm_empty$value==0,]
+  psm_empty$value = 1
+  psm_empty = aggregate(value~SpectraFile + variable, psm_empty, sum)
+  names(psm_empty) = c('SpectraFile', 'channels', 'nr_missing_values')
+  psm_empty$channels = sub('.*plex_', '', psm_empty$channels)
+  ggplot(psm_empty) + 
+    geom_bar(aes(SpectraFile, nr_missing_values, fill=channels), stat='identity', position="dodge") + ylab('# PSMs without quant') + xlab('Plate') + coord_flip() + theme_bw() + theme(axis.title=element_text(size=20), axis.text=element_text(size=15), legend.position="top", legend.text=element_text(size=15), legend.title=element_text(size=15))
+}
+end.rcode-->
+
+<!--begin.rcode miscleav, fig.height=3*nrsets+2, fig.width=30, echo=FALSE, message=FALSE, results='hide', warning=FALSE
+mcl = aggregate(SpecID ~ SpectraFile + missed_cleavage, feats, length)
+procents = subset(mcl, missed_cleavage == 1)$SpecID /subset(mcl, missed_cleavage==0)$SpecID
+mcl$missed_cleavage = as.factor(mcl$missed_cleavage)
+
+ggplot(subset(mcl, missed_cleavage %in% c(1,2,3)), aes(SpectraFile, SpecID)) + geom_bar(aes(fill=missed_cleavage), position='dodge', stat='identity') + coord_flip() + ylab('# PSMs') + xlab('Plate') + theme_bw() + theme(axis.title=element_text(size=20), axis.text=element_text(size=15), legend.position="top", legend.text=element_text(size=15), legend.title=element_text(size=15)) + scale_fill_discrete(name="Nr missed cleavages") + geom_text(data=subset(mcl, missed_cleavage == 1), aes(SpectraFile, SpecID/2, label=paste(100*round(procents, 2), '%')), nudge_x=-0.333, colour="white", size=8)
+end.rcode-->
+
+<!--begin.rcode retentiontime, fig.height=4, fig.width=30, echo=FALSE, message=FALSE, results='hide', warning=FALSE
+ggplot(feats, aes(x=SpectraFile, y=Retention.time.min.)) + 
+  geom_violin(trim=F) + ylab('time(min)') + xlab('Sample') + theme_bw() + theme(axis.title=element_text(size=30), axis.text=element_text(size=20)) + coord_flip()
+end.rcode-->
+
+<!--begin.rcode prec-error, fig.height=4, fig.width=30, echo=FALSE, message=FALSE, results='hide', warning=FALSE
+ggplot(feats, aes(x=SpectraFile, y=PrecursorError.ppm.)) + 
+  geom_violin(trim=F) + ylab('Precursor error (ppm)') + xlab('Sample') + theme_bw() + theme(axis.title=element_text(size=30), axis.text=element_text(size=20)) + coord_flip()
+end.rcode-->
+
+<!--begin.rcode fr-yield, fig.height=4, fig.width=30, echo=FALSE, message=FALSE, results='hide', warning=FALSE
+psms_yield = aggregate(SpecID ~ SpectraFile, feats, length)
+ggplot(psms_yield) + geom_bar(aes(SpectraFile, y=SpecID), stat='identity') + ylab('# PSMs') + xlab('Sample') + theme_bw() + theme(axis.title=element_text(size=30), axis.text=element_text(size=20)) + coord_flip()
+end.rcode-->
