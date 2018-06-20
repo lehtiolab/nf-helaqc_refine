@@ -463,12 +463,10 @@ tmzidtsv_perco
 if (params.hirief) {
   strips_for_deltapi
     .map { it -> [it, trainingpep, piannotscript]}
-    .view()
     .set { stripannot }
 } else {
   strips_for_deltapi
     .map { it -> [it, trainingpep, piannotscript]}
-    .view()
     .set { stripannot }
 }
 
@@ -751,12 +749,12 @@ process psmQC {
   stripcol=`python -c 'with open("psms") as fp: h=next(fp).strip().split("\\t");print(h.index("Strip")+1)'`
   paste -d _ <(cut -f \$setcol psms) <( cut -f \$stripcol psms) | sed 's/Biological set_Strip/plateID/' > platecol
   paste psms platecol > feats
-  Rscript -e 'library(ggplot2); library(reshape2); library(knitr); nrsets=${setnames.size()}; feats = read.table("feats", header=T, sep="\\t", comment.char = "", quote = ""); amount_ms2 = read.table("scans"); knitr::knit2html("$qcknitrpsms", output="knitr.html"); ${plates.collect() { "plateid=\"${it}\"; knitr::knit2html(\"$qcknitrplatepsms\", output=\"${it}_psms.html\")"}.join('; ')}'
+  Rscript -e 'library(ggplot2); library(reshape2); library(knitr); nrsets=${setnames[0].size()}; feats = read.table("feats", header=T, sep="\\t", comment.char = "", quote = ""); amount_ms2 = read.table("scans"); knitr::knit2html("$qcknitrpsms", output="knitr.html"); ${plates.collect() { "plateid=\"${it}\"; knitr::knit2html(\"$qcknitrplatepsms\", output=\"${it}_psms.html\")"}.join('; ')}'
   rm knitr_psms.html
   """
   else
   """
-  Rscript -e 'library(ggplot2); library(reshape2); library(knitr); nrsets=${setnames.size()}; feats = read.table("psms", header=T, sep="\\t", comment.char = "", quote = ""); amount_ms2 = read.table("scans", sep="|", header=F); knitr::knit2html(\"$qcknitrnofrpsms\", output=\"knitr.html\")'
+  Rscript -e 'library(ggplot2); library(reshape2); library(knitr); nrsets=${setnames[0].size()}; feats = read.table("psms", header=T, sep="\\t", comment.char = "", quote = ""); amount_ms2 = read.table("scans", sep="|", header=F); knitr::knit2html(\"$qcknitrnofrpsms\", output=\"knitr.html\")'
   """
 }
 
