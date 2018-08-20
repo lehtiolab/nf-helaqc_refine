@@ -32,6 +32,7 @@ params.genefield = false
 params.speclookup = false
 params.quantlookup = false
 params.hirief = false
+params.onlypeptides = false
 
 mods = file(params.mods)
 tdb = file(params.tdb)
@@ -546,7 +547,7 @@ process shuffleHeaderPeptidesMakeProttables {
   set val(setname), val(td), file(psms), file('genes'), val('genes') into genes
   set val(setname), val(td), file(psms), file('symbols'), val('assoc') into symbols
 
-  // gene and symbol table are outputted regardless of necessity
+  // protein, gene and symbol table are outputted regardless of necessity
   script:
   col = accolmap.peptides + 1  // psm2pep adds a column
   """
@@ -638,6 +639,8 @@ pgstables
 process prepProteinGeneSymbolTable {
 
   container 'quay.io/biocontainers/msstitch:2.7--py36_0'
+ 
+  when: !params.onlypeptides
 
   input:
   set val(setname), val(td), file('psms'), file('proteins'), val(acctype), file('peplinmod'), file('pratios') from prepgs_in
@@ -669,6 +672,7 @@ bestpep
 
 process proteinFDR {
   container 'quay.io/biocontainers/msstitch:2.7--py36_0'
+  when: !params.onlypeptides
   input:
   set val(setname), val(acctype), val(td), file('tbestpep') from tbestpep
   set val(setname), val(acctype), val(td), file('dbestpep') from dbestpep
@@ -690,9 +694,18 @@ process proteinFDR {
 peptides_out
   .filter { it[2] == 'target' }
   .map { it -> [it[0], it[1], it[3]] }
-  .concat(protfdrout)
-  .groupTuple(by: 1)
-  .set { ptables_to_merge }
+  .set { peptides_to_merge }
+
+if (!params.onlypeptides) {
+  peptides_to_merge
+    .concat(protfdrout)
+    .groupTuple(by: 1)
+    .set { ptables_to_merge }
+} else {
+  peptides_to_merge
+    .groupTuple(by: 1)
+    .set { ptables_to_merge }
+}
 
 psmlookup
   .filter { it[0] == 'target' }

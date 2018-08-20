@@ -37,11 +37,13 @@ main = Template("""<!DOCTYPE html>
 {% endif %}
 {% endfor %}
 </div>
+{% if 'proteins' in features %}
 <div class="container">
   <h4 class="title is-4">Overall protein coverage</h3>
     {{ features.proteins.coverage }}
 </div>
 <hr>
+{% endif %}
 <div class="container">
   <h3 class="title is-3">PSM level QC</h3>
   {% if hirief == 'hirief' %}
