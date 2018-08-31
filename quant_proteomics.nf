@@ -497,13 +497,13 @@ process createPSMTable {
   msspsmtable conffilt -i psms.txt -o filtpsm --confidence-better lower --confidence-lvl 0.01 --confcolpattern 'PSM q-value'
   msspsmtable conffilt -i filtpsm -o filtpep --confidence-better lower --confidence-lvl 0.01 --confcolpattern 'peptide q-value'
   cp lookup psmlookup
-  msslookup psms -i filtpep --dbfile psmlookup --fasta ${td == 'target' ? tdb : "${ddb} --decoy"} ${params.martmap ? "--map ${mmap}" : ''}
+  msslookup psms -i filtpep --dbfile psmlookup ${params.onlypeptides ? '' : "--fasta ${td == 'target' ? tdb : "${ddb} --decoy"}"} ${params.martmap ? "--map ${mmap}" : ''}
   msspsmtable specdata -i filtpep --dbfile psmlookup -o prepsms.txt
   ${!params.noquant ? "msspsmtable quant -i prepsms.txt -o qpsms.txt --dbfile psmlookup --precursor ${params.isobaric && td=='target' ? '--isobaric' : ''}" : 'mv prepsms.txt qpsms.txt'}
   sed 's/\\#SpecFile/SpectraFile/' -i qpsms.txt
-  msspsmtable genes -i qpsms.txt -o gpsms --dbfile psmlookup
-  msslookup proteingroup -i qpsms.txt --dbfile psmlookup
-  msspsmtable proteingroup -i gpsms -o pgpsms --dbfile psmlookup
+  ${!params.onlypeptides ? "msspsmtable genes -i qpsms.txt -o gpsms --dbfile psmlookup" : ''}
+  ${!params.onlypeptides ? "msslookup proteingroup -i qpsms.txt --dbfile psmlookup" : ''}
+  ${!params.onlypeptides ? "msspsmtable proteingroup -i gpsms -o pgpsms --dbfile psmlookup" : 'mv qpsms.txt pgpsms'}
   ${params.hirief ? "python $piannotscript -i $trainingpep -p pgpsms --o dppsms --stripcolpattern Strip --pepcolpattern Peptide --fraccolpattern Fraction --strippatterns ${allstrips.join(' ')} --intercepts ${allstrips.collect() { params.strips[it].intercept}.join(' ')} --widths ${allstrips.collect() { params.strips[it].fr_width}.join(' ')} --ignoremods \'*\'" : ''}
   msspsmtable split -i ${params.hirief ? 'dppsms' : 'pgpsms'} --bioset
   mv ${params.hirief ? 'dppsms' : 'pgpsms'} ${td}_psmtable.txt
