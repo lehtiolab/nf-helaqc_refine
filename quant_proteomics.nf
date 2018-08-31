@@ -33,6 +33,7 @@ params.speclookup = false
 params.quantlookup = false
 params.hirief = false
 params.onlypeptides = false
+params.noquant = false
 
 mods = file(params.mods)
 tdb = file(params.tdb)
@@ -126,7 +127,7 @@ process IsobaricQuant {
 
 process hardklor {
   container 'quay.io/biocontainers/hardklor:2.3.0--0'
-  when: !params.quantlookup
+  when: !params.quantlookup && !params.noquant
 
   input:
   set val(setname), val(sample), file(infile), val(platename), val(fraction) from mzml_hklor
@@ -146,7 +147,7 @@ process hardklor {
 process kronik {
 
   container 'quay.io/biocontainers/kronik:2.20--0'
-  when: !params.quantlookup
+  when: !params.quantlookup && !params.noquant
 
   input:
   set val(sample), file('hardklor.out'), file(mzml) from hk_out 
@@ -212,7 +213,10 @@ kronik_out
   .set { krfiles_sets }
 
 
-if (!(params.speclookup || params.quantlookup)) {
+if (params.noquant && !(params.speclookup || params.quantlookup)) {
+  newspeclookup
+    .into { quant_lookup; spec_lookup; countlookup }
+} else if (!(params.speclookup || params.quantlookup)) {
   newspeclookup
     .into { spec_lookup; countlookup }
 }
@@ -221,7 +225,7 @@ process quantLookup {
 
   container 'quay.io/biocontainers/msstitch:2.7--py36_0'
   
-  when: !params.quantlookup
+  when: !params.quantlookup && !params.noquant
 
   input:
   file lookup from spec_lookup
@@ -246,10 +250,10 @@ process quantLookup {
 }
 
 
-if (!params.quantlookup) {
+if (!params.quantlookup && !params.noquant) {
   newquantlookup
     .into { quant_lookup }
-}
+} 
 
 mzmlfiles_all_count
   .merge(countlookup)
@@ -495,7 +499,7 @@ process createPSMTable {
   cp lookup psmlookup
   msslookup psms -i filtpep --dbfile psmlookup --fasta ${td == 'target' ? tdb : "${ddb} --decoy"} ${params.martmap ? "--map ${mmap}" : ''}
   msspsmtable specdata -i filtpep --dbfile psmlookup -o prepsms.txt
-  msspsmtable quant -i prepsms.txt -o qpsms.txt --dbfile psmlookup --precursor ${params.isobaric && td=='target' ? "--isobaric" : ""}
+  ${!params.noquant ? "msspsmtable quant -i prepsms.txt -o qpsms.txt --dbfile psmlookup --precursor ${params.isobaric && td=='target' ? '--isobaric' : ''}" : 'mv prepsms.txt qpsms.txt'}
   sed 's/\\#SpecFile/SpectraFile/' -i qpsms.txt
   msspsmtable genes -i qpsms.txt -o gpsms --dbfile psmlookup
   msslookup proteingroup -i qpsms.txt --dbfile psmlookup
@@ -529,7 +533,7 @@ process psm2Peptides {
   output:
   set val(td), val(setname), file('psms'), file('peptides') into prepep
   """
-  msspeptable psm2pep -i psms -o peptides --scorecolpattern svm --spectracol 1 ${params.isobaric && td == 'target' ? "--isobquantcolpattern plex" : "" } --ms1quantcolpattern area
+  msspeptable psm2pep -i psms -o peptides --scorecolpattern svm --spectracol 1 ${params.isobaric && td == 'target' ? "--isobquantcolpattern plex" : "" } ${!params.noquant ? "--ms1quantcolpattern area" : ""}
   """
 }
 
@@ -657,7 +661,7 @@ process prepProteinGeneSymbolTable {
   """
   else
   """
-  ${td == 'target' ? "mssprottable ms1quant -i proteins -o proteintable --psmtable psms --protcol ${accolmap[acctype]}" : 'mv proteins proteintable'}
+  ${td == 'target' && !params.noquant ? "mssprottable ms1quant -i proteins -o proteintable --psmtable psms --protcol ${accolmap[acctype]}" : 'mv proteins proteintable'}
   mssprottable bestpeptide -i proteintable -o bestpeptides --peptable peplinmod --scorecolpattern ${acctype == 'proteins' ? '\'^q-value\'' : '\'linear model\''} --logscore --protcol ${accolmap[acctype] + 1}
   """
 }
@@ -730,8 +734,8 @@ process proteinPeptideSetMerge {
   outname = (acctype == 'assoc') ? 'symbols' : acctype
   """
   cp $lookup db.sqlite
-  msslookup ${acctype == 'peptides' ? 'peptides --fdrcolpattern \'^q-value\' --peptidecol' : 'proteins --fdrcolpattern \'q-value\' --protcol'} 1 --dbfile db.sqlite -i ${tables.join(' ')} --setnames ${setnames.join(' ')} --ms1quantcolpattern area ${params.isobaric ? '--psmnrcolpattern quanted --isobquantcolpattern plex' : ''} ${acctype in ['genes', 'assoc'] ? "--genecentric ${acctype}" : ''}
-  ${acctype == 'peptides' ? 'msspeptable build' : 'mssprottable build --mergecutoff 0.01'} --dbfile db.sqlite -o proteintable ${params.isobaric ? '--isobaric' : ''} --precursor --fdr ${acctype in ['genes', 'assoc'] ? "--genecentric ${acctype}" : ''}
+  msslookup ${acctype == 'peptides' ? 'peptides --fdrcolpattern \'^q-value\' --peptidecol' : 'proteins --fdrcolpattern \'q-value\' --protcol'} 1 --dbfile db.sqlite -i ${tables.join(' ')} --setnames ${setnames.join(' ')} ${!params.noquant ? "--ms1quantcolpattern area" : ""}  ${params.isobaric ? '--psmnrcolpattern quanted --isobquantcolpattern plex' : ''} ${acctype in ['genes', 'assoc'] ? "--genecentric ${acctype}" : ''}
+  ${acctype == 'peptides' ? 'msspeptable build' : 'mssprottable build --mergecutoff 0.01'} --dbfile db.sqlite -o proteintable ${params.isobaric ? '--isobaric' : ''} ${!params.noquant ? "--precursor": ""} --fdr ${acctype in ['genes', 'assoc'] ? "--genecentric ${acctype}" : ''} ${params.onlypeptides ? "--noncentric" : ''}
   sed -i 's/\\#/Amount/g' proteintable
   """
 }

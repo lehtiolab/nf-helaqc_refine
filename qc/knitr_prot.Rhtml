@@ -37,10 +37,12 @@ if (feattype == 'peptides') {
 end.rcode-->
 
 <!--begin.rcode precursorarea, fig.height=nrsets+1, echo=FALSE, message=FALSE, results='hide', warning=FALSE
-parea = melt(feats, id.vars=featcol, measure.vars = colnames(feats)[grep('area', colnames(feats))])
-parea$Set = sub('_MS1.*', '', parea$variable)
-ggplot(parea, aes(fct_rev(Set), value)) +
-  geom_boxplot() + scale_y_log10() + coord_flip() + ylab("Intenstity") + theme_bw() + theme(axis.title=element_text(size=30), axis.text=element_text(size=20), axis.title.y=element_blank())
+if (length(grep('area', names(feats)))) {
+    parea = melt(feats, id.vars=featcol, measure.vars = colnames(feats)[grep('area', colnames(feats))])
+    parea$Set = sub('_MS1.*', '', parea$variable)
+    ggplot(parea, aes(fct_rev(Set), value)) +
+      geom_boxplot() + scale_y_log10() + coord_flip() + ylab("Intenstity") + theme_bw() + theme(axis.title=element_text(size=30), axis.text=element_text(size=20), axis.title.y=element_blank())
+}
 end.rcode-->
 
 <!--begin.rcode coverage, echo=FALSE, message=FALSE, results='hide', warning=FALSE
