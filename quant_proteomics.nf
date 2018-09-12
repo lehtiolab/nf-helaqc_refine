@@ -53,7 +53,7 @@ trainingpep = file(params.pipep)
 accolmap = [peptides: 12, proteins: 14, genes: 17, assoc: 18]
 
 setdenoms = [:]
-if (params.isobaric) {
+if (!(params.noquant) && params.isobaric) {
   params.denoms.tokenize(' ').each{ it -> x=it.tokenize(':'); setdenoms.put(x[0], x[1..-1])}
 }
 
@@ -111,7 +111,7 @@ process IsobaricQuant {
 
   container 'quay.io/biocontainers/openms:2.2.0--py27_boost1.64_0'
 
-  when: params.isobaric && !params.quantlookup
+  when: !params.noquant && params.isobaric && !params.quantlookup
 
   input:
   set val(setname), val(sample), file(infile), val(platename), val(fraction)from mzml_isobaric
@@ -534,7 +534,7 @@ process psm2Peptides {
   output:
   set val(td), val(setname), file('psms'), file('peptides') into prepep
   """
-  msspeptable psm2pep -i psms -o peptides --scorecolpattern svm --spectracol 1 ${params.isobaric && td == 'target' ? "--isobquantcolpattern plex" : "" } ${!params.noquant ? "--ms1quantcolpattern area" : ""}
+  msspeptable psm2pep -i psms -o peptides --scorecolpattern svm --spectracol 1 ${!params.noquant && params.isobaric && td == 'target' ? "--isobquantcolpattern plex" : "" } ${!params.noquant ? "--ms1quantcolpattern area" : ""}
   """
 }
 
@@ -611,7 +611,7 @@ process postprodPeptideTable {
   set val(setname), file('normratiosused') optional true into normratios
 
   script:
-  if (params.isobaric && td=='target')
+  if (!params.noquant && params.isobaric && td=='target')
   """
   msspsmtable isoratio -i psms -o pepisoquant --targettable peptides --protcol ${accolmap.peptides} --isobquantcolpattern plex --minint 0.1 --denompatterns ${setdenoms[setname].join(' ')} ${normalize ? "--normalize median --norm-ratios $pratios" : ''} > normratiosused
   mv pepisoquant peptide_table.txt
@@ -654,7 +654,7 @@ process prepProteinGeneSymbolTable {
   set val(setname), val(acctype), val(td), file('bestpeptides') into bestpep
 
   script:
-  if (params.isobaric && td == 'target')
+  if (!params.noquant && params.isobaric && td == 'target')
   """
   mssprottable ms1quant -i proteins -o protms1 --psmtable psms --protcol ${accolmap[acctype]}
   msspsmtable isoratio -i psms -o proteintable --protcol ${accolmap[acctype]} --targettable protms1 --isobquantcolpattern plex --minint 0.1 --denompatterns ${setdenoms[setname].join(' ')} ${normalize ? '--norm-ratios pratios --normalize median': ''}
@@ -735,8 +735,8 @@ process proteinPeptideSetMerge {
   outname = (acctype == 'assoc') ? 'symbols' : acctype
   """
   cp $lookup db.sqlite
-  msslookup ${acctype == 'peptides' ? 'peptides --fdrcolpattern \'^q-value\' --peptidecol' : 'proteins --fdrcolpattern \'q-value\' --protcol'} 1 --dbfile db.sqlite -i ${tables.join(' ')} --setnames ${setnames.join(' ')} ${!params.noquant ? "--ms1quantcolpattern area" : ""}  ${params.isobaric ? '--psmnrcolpattern quanted --isobquantcolpattern plex' : ''} ${acctype in ['genes', 'assoc'] ? "--genecentric ${acctype}" : ''}
-  ${acctype == 'peptides' ? 'msspeptable build' : 'mssprottable build --mergecutoff 0.01'} --dbfile db.sqlite -o proteintable ${params.isobaric ? '--isobaric' : ''} ${!params.noquant ? "--precursor": ""} --fdr ${acctype in ['genes', 'assoc'] ? "--genecentric ${acctype}" : ''} ${params.onlypeptides ? "--noncentric" : ''}
+  msslookup ${acctype == 'peptides' ? 'peptides --fdrcolpattern \'^q-value\' --peptidecol' : 'proteins --fdrcolpattern \'q-value\' --protcol'} 1 --dbfile db.sqlite -i ${tables.join(' ')} --setnames ${setnames.join(' ')} ${!params.noquant ? "--ms1quantcolpattern area" : ""}  ${!params.noquant && params.isobaric ? '--psmnrcolpattern quanted --isobquantcolpattern plex' : ''} ${acctype in ['genes', 'assoc'] ? "--genecentric ${acctype}" : ''}
+  ${acctype == 'peptides' ? 'msspeptable build' : 'mssprottable build --mergecutoff 0.01'} --dbfile db.sqlite -o proteintable ${!params.noquant && params.isobaric ? '--isobaric' : ''} ${!params.noquant ? "--precursor": ""} --fdr ${acctype in ['genes', 'assoc'] ? "--genecentric ${acctype}" : ''} ${params.onlypeptides ? "--noncentric" : ''}
   sed -i 's/\\#/Amount/g' proteintable
   """
 }
