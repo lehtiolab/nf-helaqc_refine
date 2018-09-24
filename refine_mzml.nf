@@ -37,43 +37,20 @@ Channel
   .set { mzml_msgf }
 
 
-process makeDecoyReverseDB {
-  container 'biopython/biopython'
-
-  input:
-  file(tdb)
-
-  output:
-  file('tddb.fasta') into concatdb
-
-  """
-  #!/usr/bin/env python3
-  from Bio import SeqIO
-  with open('$tdb') as fp, open('tddb.fasta', 'w') as wfp:
-    for target in SeqIO.parse(fp, 'fasta'):
-      SeqIO.write(target, wfp, 'fasta')
-      decoy = target[::-1] 
-      decoy.description = decoy.description.replace('ENS', 'decoy_ENS')
-      decoy.id = 'decoy_{}'.format(decoy.id)
-      SeqIO.write(decoy, wfp, 'fasta')
-  """
-}
-
-
 process msgfPlus {
   container 'quay.io/biocontainers/msgf_plus:2017.07.21--py27_0'
 
   input:
   set file(x), val(sample), val(dbid) from mzml_msgf
-  file(db) from concatdb
+  file(tdb)
   file mods
 
   output:
   set file(x), val(sample), file("search.mzid"), val(dbid) into mzml_mzid
   
   """
-  msgf_plus -Xmx16g -d $db -s $x -o search.mzid -thread 12 -mod $mods -tda 0 -t 10.0ppm -ti -1,2 -m 0 -inst ${msgfinstrument} -e 1 -protocol ${msgfprotocol} -ntt 2 -minLength 7 -maxLength 50 -minCharge 2 -maxCharge 6 -n 1 -addFeatures 1
-  rm ${db.baseName.replaceFirst(/\.fasta/, "")}.c*
+  msgf_plus -Xmx16g -d $tdb -s $x -o search.mzid -thread 12 -mod $mods -tda 0 -t 50.0ppm -ti -1,2 -m 0 -inst ${msgfinstrument} -e 1 -protocol ${msgfprotocol} -ntt 2 -minLength 7 -maxLength 50 -minCharge 2 -maxCharge 6 -n 1 -addFeatures 1
+  rm ${tdb.baseName.replaceFirst(/\.fasta/, "")}.c*
   """
 }
 
