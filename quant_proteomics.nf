@@ -439,24 +439,27 @@ with open('tmzidperco', 'w') as tfp, open('dmzidperco', 'w') as dfp:
     dfp.write('\\t'.join(header))
     for fnix, mzidfn in enumerate(mzidfns):
         mzns = mzidplus.get_mzid_namespace(mzidfn)
-        siis = (sii for sir in mzidplus.mzid_spec_result_generator(mzidfn, mzns) for sii in sir.findall('{%s}SpectrumIdentificationItem' % mzns['xmlns']))
-        for specidi, psm in zip(siis, tsv.generate_tsv_psms(mzidtsvfns[fnix], oldheader)):
-            # percolator psm ID is: samplename_SII_scannr_rank_scannr_charge_rank
-            scan, rank = specidi.attrib['id'].replace('SII_', '').split('_')
-            outpsm = {k: v for k,v in psm.items()}
-            spfile = os.path.splitext(psm['#SpecFile'])[0]
-            try:
-                percopsm = psms['{fn}_SII_{sc}_{rk}_{sc}_{ch}_{rk}'.format(fn=spfile, sc=scan, rk=rank, ch=psm['Charge'])]
-            except KeyError:
-                continue
-            outpsm.update({'percolator svm-score': percopsm['svm'], 'PSM q-value': percopsm['qval'], 'peptide q-value': percopsm['pepqval'], 'Strip': plates[fnix], 'Fraction': fractions[fnix], 'missed_cleavage': count_missed_cleavage(outpsm['Peptide'])})
-            if percopsm['decoy']:
-                dfp.write('\\n')
-                dfp.write('\\t'.join([str(outpsm[k]) for k in header]))
-            else:
-                outpsm['Protein'] = ';'.join([x for x in outpsm['Protein'].split(';') if 'decoy_' not in x])
-                tfp.write('\\n')
-                tfp.write('\\t'.join([str(outpsm[k]) for k in header]))
+        inpsms = tsv.generate_tsv_psms(mzidtsvfns[fnix], oldheader)
+        for specidr in mzidplus.mzid_spec_result_generator(mzidfn, mzns):
+            for specidi in specidr.findall('{%s}SpectrumIdentificationItem' % mzns['xmlns']):
+                psm = next(inpsms)
+                # percolator psm ID is: samplename_SII_scanindex_rank_scannr_charge_rank
+                scanindex, rank = specidi.attrib['id'].replace('SII_', '').split('_')
+                scan = {x.split('=')[0]: x.split('=')[1] for x in specidr.attrib['spectrumID'].split(' ')}['scan']
+                outpsm = {k: v for k,v in psm.items()}
+                spfile = os.path.splitext(psm['#SpecFile'])[0]
+                try:
+                    percopsm = psms['{fn}_SII_{ix}_{rk}_{sc}_{ch}_{rk}'.format(fn=spfile, ix=scanindex, sc=scan, rk=rank, ch=psm['Charge'])]
+                except KeyError:
+                    continue
+                outpsm.update({'percolator svm-score': percopsm['svm'], 'PSM q-value': percopsm['qval'], 'peptide q-value': percopsm['pepqval'], 'Strip': plates[fnix], 'Fraction': fractions[fnix], 'missed_cleavage': count_missed_cleavage(outpsm['Peptide'])})
+                if percopsm['decoy']:
+                    dfp.write('\\n')
+                    dfp.write('\\t'.join([str(outpsm[k]) for k in header]))
+                else:
+                    outpsm['Protein'] = ';'.join([x for x in outpsm['Protein'].split(';') if 'decoy_' not in x])
+                    tfp.write('\\n')
+                    tfp.write('\\t'.join([str(outpsm[k]) for k in header]))
   """
 }
 
