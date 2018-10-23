@@ -817,7 +817,7 @@ process featQC {
   script:
   """
   touch normalizefactors.html
-  Rscript -e 'library(ggplot2); library(forcats); library(grid); library(reshape2); library(knitr); nrsets=${setnames.size()}; feats = read.table("feats", header=T, sep="\\t", comment.char = "", quote = ""); feattype="$acctype"; knitr::knit2html("$qcknitrprot", output="knitr.html"); ${normalize ? "normtable=\"normtable\"; knitr::knit2html(\"$qcknitrnormfac\", output=\"normalizefactors.html\");": ''}'
+  Rscript -e 'library(ggplot2); library(forcats); library(reshape2); library(knitr); nrsets=${setnames.size()}; feats = read.table("feats", header=T, sep="\\t", comment.char = "", quote = ""); feattype="$acctype"; knitr::knit2html("$qcknitrprot", output="knitr.html"); ${normalize ? "normtable=\"normtable\"; knitr::knit2html(\"$qcknitrnormfac\", output=\"normalizefactors.html\");": ''}'
   """
 }
 

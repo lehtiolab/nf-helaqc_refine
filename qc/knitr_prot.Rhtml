@@ -45,9 +45,10 @@ if (length(grep('area', names(feats)))) {
 }
 end.rcode-->
 
-<!--begin.rcode coverage, echo=FALSE, message=FALSE, results='hide', warning=FALSE
-ggplot(feats) + geom_histogram(aes(Coverage), bins=50) + annotation_custom(grob=textGrob(label=sprintf('Median: %.3f', median(feats$Coverage)))) +
-  theme_bw()
+<!--begin.rcode coverage, echo=FALSE, results='hide', message=FALSE, warning=FALSE
+covmed = median(feats$Coverage)
+plot = ggplot(feats) + geom_histogram(aes(Coverage), bins=50) + theme_bw()
+plot + geom_label(x=max(ggplot_build(plot)$data[[1]]$x)*0.75, y=max(ggplot_build(plot)$data[[1]]$count)*0.75, label=sprintf('Median: %.3f', covmed))
 end.rcode-->
 
 <!--begin.rcode isobaric, fig.height=3*nrsets+1, echo=FALSE, message=FALSE, results='hide', warning=FALSE
