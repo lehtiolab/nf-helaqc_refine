@@ -63,9 +63,9 @@ process mzRefine {
   set file(mzml), val(sample), file("${sample}.mzid"), val(dbid) from mzml_mzid
 
   output:
-  file("${dbid}___${sample}.refined.mzML")
+  file("${dbid}___${sample}_refined.mzML")
 
   """
-  msconvert $mzml --outfile ${dbid}___${sample}.refined.mzML --filter "mzRefiner ${sample}.mzid thresholdValue=-1e-10 thresholdStep=10 maxSteps=2 thresholdScore=SpecEValue"
+  msconvert $mzml --outfile ${dbid}___${sample}_refined.mzML --filter "mzRefiner ${sample}.mzid thresholdValue=-1e-10 thresholdStep=10 maxSteps=2 thresholdScore=SpecEValue"
   """
 }
