@@ -798,7 +798,7 @@ process normRatioParse {
   output:
   file('normtable_sets') into normtable
   """
-  count=1;for setn in ${setnames.join(' ')}; do echo "" >> norm"\$count" ; tail -n+2 norm"\$count" | sed \$'s/ - /\t'"\$setn"\$'\t/'; done >> normtable_sets
+  count=1;for setn in ${setnames.join(' ')}; do echo "" >> norm"\$count" ; tail -n+2 norm"\$count" | sed \$'s/ - /\t'"\$setn"\$'\t/'; ((count++)); done >> normtable_sets
   """
 }
 
