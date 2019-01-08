@@ -15,7 +15,7 @@ params.activation = 'hcd'
 params.outdir = 'results'
 
 if (params.isobaric) {
-  mods = file([itraq4plex: "data/itraq8mods.txt", itraq8plex: "data/itraq4mods.txt", tmt10plex: "data/tmtmods.txt", tmt6plex: "data/tmtmods.txt"][params.isobaric])
+  mods = file([itraq8plex: "data/itraq8mods.txt", itraq4plex: "data/itraq4mods.txt", tmt10plex: "data/tmtmods.txt", tmt6plex: "data/tmtmods.txt"][params.isobaric])
 } else {
   mods = file("data/labelfreemods.txt")
 }
