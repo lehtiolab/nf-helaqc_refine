@@ -1,0 +1,6 @@
+#Mods
+NumMods=2
+144.102063,*,fix,N-term,iTRAQ4plex
+144.102063,K,fix,any,iTRAQ4plex
+C2H3N1O1,C,fix,any,Carbamidomethyl
+O1,M,opt,any,Oxidation
