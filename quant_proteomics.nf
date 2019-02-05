@@ -38,17 +38,22 @@ params.noquant = false
 mods = file(params.mods)
 tdb = file(params.tdb)
 ddb = file(params.ddb)
-martmap = file(params.martmap)
+if (params.martmap) {
+  martmap = file(params.martmap)
+  if( !martmap.exists() ) exit 1, "Biomart ENSEMBL mapping file not found: ${params.martmap}"
+}
+if (params.pipep) {
+  trainingpep = file(params.pipep)
+  if( !trainingpep.exists() ) exit 1, "Peptide pI data file not found: ${params.pipep}"
+}
+
 qcknitrpsms = file('qc/knitr_psms.Rhtml')
 qcknitrplatepsms = file('qc/knitr_psms_perplate.Rhtml')
 qcknitrnofrpsms = file('qc/knitr_psms_nofr.Rhtml')
 qcknitrprot = file('qc/knitr_prot.Rhtml')
 qcknitrnormfac = file('qc/knitr_iso_norm.Rhtml')
 qctemplater = file('qc/collect.py')
-
 piannotscript = file('scripts/peptide_pi_annotator.py')
-trainingpep = file(params.pipep)
-
 
 accolmap = [peptides: 12, proteins: 14, genes: 17, assoc: 18]
 
