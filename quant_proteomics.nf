@@ -34,6 +34,8 @@ params.quantlookup = false
 params.hirief = false
 params.onlypeptides = false
 params.noquant = false
+params.martmap = false
+params.trainingpep = false
 
 mods = file(params.mods)
 tdb = file(params.tdb)
@@ -41,11 +43,11 @@ ddb = file(params.ddb)
 if (params.martmap) {
   martmap = file(params.martmap)
   if( !martmap.exists() ) exit 1, "Biomart ENSEMBL mapping file not found: ${params.martmap}"
-}
+} else { martmap = null }
 if (params.pipep) {
   trainingpep = file(params.pipep)
   if( !trainingpep.exists() ) exit 1, "Peptide pI data file not found: ${params.pipep}"
-}
+} else { trainingpep = null }
 
 qcknitrpsms = file('qc/knitr_psms.Rhtml')
 qcknitrplatepsms = file('qc/knitr_psms_perplate.Rhtml')
