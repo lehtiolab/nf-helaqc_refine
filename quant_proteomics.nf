@@ -95,9 +95,7 @@ mzml_in
   .map { it -> [file(it[0]), it[1], it[2] ? it[2] : it[1], it[3] ? it[3] : 'NA' ]} // create file, set plate to setname, and fraction to NA if there is none
   .tap { strips }
   .map { it -> [it[1], it[0].baseName.replaceFirst(/.*\/(\S+)\.mzML/, "\$1"), it[0], it[2], it[3]] }
-  .tap{ mzmlfiles; mzml_isobaric; mzml_hklor; mzml_msgf }
-  .count()
-  .set{ amount_mzml }
+  .into { mzmlfiles; mzml_isobaric; mzml_hklor; mzml_msgf }
 
 sets
   .map{ it -> it[1] }
@@ -168,7 +166,7 @@ process kronik {
 }
 
 mzmlfiles
-  .buffer(size: amount_mzml.value)
+  .toList()
   .map { it.sort( {a, b -> a[1] <=> b[1]}) } // sort on sample for consistent .sh script in -resume
   .map { it -> [it.collect() { it[0] }, it.collect() { it[2] }, it.collect() { it[3] } ] } // lists: [sets], [mzmlfiles], [plates]
   .into { mzmlfiles_all; mzmlfiles_all_count }
@@ -204,17 +202,16 @@ process createSpectraLookup {
   """
 }
 
-isoquant_amount = params.isobaric ? amount_mzml.value : 1
 isobaricxml
   .ifEmpty(['NA', 'NA', 'NA'])
-  .buffer(size: isoquant_amount)
+  .toList()
   .map { it.sort({a, b -> a[0] <=> b[0]}) }
   .map { it -> [it.collect() { it[0] }, it.collect() { it[1] }] } // samples, isoxml
   .set { isofiles_sets }
 
 kronik_out
   .ifEmpty(['NA', 'NA'])
-  .buffer(size: amount_mzml.value)
+  .toList()
   .map { it.sort({a, b -> a[0] <=> b[0]}) }
   .map { it -> [it.collect() { it[0] }, it.collect() { it[1] }, it.collect() { it[2] }] } // samples, kronikout, mzml
   .set { krfiles_sets }
