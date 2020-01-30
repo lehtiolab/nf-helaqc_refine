@@ -8,23 +8,21 @@ Jorrit Boekel @glormph
 Usage:
 nextflow run longqc.nf 
 
-FIXME list
-= PSM table, one file, make set column
-- mslookup spectra, ms1 area, one set, add to psms
-- create peptide table from psms (one only)
-- decoy psm/peptides/proteins needed, protein groups
-- FIXME quant, then column recheck
-  FIXME peptide table cut -f is wrong bc will get extra col with area quant
-- create protein table with fdr
-- run QC on missed cleavage
-- output how to get it? SCP *but that has keys* SMB but then need analysis partition*
-  - in celery though
+TODO list
+- output missed cleavage?
+- add dinosaur to get MS1 and LC peaks
 */
+
+params.mzml = false
+params.db = false
+params.mods = false
+params.instrument = false
+params.qval_modelthreshold = false
+params.outdir = 'results'
 
 mzml = file(params.mzml)
 db = file(params.db)
 mods = file(params.mods)
-hkconf = file('data/hardklor.conf')
 instrument = [qe: 3, velos:1][params.instrument]
 
 
@@ -32,15 +30,13 @@ process hardklor {
   container 'quay.io/biocontainers/hardklor:2.3.0--0'
   input:
   file mzml
-  file hkconf
+  file(hkconf) from Channel.fromPath("$baseDir/data/hardklor.conf").first()
   
   output:
   file 'hardklor.out' into hk_out
 
   """
-  cp $hkconf config
-  echo "$mzml" hardklor.out >> config
-  hardklor config
+  hardklor <(cat $hkconf <(echo "$mzml" hardklor.out))
   """
 }
 
@@ -57,26 +53,19 @@ process kronik {
 }
 
 process makeDDB {
-  container 'biopython/biopython'
+ 
   input:
   file db
   output:
   file 'ddb' into ddb
+  file(db) into targetdb
   """
-  #!/usr/bin/env python3
-  from Bio import SeqIO
-  with open('$db') as fp, open('ddb', 'w') as wfp:
-    for decoy in (x[::-1] for x in SeqIO.parse(fp, 'fasta')):
-      decoy.description = decoy.description.replace('ENS', 'XXX_ENS')
-      decoy.id = 'XXX_{}'.format(decoy.id)
-      SeqIO.write(decoy, wfp, 'fasta')
-  
+  msslookup makedecoy -i "$db" -o ddb --scramble prot_rev --ignore-target-hits
   """
 }
 
 process createSpectraLookup {
 
-  container 'quay.io/biocontainers/msstitch:2.5--py36_0'
   publishDir "${params.outdir}", mode: 'copy', overwrite: true
 
   input:
@@ -95,43 +84,26 @@ process createSpectraLookup {
 
 process msgfPlus {
 
-  container 'quay.io/biocontainers/msgf_plus:2017.07.21--py27_0'
-
   input:
   file mzml
-  file db
+  file('db.fa') from targetdb
   file mods
 
   output:
-  file 'out.mzid.tsv' into mzidtsv
-  
-  """
-  msgf_plus -Xmx16G -d $db -s "$mzml" -o "${mzml}.mzid" -thread ${task.cpus * 2} -mod $mods -tda 1 -t 10.0ppm -ti -1,2 -m 0 -inst $instrument -e 1 -protocol 5 -ntt 2 -minLength 7 -maxLength 50 -minCharge 2 -maxCharge 6 -n 1 -addFeatures 1
-  msgf_plus -Xmx8G edu.ucsd.msjava.ui.MzIDToTsv -i "${mzml}.mzid" -o out.mzid.tsv -showDecoy 1
-  """
-}
-
-
-process determineTDPSMS {
-  container 'ubuntu:latest'
-
-  input:
-  file 'psms' from mzidtsv
-
-  output:
   set file('tpsms'), file('dpsms') into tdpsms
+  
   """
-  head -n 1 psms > dpsms
-  grep -v XXX_ psms >> tpsms
-  grep XXX_ psms|grep -v \$'\\t'ENSP| grep -v '\\;ENSP' >> dpsms
+  msgf_plus -Xmx16G -d "db.fa" -s "$mzml" -o "${mzml}.mzid" -thread ${task.cpus * 2} -mod $mods -tda 1 -decoy decoy -t 10.0ppm -ti -1,2 -m 0 -inst $instrument -e 1 -protocol 0 -ntt 2 -minLength 7 -maxLength 50 -minCharge 2 -maxCharge 6 -n 1 -addFeatures 1
+  msgf_plus -Xmx8G edu.ucsd.msjava.ui.MzIDToTsv -i "${mzml}.mzid" -o out.tsv -showDecoy 1
+  head -n 1 out.tsv > dpsms
+  grep -v decoy_ out.tsv >> tpsms
+  grep decoy_ out.tsv |grep -v \$'\\t'ENSP| grep -v '\\;ENSP' | grep -v \$'\\t''sp|' | grep -v '\\;sp|' >> dpsms
   """
 }
 
 
-process createPSMPeptideTable {
+process createPSMTable {
 
-  container 'quay.io/biocontainers/msstitch:2.5--py36_0'
-  
   publishDir "${params.outdir}", mode: 'copy', overwrite: true, saveAs: { it == "tpsmtable" ? "psmtable.txt" : null }
 
   input:
@@ -151,7 +123,7 @@ process createPSMPeptideTable {
   msspsmtable conffilt -i dfiltpsm -o dfiltpep --confidence-better lower --confidence-lvl 0.01 --confcolpattern 'PepQValue'
   cp lookup tpsmlookup
   cp lookup dpsmlookup
-  msslookup psms -i tfiltpep --dbfile tpsmlookup --spectracol 1 --fasta $db
+  msslookup psms -i tfiltpep --dbfile tpsmlookup --spectracol 1 --fasta "$db"
   msslookup psms -i dfiltpep --dbfile dpsmlookup --spectracol 1 --fasta $ddb
   msspsmtable specdata -i tfiltpep --dbfile tpsmlookup -o trtpsms
   msspsmtable quant -i trtpsms -o tquant --dbfile tpsmlookup --precursor
@@ -164,55 +136,47 @@ process createPSMPeptideTable {
   """
 }
 
-psmtable
-  .into { psm2prottable; psmprotquant }
 
-process cutPasteReplacePeptideProteinTable{
-
-  container 'ubuntu:latest'
-
-  publishDir "${params.outdir}", mode: 'copy', overwrite: true, saveAs: { it == "tpep" ? "peptable.txt" : null }
-
-  input:
-  set file('tprepep'), file('dprepep') from prepeptable
-  set file('tpsm'), file('dpsm') from psm2prottable 
-
-  output:
-  set file('tpep'), file('dpep') into peptable
-  set file('tprot'), file('dprot') into proteinlist
-
-  """
-  paste <( cut -f 12 tprepep) <( cut -f 1-11,13-23 tprepep) > tpep
-  paste <( cut -f 10 dprepep) <( cut -f 1-9,11-20 dprepep) > dpep
-  sed -i 's/PepQValue/q-value/;s/QValue/PSM q-value/' tpep
-  sed -i 's/PepQValue/q-value/;s/QValue/PSM q-value/' dpep
-  echo Protein accession > tprot
-  echo Protein accession > dprot
-  tail -n+2 tpsm|cut -f 13 |grep -v '\\;'|grep -v "^\$"|sort|uniq >> tprot
-  tail -n+2 dpsm|cut -f 11 |grep -v '\\;'|grep -v "^\$"|sort|uniq >> dprot
-  """
-}
-
-process createProteinTable {
-  
-  container 'quay.io/biocontainers/msstitch:2.5--py36_0'
+process createPeptideProteinTable{
 
   publishDir "${params.outdir}", mode: 'copy', overwrite: true
 
   input:
-  set file('tproteins'), file('dproteins') from proteinlist
-  set file('tpsms'), file('dpsms') from psmprotquant
-  set file('tpeptides'), file('dpeptides') from peptable
+  set file('tprepep'), file('dprepep') from prepeptable
+  set file('tpsms'), file('dpsms') from psmtable
 
   output:
-  file 'prottable.txt' into proteins
+  set file('peptable.txt'), file('prottable.txt') into outfiles
 
+  script:
+  scorecolpat = 'linear model'
   """
+  paste <( cut -f 12 tprepep) <( cut -f 1-11,13-23 tprepep) > "peptable.txt"
+  paste <( cut -f 10 dprepep) <( cut -f 1-9,11-20 dprepep) > dpeptides
+  sed -i 's/PepQValue/q-value/;s/QValue/PSM q-value/' "peptable.txt"
+  sed -i 's/PepQValue/q-value/;s/QValue/PSM q-value/' dpeptides
+  echo Protein ID > tproteins
+  echo Protein ID > dproteins
+  tail -n+2 tpsms|cut -f 13 |grep -v '\\;'|grep -v "^\$"|sort|uniq >> tproteins
+  tail -n+2 dpsms|cut -f 11 |grep -v '\\;'|grep -v "^\$"|sort|uniq >> dproteins
   mssprottable ms1quant -i tproteins -o ms1quant --psmtable tpsms --protcol 13 
-  msspeptable modelqvals -i tpeptides -o tlinmodpep --scorecolpattern 'MSGFScore' --fdrcolpattern '^q-value'
-  msspeptable modelqvals -i dpeptides -o dlinmodpep --scorecolpattern 'MSGFScore' --fdrcolpattern '^q-value'
-  mssprottable bestpeptide -i ms1quant -o tbestpep --peptable tlinmodpep --scorecolpattern 'linear model' --logscore --protcolpattern 'Master' 
-  mssprottable bestpeptide -i dproteins -o dbestpep --peptable dlinmodpep --scorecolpattern 'linear model' --logscore --protcolpattern 'Master'
+  msspeptable modelqvals -i "peptable.txt" -o tlinmodpep --scorecolpattern 'MSGFScore' --fdrcolpattern '^q-value' ${params.qval_modelthreshold ? "--qvalthreshold ${params.qval_modelthreshold}" : ''}
+  msspeptable modelqvals -i dpeptides -o dlinmodpep --scorecolpattern 'MSGFScore' --fdrcolpattern '^q-value' ${params.qval_modelthreshold ? "--qvalthreshold ${params.qval_modelthreshold}" : ''}
+
+  # score col is linearmodel_qval or q-value, but if the column only contains 0.0 or NA (no linear modeling possible due to only q<10e-04), we use MSGFScore instead
+  tscol=\$(head -1 tlinmodpep | tr '\\t' '\\n' | grep -n "${scorecolpat}" | cut -f 1 -d':')
+  dscol=\$(head -1 tlinmodpep | tr '\\t' '\\n' | grep -n "${scorecolpat}" | cut -f 1 -d':')
+  if [ -n "\$(cut -f \$tscol tlinmodpep | tail -n+2 | egrep -v '(NA\$|0\\.0\$)')" ] && [ -n "\$(cut -f \$dscol dlinmodpep | tail -n+2 | egrep -v '(NA\$|0\\.0\$)')" ]
+    then
+      scpat="${scorecolpat}"
+      logflag="--logscore"
+    else
+      scpat="MSGFScore"
+      logflag=""
+      echo 'Not enough q-values or linear-model q-values for peptides to calculate FDR, using MSGFScore instead.' >> warnings
+  fi
+  mssprottable bestpeptide -i ms1quant -o tbestpep --peptable tlinmodpep --scorecolpattern "\$scpat" \$logflag --protcolpattern 'Master' 
+  mssprottable bestpeptide -i dproteins -o dbestpep --peptable dlinmodpep --scorecolpattern "\$scpat" \$logflag --protcolpattern 'Master'
   mssprottable pickedfdr --picktype result -i tbestpep --decoyfn dbestpep -o fdrprots
   msspsmtable conffilt -i fdrprots -o prottable.txt --confidence-better lower --confidence-lvl 0.01 --confcolpattern 'q-value'
   """
