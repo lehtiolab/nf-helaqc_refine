@@ -49,7 +49,7 @@ process msgfPlus {
   set file(x), val(sample), file("search.mzid"), val(dbid) into mzml_mzid
   
   """
-  msgf_plus -Xmx16g -d $tdb -s $x -o search.mzid -thread 12 -mod $mods -tda 0 -t 50.0ppm -ti -1,2 -m 0 -inst ${msgfinstrument} -e 1 -protocol ${msgfprotocol} -ntt 2 -minLength 7 -maxLength 50 -minCharge 2 -maxCharge 6 -n 1 -addFeatures 1
+  msgf_plus -Xmx16g -d "$tdb" -s "$x" -o search.mzid -thread 12 -mod $mods -tda 0 -t 50.0ppm -ti -1,2 -m 0 -inst ${msgfinstrument} -e 1 -protocol ${msgfprotocol} -ntt 2 -minLength 7 -maxLength 50 -minCharge 2 -maxCharge 6 -n 1 -addFeatures 1
   rm ${tdb.baseName.replaceFirst(/\.fasta/, "")}.c*
   """
 }
