@@ -13,13 +13,15 @@ Jorrit Boekel @glormph
 params.isobaric = false
 params.activation = 'hcd'
 params.outdir = 'results'
+params.tdb = false
+params.instrument = false
+params.pwizcontainer = 'quay.io/biocontainers/proteowizard:3_0_9992--h2d50403_2'
 
 if (params.isobaric) {
-  mods = file([itraq8plex: "data/itraq8mods.txt", itraq4plex: "data/itraq4mods.txt", tmt10plex: "data/tmtmods.txt", tmt6plex: "data/tmtmods.txt"][params.isobaric])
+  mods = file([itraq8plex: "${baseDir}/data/itraq8mods.txt", itraq4plex: "${baseDir}/data/itraq4mods.txt", tmt10plex: "${baseDir}/data/tmtmods.txt", tmt6plex: "${baseDir}/data/tmtmods.txt"][params.isobaric])
 } else {
-  mods = file("data/labelfreemods.txt")
+  mods = file("${baseDir}/data/labelfreemods.txt")
 }
-tdb = file(params.tdb)
 plextype = params.isobaric ? params.isobaric.replaceFirst(/[0-9]+plex/, "") : 'false'
 msgfprotocol = [tmt:4, itraq:2, false:0][plextype]
 instrument = params.instrument ? params.instrument : false
@@ -38,24 +40,23 @@ Channel
 
 
 process msgfPlus {
-  container 'quay.io/biocontainers/msgf_plus:2017.07.21--py27_0'
 
   input:
   set file(x), val(sample), val(dbid) from mzml_msgf
-  file(tdb)
+  file('tdb.fa') from Channel.fromPath(params.tdb)
   file mods
 
   output:
   set file(x), val(sample), file("search.mzid"), val(dbid) into mzml_mzid
   
   """
-  msgf_plus -Xmx16g -d "$tdb" -s "$x" -o search.mzid -thread 12 -mod $mods -tda 0 -t 50.0ppm -ti -1,2 -m 0 -inst ${msgfinstrument} -e 1 -protocol ${msgfprotocol} -ntt 2 -minLength 7 -maxLength 50 -minCharge 2 -maxCharge 6 -n 1 -addFeatures 1
-  rm ${tdb.baseName.replaceFirst(/\.fasta/, "")}.c*
+  msgf_plus -Xmx16g -d tdb.fa -s "$x" -o search.mzid -thread 12 -mod $mods -tda 0 -t 50.0ppm -ti -1,2 -m 0 -inst ${msgfinstrument} -e 1 -protocol ${msgfprotocol} -ntt 2 -minLength 7 -maxLength 50 -minCharge 2 -maxCharge 6 -n 1 -addFeatures 1
+  rm tdb.c*
   """
 }
 
 process mzRefine {
-  container 'quay.io/biocontainers/proteowizard:3_0_9992--h2d50403_2'
+  container params.pwizcontainer
 
   publishDir "${params.outdir}", mode: 'copy', overwrite: true
 
