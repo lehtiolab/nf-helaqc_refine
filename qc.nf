@@ -158,7 +158,7 @@ process createPeptideProteinTable{
   tuple file('tpsms'), file('dpsms'), file('peptable.txt'), file('dpeptides'), file('db.sqlite') from peptides_report
 
   output:
-  tuple file('peptable.txt'), file('prottable.txt') into outfiles
+  tuple file('peptable.txt'), file('prottable.txt'), file('qc.json') into outfiles
 
   script:
   scorecolpat = '^q-value'
