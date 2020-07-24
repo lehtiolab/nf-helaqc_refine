@@ -41,6 +41,7 @@ qcout = {
 with open('tpsms') as fp:
     header = next(fp).strip('\n').split('\t')
     perrorix = header.index('PrecursorError(ppm)')
+    fwhmix = header.index('FWHM')
     msgfix = header.index('MSGFScore')
     rtix = header.index('Retention time(min)')
     misclix = header.index('missed_cleavage')
@@ -58,6 +59,7 @@ with open('tpsms') as fp:
             except KeyError:
                 qcout['missed_cleavages'][line[misclix]] = 1
     qcout['precursor_errors'] = calc_boxplot_qs([psm[perrorix] for psm in qcpsms])
+    qcout['fwhms'] = calc_boxplot_qs([psm[fwhmix] for psm in qcpsms])
     qcout['msgfscores'] = calc_boxplot_qs([psm[msgfix] for psm in qcpsms])
     qcout['retention_times'] = calc_boxplot_qs([psm[rtix] for psm in qcpsms])
     if use_ionmob:

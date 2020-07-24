@@ -7,9 +7,6 @@ Jorrit Boekel @glormph
 
 Usage:
 nextflow run longqc.nf 
-
-TODO list
-- add dinosaur to get MS1 and LC peaks
 */
 
 params.mzml = false
@@ -26,7 +23,6 @@ filters = params.filters.tokenize(';').collect() { x -> "--filter ${x}" }.join('
 options = params.options.tokenize(';').collect() {x -> "--${x}"}.join(' ')
 
 raw = file(params.raw)
-//db = file(params.db)
 mods = file(params.mods)
 instrument = [qe: 3, velos:1][params.instrument]
 
@@ -40,7 +36,7 @@ process msconvert {
   file raw
 
   output:
-  file(outfile) into (mzml_hk, mzml_msgf, mzml_mss)
+  file(outfile) into (mzml_msgf, mzml_mss, mzml_dino)
 
   script:
   outfile = "${raw.baseName}.mzML"
@@ -53,18 +49,17 @@ process msconvert {
 }
 
 
-process hardklor {
+process dinosaur {
 
   input:
-  file mzml from mzml_hk
-  file(hkconf) from Channel.fromPath("$baseDir/data/hardklor.conf").first()
-  
-  output:
-  file 'kronik.out' into kronik_out
+  file mzml from mzml_dino
 
+  output:
+  file "dinosaur.features.tsv" into dino_out
+
+  script:
   """
-  hardklor <(cat $hkconf <(echo "$mzml" hardklor.out))
-  kronik -c 5 -d 3 -g 1 -m 8000 -n 600 -p 10 hardklor.out kronik.out
+  dinosaur --concurrency=${task.cpus * params.threadspercore} --outName="dinosaur" "${mzml}"
   """
 }
 
@@ -88,7 +83,7 @@ process createSpectraLookup {
 
   input:
   file mzml from mzml_mss
-  file kronik from kronik_out
+  file dino from dino_out
   
   output:
   file 'mslookup_db.sqlite' into spec_lookup
@@ -96,7 +91,7 @@ process createSpectraLookup {
   script:
   """
   msstitch storespectra --spectra "${mzml}" --setnames 'QC'
-  msstitch storequant --dbfile mslookup_db.sqlite --kronik ${kronik} --spectra "${mzml}" --mztol 20.0 --mztoltype ppm --rttol 5.0 
+  msstitch storequant --dbfile mslookup_db.sqlite --dinosaur "${dino}" --spectra "${mzml}" --mztol 20.0 --mztoltype ppm --rttol 5.0 
   """
 }
 
@@ -150,7 +145,7 @@ process createPSMTable {
 }
 
 
-process createPeptideProteinTable{
+process peptidesProteinsReport {
 
   publishDir "${params.outdir}", mode: 'copy', overwrite: true
 

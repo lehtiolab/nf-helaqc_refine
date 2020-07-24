@@ -1,12 +1,10 @@
-name: helaqc-2.1
+name: helaqc-2.2
 channels:
   - bioconda
   - conda-forge
   - defaults
 dependencies:
   - bioconda::msgf_plus=2020.06.22
-  - bioconda::hardklor=2.3.0
-  - bioconda::kronik=2.20
   - bioconda::dinosaur=1.2.0
-  - bioconda::msstitch=3.2
+  - bioconda::msstitch=3.3
   - bioconda::percolator=3.4
