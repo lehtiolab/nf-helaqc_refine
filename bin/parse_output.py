@@ -41,7 +41,12 @@ qcout = {
 with open('tpsms') as fp:
     header = next(fp).strip('\n').split('\t')
     perrorix = header.index('PrecursorError(ppm)')
-    fwhmix = header.index('FWHM')
+    calc_ms1data = True
+    try:
+        fwhmix = header.index('FWHM')
+    except ValueError:
+        print('No FWHM in PSM table, probably --noms1 is specified')
+        calc_ms1data = False
     msgfix = header.index('MSGFScore')
     rtix = header.index('Retention time(min)')
     misclix = header.index('missed_cleavage')
@@ -59,19 +64,20 @@ with open('tpsms') as fp:
             except KeyError:
                 qcout['missed_cleavages'][line[misclix]] = 1
     qcout['precursor_errors'] = calc_boxplot_qs([psm[perrorix] for psm in qcpsms])
-    qcout['fwhms'] = calc_boxplot_qs([psm[fwhmix] for psm in qcpsms])
+    if calc_ms1data:
+        qcout['fwhms'] = calc_boxplot_qs([psm[fwhmix] for psm in qcpsms])
     qcout['msgfscores'] = calc_boxplot_qs([psm[msgfix] for psm in qcpsms])
     qcout['retention_times'] = calc_boxplot_qs([psm[rtix] for psm in qcpsms])
     if use_ionmob:
         qcout['ionmobilities'] = calc_boxplot_qs([psm[ionmobix] for psm in qcpsms])
 
 
-with open('peptable.txt') as fp:
-    header = next(fp).strip('\n').split('\t')
-    areaix = header.index('MS1 area (highest of all PSMs)')
-    qcout['peptide_areas'] = calc_boxplot_qs([x.strip('\n').split('\t')[areaix] for x in fp])
+if calc_ms1data:
+    with open('peptable.txt') as fp:
+        header = next(fp).strip('\n').split('\t')
+        areaix = header.index('MS1 area (highest of all PSMs)')
+        qcout['peptide_areas'] = calc_boxplot_qs([x.strip('\n').split('\t')[areaix] for x in fp])
 
-# FIXME fwhm
 
 with open('qc.json', 'w') as fp:
     json.dump(qcout, fp, indent=2)

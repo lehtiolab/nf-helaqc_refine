@@ -13,6 +13,7 @@ params.mzml = false
 params.db = false
 params.mods = false
 params.instrument = false
+params.noquant = false
 params.qval_modelthreshold = false
 params.outdir = 'results'
 params.threadspercore = 1
@@ -51,6 +52,8 @@ process msconvert {
 
 process dinosaur {
 
+  when: !params.noquant
+
   input:
   file mzml from mzml_dino
 
@@ -83,7 +86,7 @@ process createSpectraLookup {
 
   input:
   file mzml from mzml_mss
-  file dino from dino_out
+  file dino from dino_out.ifEmpty('NA')
   
   output:
   file 'mslookup_db.sqlite' into spec_lookup
@@ -91,7 +94,7 @@ process createSpectraLookup {
   script:
   """
   msstitch storespectra --spectra "${mzml}" --setnames 'QC'
-  msstitch storequant --dbfile mslookup_db.sqlite --dinosaur "${dino}" --spectra "${mzml}" --mztol 20.0 --mztoltype ppm --rttol 5.0 
+  ${!params.noquant ? "msstitch storequant --dbfile mslookup_db.sqlite --dinosaur \"${dino}\" --spectra \"${mzml}\" --mztol 20.0 --mztoltype ppm --rttol 5.0" : ''}
   """
 }
 
@@ -137,9 +140,9 @@ process createPSMTable {
   cp lookup tpsmlookup
   cp lookup dpsmlookup
 
-  msstitch psmtable -i tfiltpep --dbfile tpsmlookup -o tpsmtable --addmiscleav --fasta "$db" --ms1quant --proteingroup
+  msstitch psmtable -i tfiltpep --dbfile tpsmlookup -o tpsmtable --addmiscleav --fasta "$db" ${params.noquant ? '' : '--ms1quant'} --proteingroup
   msstitch psmtable -i dfiltpep --dbfile dpsmlookup -o dpsmtable --fasta "$ddb" --proteingroup
-  msstitch peptides -i tpsmtable -o tpeptides --scorecolpattern MSGFScore --spectracol 1 --ms1quantcolpattern area 
+  msstitch peptides -i tpsmtable -o tpeptides --scorecolpattern MSGFScore --spectracol 1 ${params.noquant ? '' : '--ms1quantcolpattern area'}
   msstitch peptides -i dpsmtable -o dpeptides --scorecolpattern MSGFScore --spectracol 1
   """
 }
@@ -173,11 +176,10 @@ process peptidesProteinsReport {
       logflag=""
       echo 'Not enough q-values or linear-model q-values for peptides to calculate FDR, using MSGFScore instead.' >> warnings
   fi
-  msstitch proteins -i peptable.txt --decoyfn dpeptides -o tprots --scorecolpattern "\$scpat" \$logflag --ms1quant --psmtable tpsms
+  msstitch proteins -i peptable.txt --decoyfn dpeptides -o tprots --scorecolpattern "\$scpat" \$logflag ${params.noquant ? '' : '--ms1quant'} --psmtable tpsms
   msstitch conffilt -i tprots -o prottable.txt --confidence-better lower --confidence-lvl 0.01 --confcolpattern 'q-value'
 
   protcol=\$(head -1 peptable.txt | tr '\\t' '\\n' | grep -n "Master" | cut -f 1 -d':')
   parse_output.py db.sqlite "\$(wc -l tpsms)" "\$(wc -l peptable.txt)" "\$(cut -f \$protcol peptable.txt | grep -v ';' | wc -l)" "\$(wc -l tprots)"
   """
 }
-
