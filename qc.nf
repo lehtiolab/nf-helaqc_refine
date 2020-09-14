@@ -29,7 +29,6 @@ instrument = [qe: 3, velos:1][params.instrument]
 
 
 process msconvert {
-  container 'chambm/pwiz-skyline-i-agree-to-the-vendor-licenses:3.0.20066-729ef9c41'
 
   cpus = 4 // FIXME 4 for TIMSTOF, XX for normal?
 
