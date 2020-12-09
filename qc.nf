@@ -16,6 +16,7 @@ params.instrument = false
 params.noquant = false
 params.qval_modelthreshold = false
 params.outdir = 'results'
+params.prectol = '10.0ppm'
 params.threadspercore = 1
 params.filters = ''
 params.options = ''
@@ -25,7 +26,7 @@ options = params.options.tokenize(';').collect() {x -> "--${x}"}.join(' ')
 
 raw = file(params.raw)
 mods = file(params.mods)
-instrument = [qe: 3, velos:1][params.instrument]
+instrument = [qe: 3, timstof: 2, velos:1][params.instrument]
 
 
 process msconvert {
@@ -109,7 +110,7 @@ process msgfPlus {
   tuple file('tpsms'), file('dpsms') into tdpsms
   
   """
-  msgf_plus -Xmx16G -d "db.fa" -s "$mzml" -o "${mzml}.mzid" -thread ${task.cpus * params.threadspercore} -mod $mods -tda 1 -decoy decoy -t 10.0ppm -ti -1,2 -m 0 -inst $instrument -e 1 -protocol 0 -ntt 2 -minLength 7 -maxLength 50 -minCharge 2 -maxCharge 6 -n 1 -addFeatures 1
+  msgf_plus -Xmx16G -d "db.fa" -s "$mzml" -o "${mzml}.mzid" -thread ${task.cpus * params.threadspercore} -mod $mods -tda 1 -decoy decoy -t ${params.prectol} -ti -1,2 -m 0 -inst $instrument -e 1 -protocol 0 -ntt 2 -minLength 7 -maxLength 50 -minCharge 2 -maxCharge 6 -n 1 -addFeatures 1
   msgf_plus -Xmx8G edu.ucsd.msjava.ui.MzIDToTsv -i "${mzml}.mzid" -o out.tsv -showDecoy 1
   head -n 1 out.tsv > dpsms
   grep -v decoy_ out.tsv >> tpsms
