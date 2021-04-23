@@ -6,7 +6,7 @@ Longitudinal instrument QC pipeline
 Jorrit Boekel @glormph
 
 Usage:
-nextflow run longqc.nf 
+nextflow run qc.nf 
 */
 
 params.mzml = false
@@ -24,28 +24,29 @@ params.options = ''
 filters = params.filters.tokenize(';').collect() { x -> "--filter ${x}" }.join(' ')
 options = params.options.tokenize(';').collect() {x -> "--${x}"}.join(' ')
 
-raw = file(params.raw)
-mods = file(params.mods)
 instrument = [qe: 3, timstof: 2, velos:1][params.instrument]
-
 
 process msconvert {
 
   cpus = 4 // FIXME 4 for TIMSTOF, XX for normal?
 
   input:
-  file raw
+  path(raw) from Channel.fromPath(params.raw)
 
   output:
   file(outfile) into (mzml_msgf, mzml_mss, mzml_dino)
 
   script:
+  // the string "infile" does not have NF escaping characters like & (e.g. in FAIMS 35&65),
+  // which it does to "raw". That would work fine but not if the files are quoted in the 
+  // script, then they cant be found when there is \&.
+  infile = "${raw.baseName}.${raw.extension}"
   outfile = "${raw.baseName}.mzML"
   """
   # Resolve directory if necessary, pwiz tries to read NF soft links as if they are files, which
   # does not work in case of directory
-  ${raw.isDirectory() ?  "mv ${raw} tmpdir && cp -rL tmpdir ${raw}" : ''}
-  wine msconvert ${raw} ${filters} ${options}
+  ${raw.isDirectory() ?  "mv '${infile}' tmpdir && cp -rL tmpdir '${infile}'" : ''}
+  wine msconvert "${infile}" ${filters} ${options}
   """
 }
 
@@ -104,7 +105,7 @@ process msgfPlus {
   input:
   file mzml from mzml_msgf
   file('db.fa') from targetdb
-  file mods
+  file mods  from Channel.fromPath(params.mods)
 
   output:
   tuple file('tpsms'), file('dpsms') into tdpsms
