@@ -16,7 +16,6 @@ params.outdir = 'results'
 params.tdb = false
 params.instrument = false
 
-if (params.isobaric) {
 modsfn = [
   itraq8plex: "${baseDir}/data/itraq8mods.txt",
   itraq4plex: "${baseDir}/data/itraq4mods.txt",
