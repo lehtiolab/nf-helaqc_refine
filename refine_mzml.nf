@@ -67,6 +67,6 @@ process mzRefine {
   file("${dbid}___${sample}_refined.mzML")
 
   """
-  msconvert $mzml --outfile ${dbid}___${sample}_refined.mzML --filter "mzRefiner ${sample}.mzid thresholdValue=-1e-10 thresholdStep=10 maxSteps=2 thresholdScore=SpecEValue"
+  wine msconvert $mzml --outfile ${dbid}___${sample}_refined.mzML --filter "mzRefiner ${sample}.mzid thresholdValue=-1e-10 thresholdStep=10 maxSteps=2 thresholdScore=SpecEValue"
   """
 }
