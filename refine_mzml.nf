@@ -17,10 +17,15 @@ params.tdb = false
 params.instrument = false
 
 if (params.isobaric) {
-  mods = file([itraq8plex: "${baseDir}/data/itraq8mods.txt", itraq4plex: "${baseDir}/data/itraq4mods.txt", tmt10plex: "${baseDir}/data/tmtmods.txt", tmt6plex: "${baseDir}/data/tmtmods.txt", tmtpro: "${baseDir}/data/tmt16mods.txt"][params.isobaric])
-} else {
-  mods = file("${baseDir}/data/labelfreemods.txt")
-}
+modsfn = [
+  itraq8plex: "${baseDir}/data/itraq8mods.txt",
+  itraq4plex: "${baseDir}/data/itraq4mods.txt",
+  tmt10plex: "${baseDir}/data/tmtmods.txt",
+  tmt6plex: "${baseDir}/data/tmtmods.txt",
+  tmtpro: "${baseDir}/data/tmt16mods.txt",
+  false: "${baseDir}/data/labelfreemods.txt",
+][params.isobaric]
+
 plextype = params.isobaric ? params.isobaric.replaceFirst(/[0-9]+plex/, "") : 'false'
 msgfprotocol = 0 // automatic protocol
 instrument = params.instrument ? params.instrument : false
@@ -31,25 +36,27 @@ msgfinstrument = [velos:1, qe:3, false:0][instrument]
 mzML\tfn_id\n
 */
 
+Channel.fromPath(modsfn).set { mods }
+Channel.fromPath(params.tdb).set { tdb }
 Channel
   .from(file("${params.mzmldef}").readLines())
   .map { it -> it.tokenize('\t') }
   .map { it -> [file(it[0]), file(it[0]).baseName.replaceFirst(/.*\/(\S+)\.mzML/, "\$1"), it[1]] } // file, samplename, fn_dbid
+  .combine(tdb)
+  .combine(mods)
   .set { mzml_msgf }
 
 
 process msgfPlus {
 
   input:
-  set file(x), val(sample), val(dbid) from mzml_msgf
-  file('tdb.fa') from Channel.fromPath(params.tdb)
-  file mods
+  set file(x), val(sample), val(dbid), file(tdb), file(mods) from mzml_msgf
 
   output:
   set file(x), val(sample), file("search.mzid"), val(dbid) into mzml_mzid
   
   """
-  msgf_plus -Xmx16g -d tdb.fa -s "$x" -o search.mzid -thread 12 -mod $mods -tda 0 -t 50.0ppm -ti -1,2 -m 0 -inst ${msgfinstrument} -e 1 -protocol ${msgfprotocol} -ntt 2 -minLength 7 -maxLength 50 -minCharge 2 -maxCharge 6 -n 1 -addFeatures 1
+  msgf_plus -Xmx16g -d "${tdb}" -s "$x" -o search.mzid -thread 12 -mod "${mods}" -tda 0 -t 50.0ppm -ti -1,2 -m 0 -inst ${msgfinstrument} -e 1 -protocol ${msgfprotocol} -ntt 2 -minLength 7 -maxLength 50 -minCharge 2 -maxCharge 6 -n 1 -addFeatures 1
   rm tdb.c*
   """
 }
