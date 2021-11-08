@@ -23,7 +23,7 @@ if (params.isobaric) {
   mods = file("${baseDir}/data/labelfreemods.txt")
 }
 plextype = params.isobaric ? params.isobaric.replaceFirst(/[0-9]+plex/, "") : 'false'
-msgfprotocol = [tmt:4, itraq:2, false:0][plextype]
+msgfprotocol = 0 // automatic protocol
 instrument = params.instrument ? params.instrument : false
 msgfinstrument = [velos:1, qe:3, false:0][instrument]
 
