@@ -1,0 +1,6 @@
+NumMods=2
+C2H3N1O1,C,fix,any,Carbamidomethyl
+O1,M,opt,any,Oxidation
+304.207146,*,fix,N-term,TMTpro
+304.207146,K,fix,any,TMTpro
+
