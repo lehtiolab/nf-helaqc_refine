@@ -15,7 +15,6 @@ params.activation = 'hcd'
 params.outdir = 'results'
 params.tdb = false
 params.instrument = false
-params.pwizcontainer = 'quay.io/biocontainers/proteowizard:3_0_9992--h2d50403_2'
 
 if (params.isobaric) {
   mods = file([itraq8plex: "${baseDir}/data/itraq8mods.txt", itraq4plex: "${baseDir}/data/itraq4mods.txt", tmt10plex: "${baseDir}/data/tmtmods.txt", tmt6plex: "${baseDir}/data/tmtmods.txt", tmtpro: "${baseDir}/data/tmt16mods.txt"][params.isobaric])
@@ -56,7 +55,6 @@ process msgfPlus {
 }
 
 process mzRefine {
-  container params.pwizcontainer
 
   publishDir "${params.outdir}", mode: 'copy', overwrite: true
 
