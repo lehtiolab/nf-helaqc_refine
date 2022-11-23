@@ -10,7 +10,7 @@ Jorrit Boekel @glormph
 */
 
 
-params.isobaric = false
+params.isobaric = 'lf'
 params.activation = 'hcd'
 params.outdir = 'results'
 params.tdb = false
@@ -22,10 +22,10 @@ modsfn = [
   tmt10plex: "${baseDir}/data/tmtmods.txt",
   tmt6plex: "${baseDir}/data/tmtmods.txt",
   tmtpro: "${baseDir}/data/tmt16mods.txt",
-  false: "${baseDir}/data/labelfreemods.txt",
+  lf: "${baseDir}/data/labelfreemods.txt",
 ][params.isobaric]
 
-plextype = params.isobaric ? params.isobaric.replaceFirst(/[0-9]+plex/, "") : 'false'
+plextype = params.isobaric != 'lf' ? params.isobaric.replaceFirst(/[0-9]+plex/, "") : 'false'
 msgfprotocol = 0 // automatic protocol
 instrument = params.instrument ? params.instrument : false
 msgfinstrument = [velos:1, qe:3, false:0][instrument]
