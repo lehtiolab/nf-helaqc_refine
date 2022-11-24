@@ -14,7 +14,7 @@ params.isobaric = 'lf'
 params.activation = 'hcd'
 params.outdir = 'results'
 params.tdb = false
-params.instrument = false
+params.instrument = 0
 
 modsfn = [
   itraq8plex: "${baseDir}/data/itraq8mods.txt",
@@ -28,7 +28,7 @@ modsfn = [
 plextype = params.isobaric != 'lf' ? params.isobaric.replaceFirst(/[0-9]+plex/, "") : 'false'
 msgfprotocol = 0 // automatic protocol
 instrument = params.instrument ? params.instrument : false
-msgfinstrument = [velos:1, qe:3, false:0][instrument]
+msgfinstrument = [lowres:0, velos:1, qe:3, qehf: 3, 0:0, qehfx:1, lumos:1, timstof:2][instrument]
 
 
 /* input is mzmldef file, tsv:
