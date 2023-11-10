@@ -22,6 +22,8 @@ modsfn = [
   tmt10plex: "${baseDir}/data/tmtmods.txt",
   tmt6plex: "${baseDir}/data/tmtmods.txt",
   tmtpro: "${baseDir}/data/tmt16mods.txt",
+  tmt16plex: "${baseDir}/data/tmt16mods.txt",
+  tmt18plex: "${baseDir}/data/tmt16mods.txt",
   lf: "${baseDir}/data/labelfreemods.txt",
 ][params.isobaric]
 
