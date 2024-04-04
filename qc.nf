@@ -13,7 +13,7 @@ nextflow.enable.dsl = 1
 
 params.mzml = false
 params.db = false
-params.mods = false
+params.mods = 'data/labelfreemods.txt'
 params.instrument = false
 params.noquant = false
 params.qval_modelthreshold = false
