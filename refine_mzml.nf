@@ -9,6 +9,7 @@ spectra.
 Jorrit Boekel @glormph
 */
 
+nextflow.enable.dsl = 1
 
 params.isobaric = 'lf'
 params.activation = 'hcd'

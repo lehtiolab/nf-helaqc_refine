@@ -9,6 +9,8 @@ Usage:
 nextflow run qc.nf 
 */
 
+nextflow.enable.dsl = 1
+
 params.mzml = false
 params.db = false
 params.mods = false
