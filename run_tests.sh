@@ -15,6 +15,7 @@ fi
 
 export NXF_VER=23.10.1
 
+curl -s https://get.nextflow.io | bash
 nextflow run -resume -profile docker "${repodir}/refine_mzml.nf" \
 	--input <(cat "${repodir}/test/refine_mzml.txt" | envsubst) \
 	--db "${testdata}/lf.fa" \
