@@ -32,7 +32,7 @@ process msgfPlus {
   msgfprotocol = 0 // automatic protocol
   msgfinstrument = [lowres:0, velos:1, qe:3, qehf: 3, 0:0, qehfx:1, lumos:1, timstof:2][instrument]
   """
-  msgf_plus -Xmx16g -d tdb.fa -s "$x" -o search.mzid -thread 12 -mod "${mods}" -tda 0 -t 50.0ppm -ti -1,2 -m 0 -inst ${msgfinstrument} -e 1 -protocol ${msgfprotocol} -ntt 2 -minLength 7 -maxLength 50 -minCharge 2 -maxCharge 6 -n 1 -addFeatures 1
+  msgf_plus -Xmx${task.memory.toMega()}M -d tdb.fa -s "$x" -o search.mzid -thread 12 -mod "${mods}" -tda 0 -t 50.0ppm -ti -1,2 -m 0 -inst ${msgfinstrument} -e 1 -protocol ${msgfprotocol} -ntt 2 -minLength 7 -maxLength 50 -minCharge 2 -maxCharge 6 -n 1 -addFeatures 1
   rm tdb.c*
   """
 }
