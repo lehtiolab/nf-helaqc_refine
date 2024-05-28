@@ -40,17 +40,17 @@ qcout = {
 
 with open('tpsms') as fp:
     header = next(fp).strip('\n').split('\t')
-    perrorix = header.index('PrecursorError(ppm)')
+    perrorix = header.index('precursor_ppm')
     calc_ms1data = True
     try:
         fwhmix = header.index('FWHM')
     except ValueError:
         print('No FWHM in PSM table, probably --noms1 is specified')
         calc_ms1data = False
-    msgfix = header.index('MSGFScore')
-    rtix = header.index('Retention time(min)')
-    misclix = header.index('missed_cleavage')
-    ionmobix = header.index('Ion mobility(Vs/cm2)')
+    msgfix = header.index('sage_discriminant_score')
+    rtix = header.index('rt')
+    misclix = header.index('missed_cleavages')
+    ionmobix = header.index('ion_mobility')
     use_ionmob = False
     qcpsms = []
     for line in fp:
@@ -66,7 +66,7 @@ with open('tpsms') as fp:
     qcout['precursor_errors'] = calc_boxplot_qs([psm[perrorix] for psm in qcpsms])
     if calc_ms1data:
         qcout['fwhms'] = calc_boxplot_qs([psm[fwhmix] for psm in qcpsms])
-    qcout['msgfscores'] = calc_boxplot_qs([psm[msgfix] for psm in qcpsms])
+    qcout['sagescores'] = calc_boxplot_qs([psm[msgfix] for psm in qcpsms])
     qcout['retention_times'] = calc_boxplot_qs([psm[rtix] for psm in qcpsms])
     if use_ionmob:
         qcout['ionmobilities'] = calc_boxplot_qs([psm[ionmobix] for psm in qcpsms])
