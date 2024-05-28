@@ -54,18 +54,17 @@ process msconvert {
 
 
 process dinosaur {
-
-  when: !params.noquant
+  container "ghcr.io/lehtiolab/nfhelaqc:${workflow.manifest.version}"
 
   input:
-  file mzml from mzml_dino
+  path(mzml)
 
   output:
-  file "dinosaur.features.tsv" into dino_out
+  path("dinosaur.features.tsv")
 
   script:
   """
-  dinosaur --concurrency=${task.cpus * params.threadspercore} --outName="dinosaur" "${mzml}"
+  dinosaur -Xmx${task.memory.toMega()}M --concurrency=${task.cpus} --outName=dinosaur ${mzml}
   """
 }
 
