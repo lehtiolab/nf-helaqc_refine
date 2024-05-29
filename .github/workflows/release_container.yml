@@ -24,9 +24,16 @@ jobs:
         id: get-version
         run: echo "wf_version=$(nextflow config -value manifest.version)" >> $GITHUB_OUTPUT
 
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build container
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: lehtiolab/nfhelaqc:${{ steps.get-version.outputs.wf_version }}
+          tags: ghcr.io/lehtiolab/nfhelaqc:${{ steps.get-version.outputs.wf_version }}
