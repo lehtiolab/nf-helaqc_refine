@@ -221,8 +221,20 @@ workflow {
   fragtol = params.prectol ?: tolerances.fragment[params.instrument]
 
   if (params.raw) {
-    filters = params.filters.tokenize(';').collect() { x -> "--filter ${x}" }.join(' ')
-    options = params.options.tokenize(';').collect() {x -> "--${x}"}.join(' ')
+    def std_filters = ['"peakPicking true 2"', '"precursorRefine"']
+    def additional_filters = [
+        timstof: ['"scanSumming precursorTol=0.02 scanTimeTol=10 ionMobilityTol=0.1"'],
+        'qe': []
+    ][params.instrument]
+    filters = params.filters ? params.filters.tokenize(';') : std_filters + additional_filters
+    filters = filters.collect() { x -> "--filter ${x}" }.join(' ')
+
+    def std_options = [
+        timstof: ['combineIonMobilitySpectra'],
+        qe: []
+    ][params.instrument]
+    options = params.options ? params.options.tokenize(';') : std_options
+    options = options.collect() {x -> "--${x}"}.join(' ')
     channel.fromPath(params.raw)
     | map { [it, filters, options] }
     | msconvert
