@@ -1,10 +1,14 @@
-FROM nfcore/base
-LABEL description="Docker image containing all requirements for lehtiolab/helaqc pipeline"
+FROM mambaorg/micromamba:1.5.8-bookworm
+# This only installs dinosaur
+LABEL description="Additional stuff and dinosaur which does not work in biocontainer due to lack of fontconfig"
 
-COPY environment.yml /
+ARG NEW_MAMBA_USER=mambauser
+ARG NEW_MAMBA_USER_ID=1
+ARG NEW_MAMBA_USER_GID=1
+USER root
 
-RUN conda env create -f /environment.yml && conda clean -a
-ENV PATH /opt/conda/envs/helaqc-2.2/bin:$PATH
+# to have envsubst, ps
+RUN apt update && apt install -y gettext-base procps
 
-# For dinosaur
-RUN apt update && apt install -y fontconfig && apt clean -y
+# for dinosaur
+RUN micromamba install -y -n base -c conda-forge -c bioconda dinosaur=1.2.0
