@@ -22,7 +22,7 @@ jobs:
 
       - name: Get version
         id: get-version
-        run: wf_version=$(nextflow config -value manifest.version)
+        run: echo "wf_version=$(nextflow config -value manifest.version)" >> $GITHUB_OUTPUT
 
       - name: Build container
         uses: docker/build-push-action@v5
