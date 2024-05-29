@@ -17,7 +17,10 @@ cd "${rundir}"
 export NXF_VER=23.10.1
 
 curl -s https://get.nextflow.io | bash
-docker build -t nfhelaqc_test -f ${repodir}/Dockerfile ${repodir}
+docker buildx -t nfhelaqc_test \
+	-f ${repodir}/Dockerfile \
+       	--cache-to type=gha \
+       	--cache-from type=gha ${repodir} 
 
 ./nextflow run -resume -profile test "${repodir}/qc.nf" \
 	--mzml  "${testdata}/lf_phos_fr11_500.mzML" \
