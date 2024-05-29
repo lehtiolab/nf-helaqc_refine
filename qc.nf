@@ -39,7 +39,8 @@ process msconvert {
 
 
 process dinosaur {
-  container "ghcr.io/lehtiolab/nfhelaqc:${workflow.manifest.version}"
+  container params.test ? 'nfhelaqc_test' : \
+    "ghcr.io/lehtiolab/nfhelaqc:${workflow.manifest.version}"
 
   input:
   path(mzml)
@@ -88,7 +89,8 @@ process createSpectraLookup {
 
 
 process sagePrepare {
-  container "ghcr.io/lehtiolab/nfhelaqc:${workflow.manifest.version}"
+  container params.test ? 'nfhelaqc_test' : \
+    "ghcr.io/lehtiolab/nfhelaqc:${workflow.manifest.version}"
 
   input:
   tuple path(tdb), path(ddb), val(prectol), val(fragtol), path('sage.json')
