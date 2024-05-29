@@ -16,10 +16,6 @@ fi
 cd "${rundir}"
 
 
-export NXF_VER=23.10.1
-
-curl -s https://get.nextflow.io | bash
-
 docker buildx build -t nfhelaqc_test \
 	-f ${repodir}/Dockerfile \
 	--load \
@@ -27,14 +23,14 @@ docker buildx build -t nfhelaqc_test \
        	--cache-from type=gha \
        	${repodir} 
 
-./nextflow run -resume -profile test "${repodir}/qc.nf" \
+nextflow run -resume -profile test "${repodir}/qc.nf" \
 	--mzml  "${testdata}/lf_phos_fr11_500.mzML" \
 	--noquant \
 	--pepconf 0.05 --psmconf 0.05 \
 	--db "${testdata}/lf.fa" \
 	--instrument qe
 
-./nextflow run -resume -profile test "${repodir}/refine_mzml.nf" \
+nextflow run -resume -profile test "${repodir}/refine_mzml.nf" \
 	--input <(cat "${repodir}/test/refine_mzml.txt" | envsubst) \
 	--db "${testdata}/lf.fa" \
 	--instrument qe
