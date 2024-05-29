@@ -19,8 +19,10 @@ cd "${rundir}"
 export NXF_VER=23.10.1
 
 curl -s https://get.nextflow.io | bash
+
 docker buildx build -t nfhelaqc_test \
 	-f ${repodir}/Dockerfile \
+	--load \
        	--cache-to type=gha \
        	--cache-from type=gha \
        	${repodir} 
