@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 rundir=$(pwd)
 export repodir=$(dirname "$(realpath -s "$0")")
 export testdir="${repodir}/tests/"
-export testdata="${rundir}/static-resources/test-data/ddamsproteomics"
+testdata_base="${rundir}/static-resources"
+export testdata="${testdata_base}/test-data/ddamsproteomics"
 
-if [ -e "${testdata}" ]
+if [ -e "${testdata_base}" ]
 then
-    cd "${testdata}" && git checkout ddamsproteomics_test_data
+    cd "${testdata_base}" && git checkout ddamsproteomics_test_data
 else
     git clone --single-branch --branch ddamsproteomics_test_data https://github.com/lehtiolab/static-resources
 fi
