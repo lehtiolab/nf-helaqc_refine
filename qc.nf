@@ -56,7 +56,7 @@ process dinosaur {
 
 
 process makeDDB {
-  container 'quay.io/biocontainers/msstitch:3.15--pyhdfd78af_0'
+  container 'quay.io/biocontainers/msstitch:3.16--pyhdfd78af_0'
  
   input:
   path(db)
@@ -71,6 +71,7 @@ process makeDDB {
 
 
 process createSpectraLookup {
+  container 'quay.io/biocontainers/msstitch:3.16--pyhdfd78af_0'
 
   publishDir "${params.outdir}", mode: 'copy', overwrite: true
 
@@ -149,6 +150,7 @@ def get_field_nr(fn, pattern) {
 }
 
 process createPSMTable {
+  container 'quay.io/biocontainers/msstitch:3.16--pyhdfd78af_0'
 
   publishDir "${params.outdir}", mode: 'copy', overwrite: true, saveAs: { it == "tpsmtable" ? "psmtable.txt" : null }
 
@@ -174,6 +176,7 @@ process createPSMTable {
 
 
 process peptidesProteinsReport {
+  container 'quay.io/biocontainers/msstitch:3.16--pyhdfd78af_0'
 
   publishDir "${params.outdir}", mode: 'copy', overwrite: true
 
