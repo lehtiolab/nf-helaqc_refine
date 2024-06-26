@@ -15,8 +15,6 @@ nextflow.enable.dsl = 2
 
 process msconvert {
 
-  cpus = 4 // FIXME 4 for TIMSTOF, XX for normal?
-
   input:
   tuple path(raw), val(filters), val(options)
 
@@ -70,7 +68,7 @@ process makeDDB {
 }
 
 
-process createSpectraLookup {
+process createNewSpectraLookup {
   container 'quay.io/biocontainers/msstitch:3.16--pyhdfd78af_0'
 
   publishDir "${params.outdir}", mode: 'copy', overwrite: true
@@ -265,7 +263,7 @@ workflow {
 
   mzml
   | combine(dino)
-  | createSpectraLookup
+  | createNewSpectraLookup
     
 
   tdb
@@ -279,7 +277,7 @@ workflow {
   sage.out.perco
   | percolator
   | combine(sage.out.tsv)
-  | combine(createSpectraLookup.out)
+  | combine(createNewSpectraLookup.out)
   | combine(tdb)
   | combine(makeDDB.out)
   | map { it + [params.noquant, params.psmconf, params.pepconf] }
