@@ -24,6 +24,7 @@ docker buildx build -t nfhelaqc_test \
        	${repodir} 
 
 nextflow run -resume -profile test "${repodir}/qc.nf" \
+        --dda \
 	--mzml  "${testdata}/lf_phos_fr11_500.mzML" \
 	--noquant \
 	--pepconf 0.05 --psmconf 0.05 \
