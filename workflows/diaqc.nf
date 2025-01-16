@@ -11,16 +11,19 @@ process DiaNN {
   q-value cutoff seems 0.01 by default
   */
   
-  container 'biocontainers/diann:1.8.1_cv2'
+  //container 'biocontainers/diann:1.8.1_cv2'
+  container 'michelmoser/diann-1.9.2'
   
   input:
   tuple path(raw), path(lib), path(tdb)
   
   output:
-  tuple path('out.txt'), path('out.stats.tsv')
+  tuple path('out.txt'), path('out.stats.tsv'), emit: tsv
+  path('out.parquet'), emit: pq
+
   script:
   """
-  diann --threads 16 \
+  diann-linux --threads 16 \
     --f $raw \
      --lib $lib \
     --fasta $tdb \
@@ -41,17 +44,23 @@ process prepareNumbers {
   tuple path('precursors'), path('stats')
 
   output:
-  tuple path('precursors'), path('peptides'), eval('cat nrprots'), eval('cat nrpsms'), eval('wc -l < <(tail -n+2 peptides)')
+  tuple path('peptides'), eval('cat nrprots'), eval('cat nrpsms'), eval('wc -l < <(tail -n+2 peptides)'), eval('cat fwhmscans')
 
   script:
   """
   cut -f ${Utils.get_field_nr("stats", "Proteins.Identified")} stats | tail -n1 > nrprots
   cut -f ${Utils.get_field_nr("stats", "Precursors.Identified")} stats | tail -n1 > nrpsms
+  cut -f ${Utils.get_field_nr("stats", "FWHM.Scans")} stats | tail -n1 > fwhmscans
   
   bioawk -v s=${Utils.get_field_nr("precursors", "Modified.Sequence")} -v g=${Utils.get_field_nr("precursors", "Genes")} -v m=${Utils.get_field_nr("precursors", "Ms1.Area")} -t \
     '{print \$s,\$g,\$m }' precursors > pepfields
   head -n1 pepfields > peptides
-  tail -n+2 pepfields | sort -k1b,1 -u >> peptides
+  # Sort to get highest MS1 (col3, numeric, reverse) for each peptide
+  # awk does the uniqueing since BSD? sort in container did not use the column 
+  # nr 1 only for some reason to unique. Awk explanation in link
+  # (field nr1 !not in _variable, add++)
+  # https://stackoverflow.com/questions/1915636/is-there-a-way-to-uniq-by-column
+  tail -n+2 pepfields | sort -k1b,1 -k3,3nr | bioawk -t '!_[\$1]++' >> peptides
   """
 }
 
@@ -64,30 +73,41 @@ workflow DIAQC {
   raw
   library
   db 
+  instrument
 
   main:
   
-  raw_c = channel.fromPath(raw)
+  rawfn = file(raw)
+  raw_c = channel.from(rawfn)
 
-  if (file(raw).extension == '.raw') {
+  if (rawfn.extension == 'raw') {
     raw_c
-    | map { [it, false, false] }
+    | map { [it, instrument, false, false] }
     | msconvert
+    | set { diann_in }
+
+    diann_in
+    | map { [it, file('NO__FILE')] }
     | createNewSpectraLookup
     | set { scandb }
-  } else {
+
+  } else if (rawfn.extension == 'd') {
+    raw_c
+    | set { diann_in }
     raw_c
     | set { scandb }
   }
 
-  raw_c 
+  diann_in
   | combine(channel.fromPath(library))
   | combine(channel.fromPath(db))
   | DiaNN
+  DiaNN.out.tsv
   | combine(scandb)
   | prepareNumbers
 
   emit:
-  prepareNumbers.out
-  | combine(raw_c)
+  DiaNN.out.pq
+  | combine(prepareNumbers.out)
+  | combine(scandb)
 }

@@ -16,10 +16,11 @@ include { DIAQC } from './workflows/diaqc.nf'
 
 
 process reportingQC {
-  container 'quay.io/biocontainers/msstitch:3.16--pyhdfd78af_0'
+  container params.test ? 'nfhelaqc_test' : \
+    "ghcr.io/lehtiolab/nfhelaqc:${workflow.manifest.version}"
 
   input:
-  tuple val(acq_method), path('tpsms'), path('peptable.txt'), val(nrprots), val(nrpsms), val(nrpeps), path(scan_db)
+  tuple val(acq_method), path('tpsms'), path('peptable.txt'), val(nrprots), val(nrpsms), val(nrpeps), val(fwhmscans), path(scan_db)
 
   output:
   path('qc.json')
@@ -28,7 +29,7 @@ process reportingQC {
   protfield = acq_method == 'dia' ? 'Genes' : 'Master protein(s)'
   """
   parse_output.py --acquisition $acq_method \
-    --scandb $scan_db --nrpsms $nrpsms --nrpeps $nrpeps \
+    --scandb $scan_db --nrpsms $nrpsms --nrpeps $nrpeps --peaks_on_lc $fwhmscans \
     --nruni "\$(cut -f${Utils.get_field_nr('peptable.txt', protfield)} peptable.txt | grep -v ';' | wc -l)" \
     --nrprot $nrprots
   """
@@ -39,13 +40,13 @@ workflow {
 
   if (params.dda) {
     DDAQC(params.raw, params.mzml, params.instrument, params.db, params.mods, params.prectol, params.filters,
-      params.options, params.noquant, params.psmconf, params.pepconf)
+      params.options, params.psmconf, params.pepconf)
     | map { ['dda', it].flatten() }
     | reportingQC
   
   } else if (params.dia) {
   
-    DIAQC(params.raw, params.library, params.db)
+    DIAQC(params.raw,  params.library, params.db, params.instrument)
     | map { ['dia', it].flatten() }
     | reportingQC
   }

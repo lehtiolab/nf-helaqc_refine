@@ -2,7 +2,7 @@
 process msconvert {
 
   input:
-  tuple path(raw), val(usr_filters), val(usr_options)
+  tuple path(raw), val(instrument), val(usr_filters), val(usr_options)
 
   output:
   path(outfile)
