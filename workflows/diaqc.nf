@@ -71,33 +71,53 @@ workflow DIAQC {
 
   take:
   raw
+  mzml
   library
   db 
   instrument
 
   main:
   
-  rawfn = file(raw)
-  raw_c = channel.from(rawfn)
+  if (raw) {
+    channel.fromPath(raw)
+    | branch { 
+      thermo: it.extension == 'raw' 
+      bruker: it.extension == 'd'
+      }
+    | set { raw_c }
 
-  if (rawfn.extension == 'raw') {
-    raw_c
+    raw_c.thermo
     | map { [it, instrument, false, false] }
     | msconvert
+    | concat(raw_c.bruker)
     | set { diann_in }
 
-    diann_in
-    | map { [it, file('NO__FILE')] }
-    | createNewSpectraLookup
-    | set { scandb }
+    raw_c.bruker
+    | set { raw_bruker }
 
-  } else if (rawfn.extension == 'd') {
-    raw_c
+    msconvert.out
+    | set { mzml_c }
+
+  } else if (mzml) {
+    raw_bruker = channel.empty()
+
+    channel.fromPath(mzml)
+    | set { mzml_c }
+
+    mzml_c
     | set { diann_in }
-    raw_c
-    | set { scandb }
+
+  } else {
+    exit 1, 'Must either input a --raw file.raw, a --raw file.d, or an --mzml file.mzML'
   }
 
+
+  mzml_c
+  | map { [it, file('NO__FILE')] }
+  | createNewSpectraLookup
+  | concat(raw_bruker)
+  | set { scandb }
+    
   diann_in
   | combine(channel.fromPath(library))
   | combine(channel.fromPath(db))

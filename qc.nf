@@ -46,7 +46,7 @@ workflow {
   
   } else if (params.dia) {
   
-    DIAQC(params.raw,  params.library, params.db, params.instrument)
+    DIAQC(params.raw,  params.mzml, params.library, params.db, params.instrument)
     | map { ['dia', it].flatten() }
     | reportingQC
   }
