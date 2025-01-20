@@ -30,6 +30,7 @@ process DiaNN {
     --window 8 \
     --mass-acc 15 \
     --mass-acc-ms1 15 \
+    --missed-cleavages 2 \
     --var-mods 2 \
     --out out.txt
   """

@@ -112,8 +112,6 @@ process percolator {
 process createPSMTable {
   container 'quay.io/biocontainers/msstitch:3.16--pyhdfd78af_0'
 
-  publishDir "${params.outdir}", mode: 'copy', overwrite: true, saveAs: { it == "tpsmtable" ? "psmtable.txt" : null }
-
   input:
   tuple path('perco'), path('psms'), val(instrumenttype), path(lookup), path(db), path(ddb), val(psmconf), val(pepconf)
 
@@ -141,8 +139,6 @@ process createPSMTable {
 
 process proteinTables {
   container 'quay.io/biocontainers/msstitch:3.16--pyhdfd78af_0'
-
-  publishDir "${params.outdir}", mode: 'copy', overwrite: true
 
   input:
   tuple path('tpsms'), path('dpsms'), path('peptable.txt'), path('dpeptides')

@@ -51,4 +51,6 @@ workflow {
     | reportingQC
   }
 
+  reportingQC.out
+  | subscribe { it.copyTo("${params.outdir}/${it.baseName}.${it.extension}") }  
 }
