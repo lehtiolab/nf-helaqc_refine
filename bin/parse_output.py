@@ -1,18 +1,24 @@
 #!/usr/bin/env python3
 
+import os
+import re
 import sys
 import json
-from numpy import quantile
+import argparse
 from sqlite3 import Connection
+from pyarrow import compute as pc
+from pyarrow import parquet as pq
+from pyarrow import csv as pcsv
+
 
 def calc_boxplot_qs(vals):
-    vals = [float(x) for x in vals if x != 'NA']
+    filt = pc.is_finite(vals)
+    vals = vals.filter(filt)
     if len(vals):
-        q1 = quantile(vals, 0.25)
-        q2 = quantile(vals, 0.5)
-        q3 = quantile(vals, 0.75)
-        iqr = q3 - q1
-        return {'q1': q1, 'q2': q2, 'q3': q3, 'upper': q3 + 1.5 * iqr, 'lower': q1 - 1.5 * iqr}
+        q1 = pc.quantile(vals, q=0.25)[0].as_py()
+        q2 = pc.quantile(vals, q=0.5)[0].as_py()
+        q3 = pc.quantile(vals, q=0.75)[0].as_py()
+        return {'q1': q1, 'q2': q2, 'q3': q3, }
     else:
         return False
 
@@ -20,14 +26,40 @@ def calc_boxplot_qs(vals):
 def parse_wc_output(wc_out):
     return int(wc_out[:wc_out.index(' ')])
 
+parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
+parser.add_argument('--scandb', dest='scandb')
+parser.add_argument('--acquisition', dest='acq')
+parser.add_argument('--nrpsms', dest='numpsms', type=int)
+parser.add_argument('--nrpeps', dest='numpeps', type=int)
+parser.add_argument('--nruni', dest='numuni', type=int)
+parser.add_argument('--nrprot', dest='numprot', type=int)
+parser.add_argument('--peaks_on_lc', dest='peaks_fwhm', type=float)
+args = parser.parse_args(sys.argv[1:])
 
-lookup = sys.argv[1]
-numpsms = parse_wc_output(sys.argv[2]) - 1
-numpeps = parse_wc_output(sys.argv[3]) - 1
-numuni = int(sys.argv[4]) - 1
-numprot = parse_wc_output(sys.argv[5]) - 1
-with Connection(lookup) as con:
-    nrscans = con.execute('SELECT COUNT(*) FROM mzml').fetchone()[0]
+
+if args.acq == 'dda':
+    numpsms = args.numpsms - 1
+    numpeps = args.numpeps - 1
+    numuni = args.numuni - 1
+    numprot = args.numprot - 1
+else:
+    numpsms = args.numpsms
+    numpeps = args.numpeps
+    numuni = args.numuni
+    numprot = args.numprot
+
+
+if os.path.isdir(args.scandb):
+    scansql = 'SELECT COUNT(*) FROM Frames'
+    scandb = os.path.join(args.scandb, 'analysis.tdf')
+else:
+    # msstitch sqlite file
+    scansql = 'SELECT COUNT(*) FROM mzml'
+    scandb = args.scandb
+
+#if os.path.exists(args.nrscans_or_db) and os.path.isfile(args.nrscans_or_db):
+con = Connection(scandb)
+nrscans = con.execute(scansql).fetchone()[0]
 
 qcout = {
     'nrpsms': numpsms,
@@ -38,45 +70,58 @@ qcout = {
     'missed_cleavages': {},
     }
 
-with open('tpsms') as fp:
-    header = next(fp).strip('\n').split('\t')
-    perrorix = header.index('precursor_ppm')
-    calc_ms1data = True
-    try:
-        fwhmix = header.index('FWHM')
-    except ValueError:
-        print('No FWHM in PSM table, probably --noms1 is specified')
-        calc_ms1data = False
-    msgfix = header.index('sage_discriminant_score')
-    rtix = header.index('rt')
-    misclix = header.index('missed_cleavages')
-    ionmobix = header.index('ion_mobility')
-    use_ionmob = False
-    qcpsms = []
-    for line in fp:
-        line = line.strip('\n').split('\t')
-        if line[ionmobix] != 'NA':
-            use_ionmob = True
-        qcpsms.append(line)
-        if int(line[misclix]) < 4:
-            try:
-                qcout['missed_cleavages'][line[misclix]] += 1
-            except KeyError:
-                qcout['missed_cleavages'][line[misclix]] = 1
-    qcout['precursor_errors'] = calc_boxplot_qs([psm[perrorix] for psm in qcpsms])
-    if calc_ms1data:
-        qcout['fwhms'] = calc_boxplot_qs([psm[fwhmix] for psm in qcpsms])
-    qcout['sagescores'] = calc_boxplot_qs([psm[msgfix] for psm in qcpsms])
-    qcout['retention_times'] = calc_boxplot_qs([psm[rtix] for psm in qcpsms])
-    if use_ionmob:
-        qcout['ionmobilities'] = calc_boxplot_qs([psm[ionmobix] for psm in qcpsms])
+headers = {
+    'dia': {
+        'p_error': False,
+        'fwhm': False,
+		'injtime': False,
+        'rt': 'RT',
+        'score': 'Q.Value',
+        'ionmob': 'IM',
+        'ms1': 'Ms1.Area',
+        'seq': 'Stripped.Sequence',
+        'fwhm': 'FWHM',
+        },
+    
+    'dda': {
+        'p_error': 'precursor_ppm',
+        'fwhm': 'FWHM',
+        'seq': 'bareseq',
+        'rt': 'rt',
+        'score': 'sage_discriminant_score',
+        'ionmob': 'ion_mobility',
+        'ms1': 'MS1 area (highest of all PSMs)',
+        'injtime': 'Ion injection time(ms)',
+        'matchedpeaks': 'matched_peaks',
+        },
+    }[args.acq]
 
+# FIXME Q.Value is not a good score thing? in DIA
 
-if calc_ms1data:
-    with open('peptable.txt') as fp:
-        header = next(fp).strip('\n').split('\t')
-        areaix = header.index('MS1 area (highest of all PSMs)')
-        qcout['peptide_areas'] = calc_boxplot_qs([x.strip('\n').split('\t')[areaix] for x in fp])
+if args.acq == 'dia':
+    precursors = pq.read_table('tpsms')
+    qcout['peaks_fwhm'] = args.peaks_fwhm
+elif args.acq == 'dda':
+    precursors = pcsv.read_csv('tpsms', parse_options=pcsv.ParseOptions(delimiter='\t'))
+    precursors = precursors.add_column(0, 'bareseq', pc.replace_substring_regex(precursors['peptide'], '[^A-Z]', ''))
+    qcout['ioninj'] = calc_boxplot_qs(precursors[headers['injtime']])
+    qcout['matchedpeaks'] = calc_boxplot_qs(precursors[headers['matchedpeaks']])
+
+miscl = pc.value_counts(pc.count_substring_regex(precursors[headers['seq']], '[KR][^P]'))
+qcout['missed_cleavages'] = {x['values'].as_py(): x['counts'].as_py() for x in miscl}
+qcout['scores'] = calc_boxplot_qs(precursors[headers['score']])
+qcout['retention_times'] = calc_boxplot_qs(precursors[headers['rt']])
+if headers['p_error']:
+    qcout['precursor_errors'] = calc_boxplot_qs(precursors[headers['p_error']])
+
+qcout['fwhms'] = calc_boxplot_qs(precursors[headers['fwhm']])
+ionmob = calc_boxplot_qs(precursors[headers['ionmob']])
+if ionmob and ionmob['q2'] != 0.0:
+    qcout['ionmobilities'] = ionmob
+
+# Peptide MS1
+peps = pcsv.read_csv('peptable.txt', parse_options=pcsv.ParseOptions(delimiter='\t'))
+qcout['peptide_areas'] = calc_boxplot_qs(peps[headers['ms1']])
 
 
 with open('qc.json', 'w') as fp:
