@@ -15,7 +15,7 @@ process DiaNN {
   container 'michelmoser/diann-1.9.2'
   
   input:
-  tuple path(raw), path(lib), path(tdb)
+  tuple path(raw), path(lib), path(tdb), val(ms1acc), val(ms2acc)
   
   output:
   tuple path('out.txt'), path('out.stats.tsv'), emit: tsv
@@ -28,8 +28,8 @@ process DiaNN {
      --lib $lib \
     --fasta $tdb \
     --window 8 \
-    --mass-acc 15 \
-    --mass-acc-ms1 15 \
+    --mass-acc-ms1 $ms1acc \
+    --mass-acc $ms2acc \
     --missed-cleavages 2 \
     --var-mods 2 \
     --out out.txt
@@ -112,6 +112,8 @@ workflow DIAQC {
     exit 1, 'Must either input a --raw file.raw, a --raw file.d, or an --mzml file.mzML'
   }
 
+  ms1acc = [timstof: 20, orbitrap: 10, velos: 10, qe: 10]
+  ms2acc = 20
 
   mzml_c
   | map { [it, file('NO__FILE')] }
@@ -122,6 +124,7 @@ workflow DIAQC {
   diann_in
   | combine(channel.fromPath(library))
   | combine(channel.fromPath(db))
+  | map { [it, ms1acc, ms2acc].flatten() }
   | DiaNN
   DiaNN.out.tsv
   | combine(scandb)
