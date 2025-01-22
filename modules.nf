@@ -17,14 +17,18 @@ process msconvert {
   std_filters = ['"peakPicking true 2"', '"precursorRefine"']
   def additional_filters = [
     timstof: ['"scanSumming precursorTol=0.02 scanTimeTol=10 ionMobilityTol=0.1"'],
-    qe: []
+    qe: [],
+    velos: [],
+    astral: [],
   ]
   filters = usr_filters ? usr_filters.tokenize(';') : std_filters + additional_filters[instrument]
   filters = filters.collect() { x -> "--filter ${x}" }.join(' ')
 
   std_options = [
     timstof: ['combineIonMobilitySpectra'],
-    qe: []
+    qe: [],
+    velos: [],
+    astral: [],
   ]
   options = usr_options ? usr_options.tokenize(';') : std_options[instrument]
   options = options.collect() {x -> "--${x}"}.join(' ')
