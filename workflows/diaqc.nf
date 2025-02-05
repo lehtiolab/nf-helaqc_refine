@@ -112,7 +112,7 @@ workflow DIAQC {
     exit 1, 'Must either input a --raw file.raw, a --raw file.d, or an --mzml file.mzML'
   }
 
-  ms1acc = [timstof: 20, orbitrap: 10, velos: 10, qe: 10]
+  ms1acc = [timstof: 20, orbitrap: 10, velos: 10, qe: 10][instrument]
   ms2acc = 20
 
   mzml_c
