@@ -52,16 +52,16 @@ process prepareNumbers {
   cut -f ${Utils.get_field_nr("stats", "Proteins.Identified")} stats | tail -n1 > nrprots
   cut -f ${Utils.get_field_nr("stats", "Precursors.Identified")} stats | tail -n1 > nrpsms
   cut -f ${Utils.get_field_nr("stats", "FWHM.Scans")} stats | tail -n1 > fwhmscans
-  
-  bioawk -v s=${Utils.get_field_nr("precursors", "Modified.Sequence")} -v g=${Utils.get_field_nr("precursors", "Genes")} -v m=${Utils.get_field_nr("precursors", "Ms1.Area")} -t \
-    '{print \$s,\$g,\$m }' precursors > pepfields
+ 
+  bioawk -v s=${Utils.get_field_nr("precursors", "Modified.Sequence")} -v b=${Utils.get_field_nr("precursors", "Stripped.Sequence")} -v g=${Utils.get_field_nr("precursors", "Genes")} -v m=${Utils.get_field_nr("precursors", "Ms1.Area")} -t \
+    '{print \$s,\$b,\$g,\$m }' precursors > pepfields
   head -n1 pepfields > peptides
   # Sort to get highest MS1 (col3, numeric, reverse) for each peptide
   # awk does the uniqueing since BSD? sort in container did not use the column 
   # nr 1 only for some reason to unique. Awk explanation in link
   # (field nr1 !not in _variable, add++)
   # https://stackoverflow.com/questions/1915636/is-there-a-way-to-uniq-by-column
-  tail -n+2 pepfields | sort -k1b,1 -k3,3nr | bioawk -t '!_[\$1]++' >> peptides
+  tail -n+2 pepfields | sort -k1b,1 -k4,4nr | bioawk -t '!_[\$1]++' >> peptides
   """
 }
 
