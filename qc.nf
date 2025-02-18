@@ -20,7 +20,7 @@ process reportingQC {
     "ghcr.io/lehtiolab/nfhelaqc:${workflow.manifest.version}"
 
   input:
-  tuple val(acq_method), path('tpsms'), path('peptable.txt'), val(nrprots), val(nrpsms), val(nrpeps), val(fwhmscans), path(scan_db)
+  tuple val(acq_method), path('tpsms'), path('peptable.txt'), val(nrprots), val(nrpsms), val(nrpeps), val(fwhmscans), path(scan_db), val(trackedpeptides)
 
   output:
   path('qc.json')
@@ -31,23 +31,26 @@ process reportingQC {
   parse_output.py --acquisition $acq_method \
     --scandb $scan_db --nrpsms $nrpsms --nrpeps $nrpeps --peaks_on_lc $fwhmscans \
     --nruni "\$(cut -f${Utils.get_field_nr('peptable.txt', protfield)} peptable.txt | grep -v ';' | wc -l)" \
-    --nrprot $nrprots
+    --nrprot $nrprots \
+    ${trackedpeptides ? "--trackedpeptides ${trackedpeptides.join(' ')}" :''}
   """
 }
 
 
 workflow {
 
+  trackedpeptides = params.trackedpeptides ? params.trackedpeptides.tokenize(';') : false
   if (params.dda) {
     DDAQC(params.raw, params.mzml, params.instrument, params.db, params.mods, params.prectol, params.filters,
       params.options, params.psmconf, params.pepconf)
-    | map { ['dda', it].flatten() }
+    | map { ['dda', it].flatten() + [trackedpeptides] }
     | reportingQC
   
   } else if (params.dia) {
   
     DIAQC(params.raw,  params.mzml, params.library, params.db, params.instrument)
-    | map { ['dia', it].flatten() }
+    | map { ['dia', it].flatten() + [trackedpeptides] }
+|view()
     | reportingQC
   }
 

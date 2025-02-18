@@ -5,6 +5,7 @@ import re
 import sys
 import json
 import argparse
+from collections import defaultdict
 from sqlite3 import Connection
 from pyarrow import compute as pc
 from pyarrow import parquet as pq
@@ -34,6 +35,7 @@ parser.add_argument('--nrpeps', dest='numpeps', type=int)
 parser.add_argument('--nruni', dest='numuni', type=int)
 parser.add_argument('--nrprot', dest='numprot', type=int)
 parser.add_argument('--peaks_on_lc', dest='peaks_fwhm', type=float)
+parser.add_argument('--trackedpeptides', dest='trackpep', nargs='+', default=[])
 args = parser.parse_args(sys.argv[1:])
 
 
@@ -76,6 +78,7 @@ headers = {
         'fwhm': False,
 		'injtime': False,
         'rt': 'RT',
+        'ch': 'Precursor.Charge',
         'score': 'Q.Value',
         'ionmob': 'IM',
         'ms1': 'Ms1.Area',
@@ -87,6 +90,7 @@ headers = {
         'p_error': 'precursor_ppm',
         'fwhm': 'FWHM',
         'seq': 'bareseq',
+        'ch': 'charge',
         'rt': 'rt',
         'score': 'sage_discriminant_score',
         'ionmob': 'ion_mobility',
@@ -122,6 +126,17 @@ if ionmob and ionmob['q2'] != 0.0:
 # Peptide MS1
 peps = pcsv.read_csv('peptable.txt', parse_options=pcsv.ParseOptions(delimiter='\t'))
 qcout['peptide_areas'] = calc_boxplot_qs(peps[headers['ms1']])
+
+qcout['trackedpeptides'] = defaultdict(dict)
+trackfields = {headers[x]: x for x in  ['rt', 'score']}
+for pep_ch in args.trackpep:
+    pep, ch = pep_ch.split('_')
+    seq_filter_exp = pc.field(headers['seq']) == pep
+    ch_filter_exp = pc.field(headers['ch']) == int(ch)
+    for field, val in precursors.filter(seq_filter_exp & ch_filter_exp).to_pydict().items():
+        if field in trackfields:
+            # TODO median val instead of first, in case of DDA
+            qcout['trackedpeptides'][pep_ch][trackfields[field]] = val[0]
 
 
 with open('qc.json', 'w') as fp:
