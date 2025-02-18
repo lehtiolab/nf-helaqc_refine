@@ -110,35 +110,35 @@ if args.acq == 'dia':
 elif args.acq == 'dda':
     precursors = pcsv.read_csv('tpsms', parse_options=pcsv.ParseOptions(delimiter='\t'))
     precursors = precursors.add_column(0, 'bareseq', pc.replace_substring_regex(precursors['peptide'], '[^A-Z]', ''))
-    qcout['ioninj'] = calc_boxplot_qs(precursors[headers['injtime']])
+    qcout['injtime'] = calc_boxplot_qs(precursors[headers['injtime']])
     qcout['matchedpeaks'] = calc_boxplot_qs(precursors[headers['matchedpeaks']])
     peps = peps.add_column(0, 'bareseq', pc.replace_substring_regex(peps['Peptide sequence'], '[^A-Z]', ''))
 
 miscl = pc.value_counts(pc.count_substring_regex(precursors[headers['seq']], '[KR][^P]'))
 qcout['missed_cleavages'] = {x['values'].as_py(): x['counts'].as_py() for x in miscl}
-qcout['scores'] = calc_boxplot_qs(precursors[headers['score']])
-qcout['retention_times'] = calc_boxplot_qs(precursors[headers['rt']])
+qcout['score'] = calc_boxplot_qs(precursors[headers['score']])
+qcout['rt'] = calc_boxplot_qs(precursors[headers['rt']])
 if headers['p_error']:
-    qcout['precursor_errors'] = calc_boxplot_qs(precursors[headers['p_error']])
+    qcout['p_error'] = calc_boxplot_qs(precursors[headers['p_error']])
 
-qcout['fwhms'] = calc_boxplot_qs(precursors[headers['fwhm']])
+qcout['fwhm'] = calc_boxplot_qs(precursors[headers['fwhm']])
 ionmob = calc_boxplot_qs(precursors[headers['ionmob']])
 if ionmob and ionmob['q2'] != 0.0:
-    qcout['ionmobilities'] = ionmob
+    qcout['ionmob'] = ionmob
 
 # Peptide MS1
 qcout['peptide_areas'] = calc_boxplot_qs(peps[headers['ms1']])
 
 qcout['trackedpeptides'] = defaultdict(dict)
-trackfields = {headers[x]: x for x in  ['rt', 'score']}
+precursortrackfields = {headers[x]: x for x in  ['rt', 'score']}
 for pep_ch in args.trackpep:
     pep, ch = pep_ch.split('_')
     seq_filter_exp = pc.field(headers['seq']) == pep
     ch_filter_exp = pc.field(headers['ch']) == int(ch)
     for field, val in precursors.filter(seq_filter_exp & ch_filter_exp).to_pydict().items():
-        if field in trackfields:
+        if field in precursortrackfields:
             # TODO median val instead of first, in case of DDA
-            qcout['trackedpeptides'][pep_ch][trackfields[field]] = val[0]
+            qcout['trackedpeptides'][pep_ch][precursortrackfields[field]] = val[0]
     qcout['trackedpeptides'][pep_ch]['ms1'] = peps.filter(seq_filter_exp).to_pydict()[headers['ms1']][0]
 
 
