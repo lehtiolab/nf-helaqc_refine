@@ -130,7 +130,7 @@ if ionmob and ionmob['q2'] != 0.0:
 qcout['ms1'] = calc_boxplot_qs(peps[headers['ms1']])
 
 qcout['trackedpeptides'] = defaultdict(dict)
-precursortrackfields = {headers[x]: x for x in  ['rt', 'score']}
+precursortrackfields = {headers[x]: x for x in  ['rt', 'score', 'fwhm']}
 for pep_ch in args.trackpep:
     pep, ch = pep_ch.split('_')
     seq_filter_exp = pc.field(headers['seq']) == pep
