@@ -48,7 +48,7 @@ workflow {
   
   } else if (params.dia) {
   
-    DIAQC(params.raw,  params.mzml, params.library, params.db, params.instrument)
+    DIAQC(params.raw,  params.mzml, params.library, params.db, params.instrument, trackedpeptides)
     | map { ['dia', it].flatten() + [trackedpeptides] }
 |view()
     | reportingQC

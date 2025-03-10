@@ -136,10 +136,12 @@ for pep_ch in args.trackpep:
     seq_filter_exp = pc.field(headers['seq']) == pep
     ch_filter_exp = pc.field(headers['ch']) == int(ch)
     for field, val in precursors.filter(seq_filter_exp & ch_filter_exp).to_pydict().items():
-        if field in precursortrackfields:
+        if field in precursortrackfields and len(val):
             # TODO median val instead of first, in case of DDA
             qcout['trackedpeptides'][pep_ch][precursortrackfields[field]] = val[0]
-    qcout['trackedpeptides'][pep_ch]['ms1'] = peps.filter(seq_filter_exp).to_pydict()[headers['ms1']][0]
+    tpms1 = peps.filter(seq_filter_exp).to_pydict()[headers['ms1']]
+    if len(tpms1):
+        qcout['trackedpeptides'][pep_ch]['ms1'] = tpms1[0]
 
 
 
