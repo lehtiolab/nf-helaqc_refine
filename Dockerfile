@@ -9,12 +9,13 @@ USER root
 
 RUN apt update && apt upgrade -y
 # to have envsubst, ps
+
 RUN apt install -y gettext-base procps
 # to get DIA-NN
 RUN apt install -y wget unzip libgomp1 locales
 
-# for dinosaur
-RUN micromamba install -y -n base -c conda-forge -c bioconda dinosaur=1.2.0 pyarrow=18.1.0
+# for dinosaur (need openjdk < 25)
+RUN micromamba install -y -n base -c conda-forge -c bioconda dinosaur=1.2.0 pyarrow=18.1.0 openjdk=23.0.1
 
 # For DIA-NN
 # Configure locale to avoid runtime errors
@@ -36,3 +37,4 @@ RUN rm /tmp/diann.Linux.zip
 
 # Set appropriate permissions for the DIA-NN folder
 RUN chmod -R 775 /diann-1.9.2
+ENV PATH="${PATH}:/diann-1.9.2"
