@@ -7,7 +7,7 @@ include { msconvert; createNewSpectraLookup } from '../modules.nf'
 
 process generateTrackPeptideLibrary {
 
-  container 'michelmoser/diann-1.9.2'
+  container "ghcr.io/lehtiolab/nfhelaqc:${workflow.manifest.version}"
   
   input:
   tuple path(baselib), val(trackedpeptides), path(tdb)
@@ -41,8 +41,7 @@ process DiaNN {
   q-value cutoff seems 0.01 by default
   */
   
-  //container 'biocontainers/diann:1.8.1_cv2'
-  container 'michelmoser/diann-1.9.2'
+  container "ghcr.io/lehtiolab/nfhelaqc:${workflow.manifest.version}"
   
   input:
   tuple path(raw), path(lib), path(tdb), val(ms1acc), val(ms2acc)
