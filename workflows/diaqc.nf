@@ -106,7 +106,7 @@ workflow DIAQC {
   library
   db 
   instrument
-  trackedpeptides_ch
+  trackedpeptides
 
   main:
   
@@ -155,8 +155,8 @@ workflow DIAQC {
   lib_c = channel.fromPath(library)
   db_c = channel.fromPath(db)
 
-  if (trackedpeptides_ch.size) {
-    trackpeps = trackedpeptides_ch.collect { it.tokenize('_')[0] }.toList()
+  if (trackedpeptides) {
+    trackpeps = trackedpeptides.collect { it.tokenize('_')[0] }.toList()
     lib_c
     | map { [it, trackpeps] }
     | combine(db_c)

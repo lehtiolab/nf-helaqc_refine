@@ -3,6 +3,8 @@ run-name: Release pushed, build container
 on:
   release:
     types: [published]
+  workflow_dispatch:
+
 
 jobs:
   build-container:
@@ -20,7 +22,7 @@ jobs:
       - name: Setup nextflow
         uses: nf-core/setup-nextflow@v1
 
-      - name: Get version
+      - name: Get version from NF config file
         id: get-version
         run: echo "wf_version=$(nextflow config -value manifest.version)" >> $GITHUB_OUTPUT
 
