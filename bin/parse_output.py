@@ -5,6 +5,7 @@ import re
 import sys
 import json
 import argparse
+from collections import defaultdict
 from sqlite3 import Connection
 from pyarrow import compute as pc
 from pyarrow import parquet as pq
@@ -34,6 +35,7 @@ parser.add_argument('--nrpeps', dest='numpeps', type=int)
 parser.add_argument('--nruni', dest='numuni', type=int)
 parser.add_argument('--nrprot', dest='numprot', type=int)
 parser.add_argument('--peaks_on_lc', dest='peaks_fwhm', type=float)
+parser.add_argument('--trackedpeptides', dest='trackpep', nargs='+', default=[])
 args = parser.parse_args(sys.argv[1:])
 
 
@@ -76,6 +78,7 @@ headers = {
         'fwhm': False,
 		'injtime': False,
         'rt': 'RT',
+        'ch': 'Precursor.Charge',
         'score': 'Q.Value',
         'ionmob': 'IM',
         'ms1': 'Ms1.Area',
@@ -87,6 +90,7 @@ headers = {
         'p_error': 'precursor_ppm',
         'fwhm': 'FWHM',
         'seq': 'bareseq',
+        'ch': 'charge',
         'rt': 'rt',
         'score': 'sage_discriminant_score',
         'ionmob': 'ion_mobility',
@@ -98,30 +102,47 @@ headers = {
 
 # FIXME Q.Value is not a good score thing? in DIA
 
+peps = pcsv.read_csv('peptable.txt', parse_options=pcsv.ParseOptions(delimiter='\t'))
+
 if args.acq == 'dia':
     precursors = pq.read_table('tpsms')
     qcout['peaks_fwhm'] = args.peaks_fwhm
 elif args.acq == 'dda':
     precursors = pcsv.read_csv('tpsms', parse_options=pcsv.ParseOptions(delimiter='\t'))
     precursors = precursors.add_column(0, 'bareseq', pc.replace_substring_regex(precursors['peptide'], '[^A-Z]', ''))
-    qcout['ioninj'] = calc_boxplot_qs(precursors[headers['injtime']])
+    qcout['injtime'] = calc_boxplot_qs(precursors[headers['injtime']])
     qcout['matchedpeaks'] = calc_boxplot_qs(precursors[headers['matchedpeaks']])
+    peps = peps.add_column(0, 'bareseq', pc.replace_substring_regex(peps['Peptide sequence'], '[^A-Z]', ''))
 
 miscl = pc.value_counts(pc.count_substring_regex(precursors[headers['seq']], '[KR][^P]'))
 qcout['missed_cleavages'] = {x['values'].as_py(): x['counts'].as_py() for x in miscl}
-qcout['scores'] = calc_boxplot_qs(precursors[headers['score']])
-qcout['retention_times'] = calc_boxplot_qs(precursors[headers['rt']])
+qcout['score'] = calc_boxplot_qs(precursors[headers['score']])
+qcout['rt'] = calc_boxplot_qs(precursors[headers['rt']])
 if headers['p_error']:
-    qcout['precursor_errors'] = calc_boxplot_qs(precursors[headers['p_error']])
+    qcout['p_error'] = calc_boxplot_qs(precursors[headers['p_error']])
 
-qcout['fwhms'] = calc_boxplot_qs(precursors[headers['fwhm']])
+qcout['fwhm'] = calc_boxplot_qs(precursors[headers['fwhm']])
 ionmob = calc_boxplot_qs(precursors[headers['ionmob']])
 if ionmob and ionmob['q2'] != 0.0:
-    qcout['ionmobilities'] = ionmob
+    qcout['ionmob'] = ionmob
 
 # Peptide MS1
-peps = pcsv.read_csv('peptable.txt', parse_options=pcsv.ParseOptions(delimiter='\t'))
-qcout['peptide_areas'] = calc_boxplot_qs(peps[headers['ms1']])
+qcout['ms1'] = calc_boxplot_qs(peps[headers['ms1']])
+
+qcout['trackedpeptides'] = defaultdict(dict)
+precursortrackfields = {headers[x]: x for x in  ['rt', 'score', 'fwhm']}
+for pep_ch in args.trackpep:
+    pep, ch = pep_ch.split('_')
+    seq_filter_exp = pc.field(headers['seq']) == pep
+    ch_filter_exp = pc.field(headers['ch']) == int(ch)
+    for field, val in precursors.filter(seq_filter_exp & ch_filter_exp).to_pydict().items():
+        if field in precursortrackfields and len(val):
+            # TODO median val instead of first, in case of DDA
+            qcout['trackedpeptides'][pep_ch][precursortrackfields[field]] = val[0]
+    tpms1 = peps.filter(seq_filter_exp).to_pydict()[headers['ms1']]
+    if len(tpms1):
+        qcout['trackedpeptides'][pep_ch]['ms1'] = tpms1[0]
+
 
 
 with open('qc.json', 'w') as fp:

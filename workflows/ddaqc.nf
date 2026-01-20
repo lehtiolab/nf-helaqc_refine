@@ -187,7 +187,7 @@ workflow DDAQC {
 
   main:
   // Set fragment and precursor tolerance, if not passed - defaults:
-  def tolerances = [precursor: [timstof: 30, qe: 10], fragment: [timstof: 30, qe: 20]]
+  def tolerances = [precursor: [timstof: 30, qe: 10, velos: 10, astral: 10], fragment: [timstof: 30, qe: 20, velos: 20, astral: 20]]
   prectol = prectol ?: tolerances.precursor[instrument]
   fragtol = prectol ?: tolerances.fragment[instrument]
 
