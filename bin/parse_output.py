@@ -74,7 +74,7 @@ qcout = {
 
 headers = {
     'dia': {
-        'p_error': False,
+        'p_error': 'Ms1.Apex.Mz.Delta',
         'fwhm': False,
 		'injtime': False,
         'rt': 'RT',
