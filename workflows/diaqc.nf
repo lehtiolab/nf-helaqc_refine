@@ -56,7 +56,7 @@ process DiaNN {
   script:
   """
   diann-linux --threads 16 \
-    --f $raw \
+    --f \$(realpath $raw) \
      --lib $lib \
     --fasta $tdb \
     --window 8 \
@@ -112,14 +112,14 @@ workflow DIAQC {
     raw_c.thermo
     | map { [it, instrument, false, false] }
     | msconvert
+    | set { mzml_c }
+    
+    raw_c.thermo
     | concat(raw_c.bruker)
     | set { diann_in }
 
     raw_c.bruker
     | set { raw_bruker }
-
-    msconvert.out
-    | set { mzml_c }
 
   } else if (mzml) {
     raw_bruker = channel.empty()

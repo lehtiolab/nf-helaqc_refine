@@ -1,4 +1,4 @@
-FROM mambaorg/micromamba:2-debian13-slim
+FROM mambaorg/micromamba:2-ubuntu24.04
 # This only installs dinosaur
 LABEL description="DIA-NN, additional stuff and dinosaur which does not work in biocontainer due to lack of fontconfig"
 
@@ -12,7 +12,7 @@ RUN apt update && apt upgrade -y
 
 RUN apt install -y gettext-base procps
 # to get DIA-NN
-RUN apt install -y wget unzip libgomp1 locales
+RUN apt install -y wget unzip libgomp1 locales dotnet-sdk-8.0
 
 # for dinosaur (need openjdk < 25)
 RUN micromamba install -y -n base -c conda-forge -c bioconda dinosaur=1.2.0 pyarrow=23.0 openjdk=23.0.1
