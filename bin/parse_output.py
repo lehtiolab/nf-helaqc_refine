@@ -81,7 +81,7 @@ headers = {
         'ch': 'Precursor.Charge',
         'score': 'Q.Value',
         'ionmob': 'IM',
-        'ms1': 'Ms1.Area',
+        'ms1': 'Ms1.Area_max',
         'seq': 'Stripped.Sequence',
         'fwhm': 'FWHM',
         },

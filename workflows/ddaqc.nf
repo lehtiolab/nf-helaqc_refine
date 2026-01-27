@@ -144,8 +144,7 @@ process proteinTables {
   tuple path('tpsms'), path('dpsms'), path('peptable.txt'), path('dpeptides')
 
   output:
-  tuple path('tpsms'), path('peptable.txt'), eval('wc -l < prottable.txt'),
-    eval('wc -l < tpsms'), eval('wc -l < peptable.txt')
+  tuple path('tpsms'), path('peptable.txt'), env('NRPROTS'), env('NRPSMS'), env('NRPEPS'), env('NRUNIPEPS')
 
   script:
   scorecolpat = '^q-value'
@@ -167,6 +166,11 @@ process proteinTables {
   fi
   msstitch proteins -i peptable.txt --decoyfn dpeptides -o tprots --scorecolpattern "\$scpat" \$logflag --ms1quant --psmtable tpsms
   msstitch conffilt -i tprots -o prottable.txt --confidence-better lower --confidence-lvl 0.01 --confcolpattern 'q-value'
+
+NRPROTS=\$(tail -n+2 prottable.txt | wc -l)
+NRPSMS=\$(tail -n+2 tpsms | wc -l)
+NRPEPS=\$(tail -n+2 peptable.txt | wc -l)
+NRUNIPEPS=\$(tail -n+2 peptable.txt |cut -f ${Utils.get_field_nr('peptable.txt', 'Master protein(s)') } | grep -v ';' | wc -l)
   """
 }
 
@@ -193,7 +197,6 @@ workflow DDAQC {
 
   if (raw) {
     channel.fromPath(raw)
-|view()
     | branch { 
       thermo: it.extension == 'raw' 
       bruker: it.extension == 'd'
@@ -261,6 +264,7 @@ workflow DDAQC {
 
   emit:
   proteinTables.out
+  // add 0 for FWHM scans
   | map { [it, 0].flatten() }
   | combine(createPSMTable.out.lookup)
 }

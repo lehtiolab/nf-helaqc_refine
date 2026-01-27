@@ -1,4 +1,4 @@
-FROM mambaorg/micromamba:1.5.8-bookworm
+FROM mambaorg/micromamba:2-debian13-slim
 # This only installs dinosaur
 LABEL description="DIA-NN, additional stuff and dinosaur which does not work in biocontainer due to lack of fontconfig"
 
@@ -15,7 +15,7 @@ RUN apt install -y gettext-base procps
 RUN apt install -y wget unzip libgomp1 locales
 
 # for dinosaur (need openjdk < 25)
-RUN micromamba install -y -n base -c conda-forge -c bioconda dinosaur=1.2.0 pyarrow=18.1.0 openjdk=23.0.1
+RUN micromamba install -y -n base -c conda-forge -c bioconda dinosaur=1.2.0 pyarrow=23.0 openjdk=23.0.1
 
 # For DIA-NN
 # Configure locale to avoid runtime errors
@@ -29,12 +29,12 @@ ENV LANGUAGE=en_US:en
 ENV LC_ALL=en_US.UTF-8
 
 # Download DIA-NN version <version>
-#RUN wget https://github.com/vdemichev/DiaNN/releases/download/2.0/DIA-NN-2.3.1-Academia-Linux.zip -O /tmp/diann.Linux.zip
-RUN wget https://github.com/vdemichev/DiaNN/releases/download/1.9.2/diann-1.9.2.Linux_update_2024-10-31.zip -O /tmp/diann.Linux.zip
+RUN wget https://github.com/vdemichev/DiaNN/releases/download/2.0/DIA-NN-2.3.1-Academia-Linux.zip -O /tmp/diann.Linux.zip
+#RUN wget https://github.com/vdemichev/DiaNN/releases/download/1.9.2/diann-1.9.2.Linux_update_2024-10-31.zip -O /tmp/diann.Linux.zip
 # Unzip the DIA-NN package
 RUN cd / && unzip /tmp/diann.Linux.zip
 RUN rm /tmp/diann.Linux.zip
 
 # Set appropriate permissions for the DIA-NN folder
-RUN chmod -R 775 /diann-1.9.2
-ENV PATH="${PATH}:/diann-1.9.2"
+RUN chmod -R 775 /diann-2.3.1
+ENV PATH="${PATH}:/diann-2.3.1"

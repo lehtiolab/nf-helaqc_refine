@@ -16,21 +16,19 @@ include { DIAQC } from './workflows/diaqc.nf'
 
 
 process reportingQC {
-  container params.test ? 'nfhelaqc_test' : \
-    "ghcr.io/lehtiolab/nfhelaqc:${workflow.manifest.version}"
+  container "ghcr.io/lehtiolab/nfhelaqc:${workflow.manifest.version}"
 
   input:
-  tuple val(acq_method), path('tpsms'), path('peptable.txt'), val(nrprots), val(nrpsms), val(nrpeps), val(fwhmscans), path(scan_db), val(trackedpeptides)
+  tuple val(acq_method), path('tpsms'), path('peptable.txt'), val(nrprots), val(nrpsms), val(nrpeps), val(nrunipeps), val(fwhmscans), path(scan_db), val(trackedpeptides)
 
   output:
   path('qc.json')
 
   script:
-  protfield = acq_method == 'dia' ? 'Genes' : 'Master protein(s)'
   """
   parse_output.py --acquisition $acq_method \
     --scandb $scan_db --nrpsms $nrpsms --nrpeps $nrpeps --peaks_on_lc $fwhmscans \
-    --nruni "\$(cut -f${Utils.get_field_nr('peptable.txt', protfield)} peptable.txt | grep -v ';' | wc -l)" \
+    --nruni $nrunipeps \
     --nrprot $nrprots \
     ${trackedpeptides ? "--trackedpeptides ${trackedpeptides.join(' ')}" :''}
   """
@@ -50,7 +48,6 @@ workflow {
   
     DIAQC(params.raw,  params.mzml, params.library, params.db, params.instrument, trackedpeptides)
     | map { ['dia', it].flatten() + [trackedpeptides] }
-|view()
     | reportingQC
   }
 

@@ -1,8 +1,12 @@
 include { msconvert; createNewSpectraLookup } from '../modules.nf' 
 
 
-// AlLibrary can be made like this:
-// diann --threads 16 --fasta tdb.fa  --gen-spec-lib --fasta-search --out-lib libfile --dir rawfile_dir/ --var-mod 'UniMod:35,15.994915,M' --var-mod 'UniMod:4,57.021464,C' --var-mods 2
+/* A Library can be made like this:
+diann --threads 16 --fasta tdb.fa  --gen-spec-lib --fasta-search --out-lib libfile --var-mod 'UniMod:35,15.994915,M' --var-mod 'UniMod:4,57.021464,C' --var-mods 2 --predictor
+
+Instead of --predictor, one can use raw files:
+--dir rawfile_dir/ 
+*/
 
 
 process generateTrackPeptideLibrary {
@@ -47,8 +51,7 @@ process DiaNN {
   tuple path(raw), path(lib), path(tdb), val(ms1acc), val(ms2acc)
   
   output:
-  tuple path('out.txt'), path('out.stats.tsv'), emit: tsv
-  path('out.parquet'), emit: pq
+  tuple path('out.parquet'), path('out.stats.tsv')
 
   script:
   """
@@ -68,29 +71,18 @@ process DiaNN {
 }
 
 process prepareNumbers {
-  container 'quay.io/biocontainers/bioawk:1.0--he4a0461_9'
+  container "ghcr.io/lehtiolab/nfhelaqc:${workflow.manifest.version}"
 
   input:
   tuple path('precursors'), path('stats')
 
   output:
-  tuple path('peptides'), eval('cat nrprots'), eval('cat nrpsms'), eval('wc -l < <(tail -n+2 peptides)'), eval('cat fwhmscans')
+  tuple path('precursors'), path('peptides'), env('NRPROTS'), env('NRPSMS'), env('NRPEPS'), env('NRUNIPEPS'), env('NRSCANS')
 
   script:
   """
-  cut -f ${Utils.get_field_nr("stats", "Proteins.Identified")} stats | tail -n1 > nrprots
-  cut -f ${Utils.get_field_nr("stats", "Precursors.Identified")} stats | tail -n1 > nrpsms
-  cut -f ${Utils.get_field_nr("stats", "FWHM.Scans")} stats | tail -n1 > fwhmscans
- 
-  bioawk -v s=${Utils.get_field_nr("precursors", "Modified.Sequence")} -v b=${Utils.get_field_nr("precursors", "Stripped.Sequence")} -v g=${Utils.get_field_nr("precursors", "Genes")} -v m=${Utils.get_field_nr("precursors", "Ms1.Area")} -t \
-    '{print \$s,\$b,\$g,\$m }' precursors > pepfields
-  head -n1 pepfields > peptides
-  # Sort to get highest MS1 (col3, numeric, reverse) for each peptide
-  # awk does the uniqueing since BSD? sort in container did not use the column 
-  # nr 1 only for some reason to unique. Awk explanation in link
-  # (field nr1 !not in _variable, add++)
-  # https://stackoverflow.com/questions/1915636/is-there-a-way-to-uniq-by-column
-  tail -n+2 pepfields | sort -k1b,1 -k4,4nr | bioawk -t '!_[\$1]++' >> peptides
+  dia_prep_numbers.py
+  source envvars
   """
 }
 
@@ -171,12 +163,10 @@ workflow DIAQC {
   | combine(full_lib)
   | map { [it, ms1acc, ms2acc].flatten() }
   | DiaNN
-  DiaNN.out.tsv
-  | combine(scandb)
   | prepareNumbers
+  | combine(scandb)
+  | set { output }
 
   emit:
-  DiaNN.out.pq
-  | combine(prepareNumbers.out)
-  | combine(scandb)
+  output
 }
