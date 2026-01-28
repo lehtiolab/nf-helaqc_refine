@@ -2,8 +2,7 @@ include { msconvert; createNewSpectraLookup; getScanNumbers } from '../modules.n
 
 
 process dinosaur {
-  container params.test ? 'nfhelaqc_test' : \
-    "ghcr.io/lehtiolab/nfhelaqc:${workflow.manifest.version}"
+  container "ghcr.io/lehtiolab/nfhelaqc:${workflow.manifest.version}"
 
   input:
   path(mzml)
@@ -51,8 +50,7 @@ process tdf2Mzml {
 
 
 process sagePrepare {
-  container params.test ? 'nfhelaqc_test' : \
-    "ghcr.io/lehtiolab/nfhelaqc:${workflow.manifest.version}"
+  container "ghcr.io/lehtiolab/nfhelaqc:${workflow.manifest.version}"
 
   input:
   tuple path(tdb), path(ddb), val(prectol), val(fragtol), path('sage.json')
