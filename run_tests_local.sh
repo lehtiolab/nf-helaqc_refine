@@ -17,7 +17,7 @@ THERMO_DDA="..."
 THERMO_DIA_MZML="/path/to/file.mzML"
 
 # Thermo mzML DIA (dont have a small one)
-NXF_VER=24.04.3 nextflow run -resume -profile docker "${repodir}/qc.nf" -with-trace \
+NXF_VER=24.04.3 nextflow run -resume -profile bigtest "${repodir}/qc.nf" -with-trace \
         --dia \
 	--mzml "$THERMO_DIA_MZML" \
 	--db "${testdata}/lf.fa" \
@@ -26,7 +26,7 @@ NXF_VER=24.04.3 nextflow run -resume -profile docker "${repodir}/qc.nf" -with-tr
 
 
 ### TIMS raw DIA (raw directly analyzed)
-NXF_VER=24.10.3 nextflow run -resume -profile docker "${repodir}/qc.nf" -with-trace \
+NXF_VER=24.10.3 nextflow run -resume -profile bigtest "${repodir}/qc.nf" -with-trace \
         --dia \
 	--raw "$BRUKER_DIA" \
 	--instrument timstof \
@@ -35,14 +35,14 @@ NXF_VER=24.10.3 nextflow run -resume -profile docker "${repodir}/qc.nf" -with-tr
 	--db "${testdata}/lf.fa" \
 
 # TIMS raw DDA (runs tdf2mzml)
-nextflow run -resume -profile docker "${repodir}/qc.nf" -with-trace \
+nextflow run -resume -profile bigtest "${repodir}/qc.nf" -with-trace \
         --dda \
 	--raw "$BRUKER_DDA" \
 	--db "${testdata}/lf.fa" \
 	--instrument timstof
 
 # Thermo raw DIA
-NXF_VER=24.04.3 nextflow run -resume -profile docker "${repodir}/qc.nf" -with-trace \
+NXF_VER=24.04.3 nextflow run -resume -profile bigtest "${repodir}/qc.nf" -with-trace \
         --dia \
 	--raw "$THERMO_DIA" \
 	--db "${testdata}/lf.fa" \
@@ -51,7 +51,7 @@ NXF_VER=24.04.3 nextflow run -resume -profile docker "${repodir}/qc.nf" -with-tr
 
 # Thermo raw DDA
 # How can it be such a bad score?
-nextflow run -resume -profile docker "${repodir}/qc.nf" -with-trace \
+nextflow run -resume -profile bigtest "${repodir}/qc.nf" -with-trace \
         --dda \
 	--raw "$THERMO_DDA" \
 	--db "${testdata}/lf.fa" \

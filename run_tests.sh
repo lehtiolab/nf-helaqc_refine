@@ -15,14 +15,14 @@ else
 fi
 cd "${rundir}"
 
-nextflow run -resume -profile docker "${repodir}/qc.nf" \
+nextflow run -resume -profile test "${repodir}/qc.nf" \
         --dda \
 	--mzml  "${testdata}/lf_phos_fr11_500.mzML" \
 	--pepconf 0.05 --psmconf 0.05 \
 	--db "${testdata}/lf.fa" \
 	--instrument qe
 
-nextflow run -resume -profile docker "${repodir}/refine_mzml.nf" \
+nextflow run -resume -profile test "${repodir}/refine_mzml.nf" \
 	--input <(cat "${repodir}/test/refine_mzml.txt" | envsubst) \
 	--db "${testdata}/lf.fa" \
 	--instrument qe
