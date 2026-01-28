@@ -21,8 +21,12 @@ process extractThermoScans {
   script:
   outfile = "${raw.baseName}.csv"
   """
-  wine /scanheadsman/ScanHeadsman.exe $raw 
-NRSCANS=\$(tail -n+2 $outfile | wc -l)
+  timeout --preserve-status 5s wine /scanheadsman/ScanHeadsman.exe $raw > stdout || exitcode=\$? && true
+  if [[ \$exitcode != 143 ]]
+  then
+    exit \$exitcode
+  fi
+NRSCANS=\$(grep 'Processing scan [0-9]' stdout | sed 's/.* of //')
   """
 }
 
