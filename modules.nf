@@ -1,4 +1,23 @@
 
+process getScanNumbers {
+  container "quay.io/biocontainers/sqlite:3.33.0"
+
+  input:
+  path(d_or_mss_sql)
+
+  output:
+  env('NRSCANS')
+
+  script:
+sql = d_or_mss_sql.isDirectory() ?  'SELECT COUNT(*) FROM Frames' : 'SELECT COUNT(*) FROM mzml'
+sqlfile = d_or_mss_sql.isDirectory() ? "${d_or_mss_sql}/analysis.tdf" : d_or_mss_sql
+  """
+NRSCANS=\$(sqlite3 $sqlfile '$sql')
+  """
+
+}
+
+
 process msconvert {
 
   input:

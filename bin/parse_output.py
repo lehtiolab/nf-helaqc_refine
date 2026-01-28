@@ -28,7 +28,7 @@ def parse_wc_output(wc_out):
     return int(wc_out[:wc_out.index(' ')])
 
 parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
-parser.add_argument('--scandb', dest='scandb')
+parser.add_argument('--nrscans')
 parser.add_argument('--acquisition', dest='acq')
 parser.add_argument('--nrpsms', dest='numpsms', type=int)
 parser.add_argument('--nrpeps', dest='numpeps', type=int)
@@ -40,32 +40,19 @@ args = parser.parse_args(sys.argv[1:])
 
 
 if args.acq == 'dda':
-    numpsms = args.numpsms - 1
-    numpeps = args.numpeps - 1
-    numuni = args.numuni - 1
-    numprot = args.numprot - 1
+    numpsms = args.numpsms
+    numpeps = args.numpeps
+    numuni = args.numuni
+    numprot = args.numprot
 else:
     numpsms = args.numpsms
     numpeps = args.numpeps
     numuni = args.numuni
     numprot = args.numprot
 
-
-if os.path.isdir(args.scandb):
-    scansql = 'SELECT COUNT(*) FROM Frames'
-    scandb = os.path.join(args.scandb, 'analysis.tdf')
-else:
-    # msstitch sqlite file
-    scansql = 'SELECT COUNT(*) FROM mzml'
-    scandb = args.scandb
-
-#if os.path.exists(args.nrscans_or_db) and os.path.isfile(args.nrscans_or_db):
-con = Connection(scandb)
-nrscans = con.execute(scansql).fetchone()[0]
-
 qcout = {
     'nrpsms': numpsms,
-    'nrscans': nrscans,
+    'nrscans': args.nrscans,
     'nrpeptides': numpeps,
     'nr_unique_peptides': numuni,
     'nrproteins': numprot,

@@ -1,4 +1,4 @@
-include { msconvert; createNewSpectraLookup } from '../modules.nf' 
+include { msconvert; createNewSpectraLookup; getScanNumbers } from '../modules.nf' 
 
 
 process dinosaur {
@@ -240,6 +240,7 @@ workflow DDAQC {
   | map { it[0] }
   | combine(dino)
   | createNewSpectraLookup
+  | getScanNumbers
     
 
   tdb
@@ -266,5 +267,5 @@ workflow DDAQC {
   proteinTables.out
   // add 0 for FWHM scans
   | map { [it, 0].flatten() }
-  | combine(createPSMTable.out.lookup)
+  | combine(getScanNumbers.out)
 }

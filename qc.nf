@@ -19,7 +19,7 @@ process reportingQC {
   container "ghcr.io/lehtiolab/nfhelaqc:${workflow.manifest.version}"
 
   input:
-  tuple val(acq_method), path('tpsms'), path('peptable.txt'), val(nrprots), val(nrpsms), val(nrpeps), val(nrunipeps), val(fwhmscans), path(scan_db), val(trackedpeptides)
+  tuple val(acq_method), path('tpsms'), path('peptable.txt'), val(nrprots), val(nrpsms), val(nrpeps), val(nrunipeps), val(fwhmscans), val(nrscans), val(trackedpeptides)
 
   output:
   path('qc.json')
@@ -27,7 +27,7 @@ process reportingQC {
   script:
   """
   parse_output.py --acquisition $acq_method \
-    --scandb $scan_db --nrpsms $nrpsms --nrpeps $nrpeps --peaks_on_lc $fwhmscans \
+    --nrscans $nrscans --nrpsms $nrpsms --nrpeps $nrpeps --peaks_on_lc $fwhmscans \
     --nruni $nrunipeps \
     --nrprot $nrprots \
     ${trackedpeptides ? "--trackedpeptides ${trackedpeptides.join(' ')}" :''}

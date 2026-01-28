@@ -1,13 +1,30 @@
-include { msconvert; createNewSpectraLookup } from '../modules.nf' 
+include { createNewSpectraLookup; getScanNumbers } from '../modules.nf'
 
-
-/* A Library can be made like this:
+/* A library can be made like this:
 diann --threads 16 --fasta tdb.fa  --gen-spec-lib --fasta-search --out-lib libfile --var-mod 'UniMod:35,15.994915,M' --var-mod 'UniMod:4,57.021464,C' --var-mods 2 --predictor
 
 Instead of --predictor, one can use raw files:
 --dir rawfile_dir/ 
 */
 
+process extractThermoScans {
+  /* Used in DIA for Thermo, so we dont need to convert to mzML
+  just to get the nr of scans */
+  container 'ghcr.io/lehtiolab/kantele_thermoreader:latest'
+
+  input:
+  path(raw)
+
+  output:
+  env('NRSCANS')
+
+  script:
+  outfile = "${raw.baseName}.csv"
+  """
+  wine /scanheadsman/ScanHeadsman.exe $raw 
+NRSCANS=\$(tail -n+2 $outfile | wc -l)
+  """
+}
 
 process generateTrackPeptideLibrary {
 
@@ -82,6 +99,7 @@ process prepareNumbers {
   script:
   """
   dia_prep_numbers.py
+  sed -i '1s/Stripped.Sequence_one/Stripped.Sequence/' peptides
   source envvars
   """
 }
@@ -110,22 +128,27 @@ workflow DIAQC {
     | set { raw_c }
 
     raw_c.thermo
-    | map { [it, instrument, false, false] }
-    | msconvert
-    | set { mzml_c }
+    | extractThermoScans
+    | set { thermonrscans }
     
     raw_c.thermo
     | concat(raw_c.bruker)
     | set { diann_in }
 
     raw_c.bruker
-    | set { raw_bruker }
+    | getScanNumbers
+    | concat(thermonrscans)
+    | set { nrscans }
 
   } else if (mzml) {
-    raw_bruker = channel.empty()
-
     channel.fromPath(mzml)
     | set { mzml_c }
+
+    mzml_c
+    | combine(channel.fromPath('NO__FILE'))
+    | createNewSpectraLookup
+    | getScanNumbers
+    | set { nrscans }
 
     mzml_c
     | set { diann_in }
@@ -137,12 +160,6 @@ workflow DIAQC {
   ms1acc = [timstof: 20, orbitrap: 10, velos: 10, qe: 10][instrument]
   ms2acc = 20
 
-  mzml_c
-  | map { [it, file('NO__FILE')] }
-  | createNewSpectraLookup
-  | concat(raw_bruker)
-  | set { scandb }
-   
   lib_c = channel.fromPath(library)
   db_c = channel.fromPath(db)
 
@@ -164,7 +181,7 @@ workflow DIAQC {
   | map { [it, ms1acc, ms2acc].flatten() }
   | DiaNN
   | prepareNumbers
-  | combine(scandb)
+  | combine(nrscans)
   | set { output }
 
   emit:
