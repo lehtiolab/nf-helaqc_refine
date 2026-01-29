@@ -21,7 +21,7 @@ process extractThermoScans {
   script:
   outfile = "${raw.baseName}.csv"
   """
-  timeout --preserve-status 5s wine /scanheadsman/ScanHeadsman.exe $raw > stdout || exitcode=\$? && true
+  timeout --preserve-status 5s wine /scanheadsman/ScanHeadsman.exe $raw > stdout || exitcode=\$?
   if [[ \$exitcode != 143 ]]
   then
     exit \$exitcode
