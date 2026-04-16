@@ -26,6 +26,7 @@ process makeDDB {
   output:
   path('ddb')
 
+  script:
   """
   msstitch makedecoy -i "$db" -o ddb --scramble prot_rev --ignore-target-hits
   """

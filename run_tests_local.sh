@@ -16,8 +16,11 @@ THERMO_DIA="/path/to/file.raw"
 THERMO_DDA="..."
 THERMO_DIA_MZML="/path/to/file.mzML"
 
+export NXF_VER=25.10.4
+export NXF_SYNTAX_PARSER=v2
+
 # Thermo mzML DIA (dont have a small one)
-NXF_VER=24.04.3 nextflow run -resume -profile bigtest "${repodir}/qc.nf" -with-trace \
+nextflow run -resume -profile bigtest "${repodir}/qc.nf" -with-trace \
         --dia \
 	--mzml "$THERMO_DIA_MZML" \
 	--db "${testdata}/lf.fa" \
@@ -25,8 +28,8 @@ NXF_VER=24.04.3 nextflow run -resume -profile bigtest "${repodir}/qc.nf" -with-t
 	--instrument qe 
 
 
-### TIMS raw DIA (raw directly analyzed)
-NXF_VER=24.10.3 nextflow run -resume -profile bigtest "${repodir}/qc.nf" -with-trace \
+# TIMS raw DIA (raw directly analyzed)
+nextflow run -resume -profile bigtest "${repodir}/qc.nf" -with-trace \
         --dia \
 	--raw "$BRUKER_DIA" \
 	--instrument timstof \
@@ -42,7 +45,7 @@ nextflow run -resume -profile bigtest "${repodir}/qc.nf" -with-trace \
 	--instrument timstof
 
 # Thermo raw DIA
-NXF_VER=24.04.3 nextflow run -resume -profile bigtest "${repodir}/qc.nf" -with-trace \
+nextflow run -resume -profile bigtest "${repodir}/qc.nf" -with-trace \
         --dia \
 	--raw "$THERMO_DIA" \
 	--db "${testdata}/lf.fa" \

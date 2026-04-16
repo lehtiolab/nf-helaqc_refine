@@ -39,8 +39,6 @@ process msgfPlus {
 
 process mzRefine {
 
-  publishDir "${params.outdir}", mode: 'copy', overwrite: true
-
   input:
   tuple path(mzml), val(sample), path("${sample}.mzid")
 
@@ -56,7 +54,7 @@ process mzRefine {
 
 
 workflow {
-
+  main:
   modsfn = [
     itraq8plex: "${baseDir}/data/itraq8mods.txt",
     itraq4plex: "${baseDir}/data/itraq4mods.txt",
@@ -74,4 +72,12 @@ workflow {
   | map { it + [file(params.db), file(modsfn)] }
   | msgfPlus
   | mzRefine
+  | set { refine_out }
+
+  publish:
+  ref_out = refine_out
+}
+
+output {
+  ref_out { }
 }

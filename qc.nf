@@ -36,7 +36,7 @@ process reportingQC {
 
 
 workflow {
-
+  main:
   trackedpeptides = params.trackedpeptides ? params.trackedpeptides.tokenize(';') : false
   if (params.dda) {
     DDAQC(params.raw, params.mzml, params.instrument, params.db, params.mods, params.prectol, params.filters,
@@ -51,6 +51,10 @@ workflow {
     | reportingQC
   }
 
-  reportingQC.out
-  | subscribe { it.copyTo("${params.outdir}/${it.baseName}.${it.extension}") }  
+  publish:
+  qc_output = reportingQC.out
+}
+
+output {
+  qc_output {}
 }

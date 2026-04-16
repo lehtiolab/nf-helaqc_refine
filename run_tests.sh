@@ -15,6 +15,9 @@ else
 fi
 cd "${rundir}"
 
+export NXF_VER=25.10.4
+export NXF_SYNTAX_PARSER=v2
+
 nextflow run -resume -profile test "${repodir}/qc.nf" \
         --dda \
 	--mzml  "${testdata}/lf_phos_fr11_500.mzML" \
