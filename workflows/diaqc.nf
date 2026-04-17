@@ -136,12 +136,12 @@ workflow DIAQC {
     | set { thermonrscans }
     
     raw_c.thermo
-    | concat(raw_c.bruker)
+    | mix(raw_c.bruker)
     | set { diann_in }
 
     raw_c.bruker
     | getScanNumbers
-    | concat(thermonrscans)
+    | mix(thermonrscans)
     | set { nrscans }
 
   } else if (mzml) {

@@ -211,7 +211,7 @@ workflow DDAQC {
     raw_c.bruker
     | tdf2Mzml
     | map { [it, 'bruker'] }
-    | concat(thermo_mzml)
+    | mix(thermo_mzml)
     | set { spectrafn }
 
   } else if (mzml) {
